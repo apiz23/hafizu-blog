@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
+import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
 	title: "Hafizu Blog",
@@ -27,7 +29,19 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body className={fontSans.className}>{children}</body>
+			<body className={fontSans.className}>
+				<ThemeProvider
+					attribute="class"
+					defaultTheme="system"
+					enableSystem
+					disableTransitionOnChange
+				>
+					<Navbar />
+					<div className="bg-white dark:bg-black">
+						<div className="max-w-screen-xl mx-auto">{children}</div>
+					</div>
+				</ThemeProvider>
+			</body>
 		</html>
 	);
 }

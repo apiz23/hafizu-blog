@@ -4,6 +4,7 @@ import Preloader from "@/components/Preloader";
 import { AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import Landing from "./landing/page";
+
 export default function Home() {
 	const [isLoading, setIsLoading] = useState(true);
 

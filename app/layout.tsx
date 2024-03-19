@@ -3,6 +3,7 @@ import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/theme-provider";
+const imagePath = "/images/left.png";
 
 export const metadata: Metadata = {
 	title: "Hafizu Blog",

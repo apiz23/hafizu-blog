@@ -31,17 +31,20 @@ export default function page() {
 	return (
 		<>
 			{error && <p>Error: {error}</p>}
-			<div className="w-full p-10 my-10 space-x-6 grid grid-cols-1 md:grid-cols-2 border border-white">
+			<div className="min-h-screen w-full p-10 md:space-x-2 grid grid-cols-1 md:grid-cols-2 bg-white dark:bg-black">
 				{levels.map((level) => (
-					<button>
-						<Card key={level.id}>
-							<CardHeader className="text-center p-5">
+					<Card
+						key={level.id}
+						className="dark:hover:text-black hover:bg-zinc-200 md:h-52 h-4/5"
+					>
+						<button>
+							<CardContent className="p-5">
 								<CardTitle className="capitalize tracking-wider">
 									{level.name}
 								</CardTitle>
-							</CardHeader>
-						</Card>
-					</button>
+							</CardContent>
+						</button>
+					</Card>
 				))}
 			</div>
 		</>

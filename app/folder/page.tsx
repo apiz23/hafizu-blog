@@ -12,9 +12,9 @@ import { useEffect, useState } from "react";
 import supabase from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 
-export default function page() {
-	const [levels, setLevels] = useState([]);
-	const [error, setError] = useState(null);
+export default function Page() {
+	const [levels, setLevels] = useState<any>([]);
+	const [error, setError] = useState<any>(null);
 
 	useEffect(() => {
 		async function fetchLevels() {
@@ -32,7 +32,7 @@ export default function page() {
 		<>
 			{error && <p>Error: {error}</p>}
 			<div className="min-h-screen w-full p-10 md:space-x-2 grid grid-cols-1 md:grid-cols-2 bg-white dark:bg-black">
-				{levels.map((level) => (
+				{levels.map((level: any) => (
 					<Card
 						key={level.id}
 						className="dark:hover:text-black hover:bg-zinc-200 md:h-52 h-4/5"

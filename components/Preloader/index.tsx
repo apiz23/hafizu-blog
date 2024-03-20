@@ -64,7 +64,7 @@ export default function Preloader() {
 						animate="enter"
 						className="text-white text-6xl flex items-center relative z-10"
 					>
-						Hafiz
+						Hafizu Blog
 					</motion.p>
 					<svg
 						className="absolute top-0 w-full"
@@ -74,7 +74,7 @@ export default function Preloader() {
 							variants={curve}
 							initial="initial"
 							exit="exit"
-							fill="#1e1b4b"
+							fill="#52525b"
 						></motion.path>
 					</svg>
 				</>

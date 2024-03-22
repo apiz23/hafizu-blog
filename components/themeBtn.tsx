@@ -8,7 +8,7 @@ export function ModeToggle() {
 	const { setTheme, theme } = useTheme();
 	return (
 		<>
-			<div className="flex space-x-2">
+			<div className="flex space-x-2 mb-5">
 				<p>Theme: </p>
 				<Switch
 					onClick={() => setTheme(theme === "light" ? "dark" : "light")}

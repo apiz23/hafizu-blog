@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 const imagePath = "/images/left.png";
@@ -39,7 +39,7 @@ export default function RootLayout({
 				>
 					<Navbar />
 					<div className="bg-white dark:bg-black">
-						<div className="max-w-screen-xl mx-auto">{children}</div>
+						<div className="max-w-screen-2xl mx-auto">{children}</div>
 					</div>
 				</ThemeProvider>
 			</body>

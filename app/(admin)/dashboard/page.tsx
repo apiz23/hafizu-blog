@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/dialog";
 import supabase from "@/lib/supabase";
 import { useEffect, useState } from "react";
+import { Plus } from "lucide-react";
 
 interface DataType {
 	id: number;
@@ -58,6 +59,22 @@ export default function Page() {
 					<h1 className="scroll-m-20 text-4xl text-center font-extrabold tracking-wider my-5 lg:text-5xl">
 						Admin
 					</h1>
+					<div className="flex my-5 justify-end">
+						<Dialog>
+							<DialogTrigger className="rounded-md bg-zinc-800 p-2.5">
+								<Plus className="w-5 h-5" />
+							</DialogTrigger>
+							<DialogContent>
+								<DialogHeader>
+									<DialogTitle>Are you absolutely sure?</DialogTitle>
+									<DialogDescription>
+										This action cannot be undone. This will permanently delete your
+										account and remove your data from our servers.
+									</DialogDescription>
+								</DialogHeader>
+							</DialogContent>
+						</Dialog>
+					</div>
 					<Table>
 						<TableCaption>List of the subject</TableCaption>
 						<ScrollArea className="h-auto rounded-md border p-4">

@@ -36,15 +36,13 @@ export default function Page() {
 				{links.map((link: any) => (
 					<Card
 						key={link.id}
-						className="dark:hover:text-black hover:bg-zinc-400 duration-500 h-fit"
+						className="dark:hover:text-black hover:bg-zinc-400  duration-500 h-fit"
 					>
 						<CardHeader>
 							<CardTitle className="capitalize tracking-wider">
 								{link.category}
 							</CardTitle>
-							<CardDescription className="hover:text-gray-700">
-								{link.desc}
-							</CardDescription>
+							<CardDescription className="text-gray-700">{link.desc}</CardDescription>
 						</CardHeader>
 
 						<CardContent className="p-5">

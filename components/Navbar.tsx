@@ -16,7 +16,7 @@ import { ModeToggle } from "./themeBtn";
 export default function Navbar() {
 	const itemNav = [
 		{ title: "Home", url: "/" },
-		{ title: "Folder", url: "/folder" },
+		{ title: "Link", url: "/link" },
 		{ title: "Admin", url: "/admin" },
 	];
 

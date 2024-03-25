@@ -39,7 +39,7 @@ export default function RootLayout({
 				>
 					<Navbar />
 					<div className="bg-white dark:bg-black">
-						<div className="max-w-screen-2xl mx-auto">{children}</div>
+						<div className="max-w-screen-xl mx-auto">{children}</div>
 					</div>
 				</ThemeProvider>
 			</body>

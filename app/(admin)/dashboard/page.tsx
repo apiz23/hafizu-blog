@@ -19,9 +19,20 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
+
 import supabase from "@/lib/supabase";
 import { useEffect, useState } from "react";
-import { Plus } from "lucide-react";
+import { ArrowBigLeft, Plus, Trash } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import Link from "next/link";
+import { toast } from "sonner";
 
 interface DataType {
 	id: number;
@@ -33,6 +44,12 @@ interface DataType {
 
 export default function Page() {
 	const [data, setData] = useState<DataType[]>([]);
+	const [formData, setFormData] = useState({
+		url: "",
+		desc: "",
+		category: "",
+		type: "",
+	});
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -52,9 +69,86 @@ export default function Page() {
 		fetchData();
 	}, []);
 
+	const handleChange = (
+		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+	) => {
+		const { id, value } = e.target;
+		setFormData((prevFormData) => ({
+			...prevFormData,
+			[id]: value,
+		}));
+	};
+
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		if (!formData.url || !formData.desc || !formData.category || !formData.type) {
+			toast.error("Please fill all the form fields");
+			return;
+		}
+		try {
+			const { data: insertedData, error } = await supabase
+				.from("link")
+				.insert([formData]);
+			if (error) {
+				toast.error("Error");
+			}
+			const promise = () =>
+				new Promise((resolve) =>
+					setTimeout(() => resolve({ name: "Sonner" }), 2000)
+				);
+
+			toast.promise(promise, {
+				loading: "Loading...",
+				success: () => {
+					return "Data inserted successfully";
+				},
+				error: "Error",
+			});
+			setFormData({
+				url: "",
+				desc: "",
+				category: "",
+				type: "",
+			});
+		} catch (error: any) {
+			toast.error("Error inserting data:", error.message);
+		}
+	};
+
+	const handleDelete = async (idToDelete: number) => {
+		try {
+			const { error } = await supabase.from("link").delete().eq("id", 10);
+
+			if (error) {
+				toast.error("Error");
+			}
+			const promise = () =>
+				new Promise((resolve) =>
+					setTimeout(() => resolve({ name: "Sonner" }), 2000)
+				);
+
+			toast.promise(promise, {
+				loading: "Loading...",
+				success: () => {
+					return "Data delete successfully";
+				},
+				error: "Error",
+			});
+		} catch (error: any) {
+			toast.error("Error deleting data:", error.message);
+		}
+	};
+
 	return (
 		<>
 			<div className="min-h-screen p-5">
+				<div className="flex">
+					<Link href="/login">
+						<Button variant="ghost" className="m-3">
+							<ArrowBigLeft />
+						</Button>
+					</Link>
+				</div>
 				<div className="max-w-4xl mx-auto">
 					<h1 className="scroll-m-20 text-4xl text-center font-extrabold tracking-wider my-5 lg:text-5xl">
 						Admin
@@ -65,13 +159,49 @@ export default function Page() {
 								<Plus className="w-5 h-5" />
 							</DialogTrigger>
 							<DialogContent>
-								<DialogHeader>
-									<DialogTitle>Are you absolutely sure?</DialogTitle>
-									<DialogDescription>
-										This action cannot be undone. This will permanently delete your
-										account and remove your data from our servers.
-									</DialogDescription>
+								<DialogHeader className="text-3xl font-medium tracking-wide">
+									Add Data
 								</DialogHeader>
+								<form onSubmit={handleSubmit}>
+									<Input
+										className="mb-5"
+										type="text"
+										placeholder="Url"
+										id="url"
+										value={formData.url}
+										onChange={handleChange}
+									/>
+									<Input
+										className="mb-5"
+										type="text"
+										placeholder="Description"
+										id="desc"
+										value={formData.desc}
+										onChange={handleChange}
+									/>
+									<Input
+										className="mb-5"
+										type="text"
+										placeholder="Category"
+										id="category"
+										value={formData.category}
+										onChange={handleChange}
+									/>
+									<select
+										id="type"
+										className="bg-gray-50 border w-1/2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+										value={formData.type}
+										onChange={handleChange}
+									>
+										<option value="">Type</option>
+										<option value="video">video</option>
+										<option value="image">image</option>
+										<option value="other">other</option>
+									</select>
+									<div className="flex justify-end mt-5">
+										<Button variant="default">Submit</Button>
+									</div>
+								</form>
 							</DialogContent>
 						</Dialog>
 					</div>
@@ -97,11 +227,16 @@ export default function Page() {
 												<DialogContent>
 													<DialogHeader>
 														<DialogTitle>Details</DialogTitle>
-														<DialogDescription>
-															Url: {item.url}
+														<DialogDescription className="pt-5 text-left">
+															<p>Url: {item.id}</p>
 															<br />
-															Category: {item.category}
+															<p>Category: {item.category}</p>
 															<br />
+															<div className="flex justify-end">
+																<Button onClick={() => handleDelete(item.id)}>
+																	<Trash className="w-5 h-5" />
+																</Button>
+															</div>
 														</DialogDescription>
 													</DialogHeader>
 												</DialogContent>

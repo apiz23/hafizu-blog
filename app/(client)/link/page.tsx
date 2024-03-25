@@ -12,6 +12,7 @@ import supabase from "@/lib/supabase";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import { ExternalLink } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 
 export default function Page() {
 	const [links, setLinks] = useState<any>([]);
@@ -29,7 +30,6 @@ export default function Page() {
 		fetchLinks();
 	}, []);
 
-	// Filter video and image links
 	const videoLinks = links.filter((link: any) => link.type === "video");
 	const imageLinks = links.filter((link: any) => link.type === "image");
 	const otherLinks = links.filter((link: any) => link.type === "other");
@@ -37,13 +37,13 @@ export default function Page() {
 	return (
 		<>
 			{error && <p>Error: {error}</p>}
-			<div className="min-h-screen w-full p-10 md:space-x-2 md:space-y-0 space-y-3 grid grid-cols-1 md:grid-cols-3 bg-white dark:bg-black">
-				<div className="col-span-1 bg-white dark:bg-zinc-800 p-5 rounded-md">
-					<ScrollArea className="h-[100vh] w-full rounded-md border p-4">
+			<div className="p-5 md:space-y-0 space-y-3 grid grid-cols-1 md:grid-cols-3 bg-white dark:bg-black">
+				<div className="col-span-1 p-2.5 rounded-md">
+					<ScrollArea className="h-[80vh] w-full p-4">
 						{videoLinks.map((link: any) => (
 							<Card
 								key={link.id}
-								className="dark:hover:text-black hover:bg-zinc-400 duration-500 h-fit mb-5"
+								className="dark:hover:text-black border-none shadow-lg shado shadow-gray-700 m-3 mb-5 px-2 hover:bg-zinc-500 duration-500 h-fit"
 							>
 								<CardHeader>
 									<CardTitle className="capitalize tracking-wider">
@@ -70,12 +70,13 @@ export default function Page() {
 						))}
 					</ScrollArea>
 				</div>
-				<div className="col-span-1 bg-white dark:bg-zinc-800 p-5 rounded-md">
-					<ScrollArea className="h-[100vh] w-full rounded-md border p-4">
+				<Separator className="md:hidden" />
+				<div className="col-span-1 p-2.5 rounded-md">
+					<ScrollArea className="h-[80vh] w-full p-4">
 						{imageLinks.map((link: any) => (
 							<Card
 								key={link.id}
-								className="dark:hover:text-black hover:bg-zinc-400  duration-500 h-fit"
+								className="dark:hover:text-black border-none shadow-lg shado shadow-gray-700 m-3 mb-5 px-2 hover:bg-zinc-500 duration-500 h-fit"
 							>
 								<CardHeader>
 									<CardTitle className="capitalize tracking-wider">
@@ -92,12 +93,13 @@ export default function Page() {
 						))}
 					</ScrollArea>
 				</div>
-				<div className="col-span-1 bg-white dark:bg-zinc-800 p-5 rounded-md">
-					<ScrollArea className="h-[100vh] w-full rounded-md border p-4">
+				<Separator className="md:hidden" />
+				<div className="col-span-1 p-2.5 rounded-md">
+					<ScrollArea className="h-[80vh] w-full p-4">
 						{otherLinks.map((link: any) => (
 							<Card
 								key={link.id}
-								className="dark:hover:text-black hover:bg-zinc-400  duration-500 h-fit"
+								className="dark:hover:text-black border-none shadow-lg m-3 mb-2 px-2 hover:bg-zinc-400 duration-500 h-fit"
 							>
 								<CardHeader>
 									<CardTitle className="capitalize tracking-wider">

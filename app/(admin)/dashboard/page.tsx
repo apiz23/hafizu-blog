@@ -29,7 +29,7 @@ import {
 
 import supabase from "@/lib/supabase";
 import { useEffect, useState } from "react";
-import { ArrowBigLeft, Plus, Trash } from "lucide-react";
+import { ArrowBigLeft, Plus, RefreshCcw, Trash } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { toast } from "sonner";
@@ -39,7 +39,7 @@ interface DataType {
 	url: string;
 	category: string;
 	desc: string;
-	created_date: Date;
+	created_at: string;
 }
 
 export default function Page() {
@@ -210,17 +210,17 @@ export default function Page() {
 						<ScrollArea className="h-auto rounded-md border p-4">
 							<TableHeader>
 								<TableRow>
-									<TableHead className="w-[50px]">no</TableHead>
+									<TableHead className="w-[50px]">No</TableHead>
 									<TableHead>Category</TableHead>
 									<TableHead>Desc</TableHead>
-									<TableHead>Url</TableHead>
+									<TableHead>Created Date</TableHead>
 								</TableRow>
 							</TableHeader>
 							<TableBody>
 								{data.map((item, index) => (
 									<TableRow key={item.id}>
 										<TableCell className="font-medium">
-											<Dialog>
+											{/* <Dialog>
 												<DialogTrigger>
 													<Button variant="default">{index + 1}</Button>
 												</DialogTrigger>
@@ -240,11 +240,14 @@ export default function Page() {
 														</DialogDescription>
 													</DialogHeader>
 												</DialogContent>
-											</Dialog>
+											</Dialog> */}
+											<Link href={`${window.location.pathname}/${item.id}`}>
+												<Button variant="default">{index + 1}</Button>
+											</Link>
 										</TableCell>
 										<TableCell>{item.category}</TableCell>
 										<TableCell>{item.desc}</TableCell>
-										<TableCell>{item.url}</TableCell>
+										<TableCell>{item.created_at}</TableCell>
 									</TableRow>
 								))}
 							</TableBody>

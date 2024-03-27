@@ -115,33 +115,9 @@ export default function Page() {
 		}
 	};
 
-	const handleDelete = async (idToDelete: number) => {
-		try {
-			const { error } = await supabase.from("link").delete().eq("id", 10);
-
-			if (error) {
-				toast.error("Error");
-			}
-			const promise = () =>
-				new Promise((resolve) =>
-					setTimeout(() => resolve({ name: "Sonner" }), 2000)
-				);
-
-			toast.promise(promise, {
-				loading: "Loading...",
-				success: () => {
-					return "Data delete successfully";
-				},
-				error: "Error",
-			});
-		} catch (error: any) {
-			toast.error("Error deleting data:", error.message);
-		}
-	};
-
 	return (
 		<>
-			<div className="min-h-screen p-5">
+			<div className="min-h-screen bg-white dark:bg-black p-5">
 				<div className="flex">
 					<Link href="/login">
 						<Button variant="ghost" className="m-3">
@@ -150,13 +126,13 @@ export default function Page() {
 					</Link>
 				</div>
 				<div className="max-w-4xl mx-auto">
-					<h1 className="scroll-m-20 text-4xl text-center font-extrabold tracking-wider my-5 lg:text-5xl">
+					<h1 className="text-black dark:text-white scroll-m-20 text-4xl text-center font-extrabold tracking-wider my-5 lg:text-5xl">
 						Admin
 					</h1>
 					<div className="flex my-5 justify-end">
 						<Dialog>
 							<DialogTrigger className="rounded-md bg-zinc-800 p-2.5">
-								<Plus className="w-5 h-5" />
+								<Plus className="w-5 h-5 text-white" />
 							</DialogTrigger>
 							<DialogContent>
 								<DialogHeader className="text-3xl font-medium tracking-wide">
@@ -220,27 +196,6 @@ export default function Page() {
 								{data.map((item, index) => (
 									<TableRow key={item.id}>
 										<TableCell className="font-medium">
-											{/* <Dialog>
-												<DialogTrigger>
-													<Button variant="default">{index + 1}</Button>
-												</DialogTrigger>
-												<DialogContent>
-													<DialogHeader>
-														<DialogTitle>Details</DialogTitle>
-														<DialogDescription className="pt-5 text-left">
-															<p>Url: {item.id}</p>
-															<br />
-															<p>Category: {item.category}</p>
-															<br />
-															<div className="flex justify-end">
-																<Button onClick={() => handleDelete(item.id)}>
-																	<Trash className="w-5 h-5" />
-																</Button>
-															</div>
-														</DialogDescription>
-													</DialogHeader>
-												</DialogContent>
-											</Dialog> */}
 											<Link href={`${window.location.pathname}/${item.id}`}>
 												<Button variant="default">{index + 1}</Button>
 											</Link>

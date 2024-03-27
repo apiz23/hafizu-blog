@@ -71,7 +71,7 @@ export default function DataDetails({
 			<div className="max-w-xl mx-auto py-10 px-5 my-10">
 				<div className="flex mb-5">
 					<Link href="/dashboard">
-						<Button variant="ghost">
+						<Button variant="ghost" className="text-white">
 							<ArrowLeft />
 						</Button>
 					</Link>

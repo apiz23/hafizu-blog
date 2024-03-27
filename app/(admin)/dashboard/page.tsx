@@ -19,17 +19,16 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
 
 import supabase from "@/lib/supabase";
 import { useEffect, useState } from "react";
-import { ArrowBigLeft, Plus, RefreshCcw, Trash } from "lucide-react";
+import {
+	ArrowBigLeft,
+	LoaderIcon,
+	Plus,
+	RefreshCcw,
+	Trash,
+} from "lucide-react";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { toast } from "sonner";
@@ -117,7 +116,7 @@ export default function Page() {
 
 	return (
 		<>
-			<div className="min-h-screen bg-white dark:bg-black p-5">
+			<div className="min-h-screen bg-white dark:bg-black">
 				<div className="flex">
 					<Link href="/login">
 						<Button variant="ghost" className="m-3">

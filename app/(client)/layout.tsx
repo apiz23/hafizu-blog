@@ -3,7 +3,7 @@ import { Inter as FontSans } from "next/font/google";
 import "../globals.css";
 import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/theme-provider";
-const imagePath = "/images/left.png";
+const imagePath = "/images/bg.svg";
 
 export const metadata: Metadata = {
 	title: "Hafizu Blog",
@@ -38,7 +38,14 @@ export default function RootLayout({
 					disableTransitionOnChange
 				>
 					<Navbar />
-					<div className="bg-white dark:bg-black">
+					<div
+						className="bg-white dark:bg-black"
+						style={{
+							backgroundImage: `url(${imagePath})`,
+							backgroundSize: "cover",
+							backgroundPosition: "center",
+						}}
+					>
 						<div className="max-w-screen-xl mx-auto">{children}</div>
 					</div>
 				</ThemeProvider>

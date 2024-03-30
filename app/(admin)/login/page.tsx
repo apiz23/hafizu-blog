@@ -31,7 +31,7 @@ export default function Page() {
 							</CardHeader>
 							<CardContent>
 								<Label htmlFor="password">Password</Label>
-								<Input id="password" type="password" />
+								<Input id="password" type="password" className="mt-5" />
 							</CardContent>
 							<CardFooter className="flex justify-end">
 								<Button variant="secondary" type="submit">

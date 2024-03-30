@@ -15,7 +15,7 @@ export default function Home() {
 
 	return (
 		<>
-			<main className="min-h-screen bg-white dark:bg-black">
+			<main className="min-h-screen">
 				<AnimatePresence mode="wait">{isLoading && <Preloader />}</AnimatePresence>
 				{/* <Landing /> */}
 				<div className="text-center px-10 pt-28 h-[50vh]">

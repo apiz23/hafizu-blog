@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { useTheme } from "next-themes";
 
 const opacity = {
 	initial: {
@@ -24,6 +25,7 @@ const slideUp = {
 
 export default function Preloader() {
 	const [dimension, setDimension] = useState({ width: 0, height: 0 });
+	const { theme } = useTheme();
 
 	useEffect(() => {
 		setDimension({ width: window.innerWidth, height: window.innerHeight });
@@ -49,12 +51,14 @@ export default function Preloader() {
 		},
 	};
 
+	const fillColor = theme === "dark" ? "#1f2937" : "#aabfd1";
+
 	return (
 		<motion.div
 			variants={slideUp}
 			initial="initial"
 			exit="exit"
-			className="fixed inset-0 flex items-center justify-center z-50 bg-black"
+			className="fixed inset-0 flex items-center justify-center z-50 bg-white dark:bg-black"
 		>
 			{dimension.width > 0 && (
 				<>
@@ -67,14 +71,14 @@ export default function Preloader() {
 						Hafizu Blog
 					</motion.p>
 					<svg
-						className="absolute top-0 w-full"
+						className="absolute top-0 w-full "
 						style={{ height: `calc(100% + 300px)` }}
 					>
 						<motion.path
 							variants={curve}
 							initial="initial"
 							exit="exit"
-							fill="#aabfd1"
+							fill={fillColor}
 						></motion.path>
 					</svg>
 				</>

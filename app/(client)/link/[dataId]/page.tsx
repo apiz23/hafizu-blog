@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
+	ArrowBigLeft,
 	ArrowLeft,
 	ExternalLink,
 	LoaderIcon,
@@ -72,65 +73,65 @@ export default function DataDetails({
 		navigator.clipboard
 			.writeText(path)
 			.then(() => {
-				console.log("Path copied to clipboard");
+				toast.success("Path copied to clipboard");
 			})
 			.catch((error) => {
-				console.error("Failed to copy path: ", error);
+				toast.error("Failed to copy path: ", error);
 			});
 	};
 	return (
 		<>
-			<div className="max-w-xl mx-auto py-10 px-5 my-10">
-				<div className="flex mb-5">
-					<Link href="/dashboard">
-						<Button variant="ghost" className="text-white">
-							<ArrowLeft />
-						</Button>
-					</Link>
-				</div>
-				<Card>
-					<CardHeader>
-						<div className="flex justify-between">
-							<CardTitle>Link Details</CardTitle>
-							<CardTitle>
-								<Share onClick={copyPathToClipboard} className="hover:cursor-pointer" />
-							</CardTitle>
-						</div>
-					</CardHeader>
-					<Separator className="mb-5" />
-					{data ? (
-						<>
-							<CardContent className="font-normal text-lg">
-								<p className="text-gray-500 whitespace-nowrap dark:text-gray-400">
-									ID: {data.id}
-								</p>
-								<p className="text-gray-500 whitespace-nowrap dark:text-gray-400">
-									Category: {data.category}
-								</p>
-								<p className="text-gray-500 overflow-hidden dark:text-gray-400">
-									URL:{" "}
-									<Link
-										href={data.url}
-										target="_blank"
-										className="hover:text-blue-400 truncate"
-										rel="noreferrer"
-									>
-										{data.url}
-									</Link>
-								</p>
+			<div className="min-h-screen">
+				<div className="max-w-xl mx-auto py-10 px-5">
+					<div className="flex">
+						<Link href="/link">
+							<Button variant="ghost" className=" mb-5">
+								<ArrowBigLeft />
+							</Button>
+						</Link>
+					</div>
+					<Card>
+						<CardHeader>
+							<div className="flex justify-between">
+								<CardTitle>Link Details</CardTitle>
+								<CardTitle>
+									<Share
+										onClick={copyPathToClipboard}
+										className="hover:cursor-pointer"
+									/>
+								</CardTitle>
+							</div>
+						</CardHeader>
+						<Separator className="mb-5" />
+						{data ? (
+							<>
+								<CardContent className="font-normal text-lg ">
+									<p className="text-gray-500 whitespace-nowrap dark:text-gray-400">
+										ID: {data.id}
+									</p>
+									<p className="text-gray-500 whitespace-nowrap dark:text-gray-400">
+										Category: {data.category}
+									</p>
+									<p className="text-gray-500 overflow-hidden dark:text-gray-400">
+										URL:{" "}
+										<Link
+											href={data.url}
+											target="_blank"
+											className="hover:text-blue-400 truncate"
+											rel="noreferrer"
+										>
+											{data.url}
+										</Link>
+									</p>
+								</CardContent>
+							</>
+						) : (
+							<CardContent className="flex justify-center items-center p-14">
+								<LoaderIcon className="animate-spin" />
 							</CardContent>
-							<CardFooter className="flex justify-end">
-								<Button variant="destructive" onClick={handleDelete}>
-									<TrashIcon className="w-5 h-5" />
-								</Button>
-							</CardFooter>
-						</>
-					) : (
-						<CardContent className="flex justify-center items-center p-14">
-							<LoaderIcon className="animate-spin" />
-						</CardContent>
-					)}
-				</Card>
+						)}
+					</Card>
+				</div>
 			</div>
 		</>
 	);

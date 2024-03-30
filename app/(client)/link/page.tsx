@@ -24,6 +24,8 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Page() {
 	const [links, setLinks] = useState<any>([]);
@@ -74,7 +76,7 @@ export default function Page() {
 						)}
 					</div>
 					<div className="pe-5">
-						<Table className="bg-zinc-90 max-w-3xl mx-auto border border-fuchsia-500 ">
+						<Table className="bg-zinc-90 max-w-3xl mx-auto border-2 border-amber-400 ">
 							<TableHeader>
 								<TableRow>
 									<TableHead className="w-[100px]">Id</TableHead>
@@ -87,15 +89,9 @@ export default function Page() {
 								{filteredLinks.map((link: any, index: any) => (
 									<TableRow key={index + 1}>
 										<TableCell className="font-medium">
-											<Dialog>
-												<DialogTrigger className="hover:bg-slate-800 hover:text-emerald-200 border-2 rounded-md w-10 h-10">
-													{index + 1}
-												</DialogTrigger>
-												<DialogContent className="w-96 break-words">
-													<h1>Details</h1>
-													<Label className="w-[200px]">{link.url}</Label>
-												</DialogContent>
-											</Dialog>
+											<Link href={`${window.location.pathname}/${link.id}`}>
+												<Button variant="default">{index + 1}</Button>
+											</Link>
 										</TableCell>
 										<TableCell>{link.category}</TableCell>
 										<TableCell>{link.desc}</TableCell>

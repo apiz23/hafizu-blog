@@ -3,6 +3,7 @@ import { Inter as FontSans } from "next/font/google";
 import "../globals.css";
 import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "sonner";
 const imagePath = "/images/bg.svg";
 
 export const metadata: Metadata = {
@@ -38,6 +39,7 @@ export default function RootLayout({
 					disableTransitionOnChange
 				>
 					<Navbar />
+					<Toaster richColors />
 					<div
 						className="bg-white dark:bg-black"
 						style={{

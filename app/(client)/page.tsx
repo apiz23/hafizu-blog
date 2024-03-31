@@ -54,7 +54,7 @@ export default function Home() {
 	return (
 		<>
 			<main className="min-h-screen">
-				{/* <AnimatePresence mode="wait">{isLoading && <Preloader />}</AnimatePresence> */}
+				<AnimatePresence mode="wait">{isLoading && <Preloader />}</AnimatePresence>
 				<div className="text-center px-10 pt-20 h-[50vh]">
 					<h1
 						className="scroll-m-20 md:text-7xl mc-auto text-4xl font-extrabold tracking-tight"

@@ -105,24 +105,51 @@ export default function DataDetails({
 						<Separator className="mb-5" />
 						{data ? (
 							<>
-								<CardContent className="font-normal text-lg ">
-									<p className="text-gray-500 whitespace-nowrap dark:text-gray-400">
-										ID: {data.id}
-									</p>
-									<p className="text-gray-500 whitespace-nowrap dark:text-gray-400">
-										Category: {data.category}
-									</p>
+								<CardContent className="font-normal text-lg">
 									<p className="text-gray-500 overflow-hidden dark:text-gray-400">
-										URL:{" "}
+										URL:
 										<Link
 											href={data.url}
-											target="_blank"
+											target="\_blank"
 											className="hover:text-blue-400 truncate"
 											rel="noreferrer"
 										>
 											{data.url}
 										</Link>
 									</p>
+									<p className="text-gray-500 whitespace-nowrap dark:text-gray-400">
+										Category: {data.desc}
+									</p>
+									<div>
+										{data.url.includes("youtube.com") || data.url.includes("youtu.be") ? (
+											getYoutubeId(data.url) !== "error" && (
+												<iframe
+													width="500"
+													height="315"
+													src={`https://www.youtube.com/embed/${getYoutubeId(data.url)}`}
+													frameBorder="0"
+													allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+													allowFullScreen
+													className="w-full h-full"
+												/>
+											)
+										) : data.url.match(/\.(jpeg|jpg|gif|png)$/) !== null ? (
+											<img
+												src={data.url}
+												alt={data.desc}
+												className="w-full object-contain"
+											/>
+										) : (
+											<a
+												href={data.url}
+												target="_blank"
+												rel="noopener noreferrer"
+												className="w-full h-full flex items-center justify-center text-blue-600 hover:text-blue-800"
+											>
+												{data.desc || "Link"}
+											</a>
+										)}
+									</div>
 								</CardContent>
 							</>
 						) : (
@@ -135,4 +162,14 @@ export default function DataDetails({
 			</div>
 		</>
 	);
+}
+
+function getYoutubeId(url: string) {
+	const regExp = /^.*(youtu.be\/|v\/|e\/|u\/\w+\/|embed\/|v=)([^#\&\?]*).*/;
+	const match = url.match(regExp);
+	if (match && match[2].length === 11) {
+		return match[2];
+	} else {
+		return "error";
+	}
 }

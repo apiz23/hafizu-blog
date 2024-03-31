@@ -67,17 +67,6 @@ export default function DataDetails({
 		}
 	};
 
-	const copyPathToClipboard = () => {
-		const path = window.location.href;
-		navigator.clipboard
-			.writeText(path)
-			.then(() => {
-				console.log("Path copied to clipboard");
-			})
-			.catch((error) => {
-				console.error("Failed to copy path: ", error);
-			});
-	};
 	return (
 		<>
 			<div className="max-w-xl mx-auto py-10 px-5 my-10">
@@ -92,9 +81,6 @@ export default function DataDetails({
 					<CardHeader>
 						<div className="flex justify-between">
 							<CardTitle>Link Details</CardTitle>
-							<CardTitle>
-								<Share onClick={copyPathToClipboard} className="hover:cursor-pointer" />
-							</CardTitle>
 						</div>
 					</CardHeader>
 					<Separator className="mb-5" />

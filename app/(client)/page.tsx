@@ -113,13 +113,14 @@ export default function Home() {
 				</div>
 				<div className="max-w-2xl p-5 mx-auto">
 					<blockquote className="mt-6 border-l-2 pl-6 italic">
-						{quotes &&
-							quotes.map((quote: any) => (
-								<div key={quote._id}>
-									<h3 className="text-wrap">{quote.content}</h3>
-									<p className="float-right">Author: {quote.author}</p>
-								</div>
-							))}
+						{quotes && (
+							<div key={quotes._id}>
+								<h3>{quotes.content}</h3>
+								<p>Author: {quotes.author}</p>
+								<p>Date Added: {quotes.dateAdded}</p>
+								<p>Date Modified: {quotes.dateModified}</p>
+							</div>
+						)}
 					</blockquote>
 				</div>
 			</main>

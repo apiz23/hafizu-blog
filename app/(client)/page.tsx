@@ -24,17 +24,15 @@ export default function Home() {
 	const nextIconRef = useRef(null);
 	const supabaseIconRef = useRef(null);
 
-	const lenis = new Lenis();
-
-	lenis.on("scroll", ScrollTrigger.update);
-
-	gsap.ticker.add((time) => {
-		lenis.raf(time * 1000);
-	});
-
-	gsap.ticker.lagSmoothing(0);
-
 	useEffect(() => {
+		// const lenis = new Lenis();
+		// lenis.on("scroll", ScrollTrigger.update);
+
+		// gsap.ticker.add((time) => {
+		// 	lenis.raf(time * 1000);
+		// });
+
+		// gsap.ticker.lagSmoothing(0);
 		gsap.registerPlugin(ScrollTrigger);
 
 		const tl = gsap.timeline({

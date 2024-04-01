@@ -123,8 +123,8 @@ export default function Page() {
 							</div>
 							<Table className="bg-zinc-90 max-w-3xl rounded-lg bg-opacity-70 backdrop-blur-md bg-teal-900 ">
 								<ScrollArea className="h-[400px] rounded-md">
-									<TableHeader className="text-white">
-										<TableRow>
+									<TableHeader>
+										<TableRow className="bg-black dark:bg-zinc-700">
 											<TableHead className="w-[100px]">Id</TableHead>
 											<TableHead>Name</TableHead>
 											<TableHead>Description</TableHead>

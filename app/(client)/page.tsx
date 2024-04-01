@@ -4,7 +4,7 @@ import Preloader from "@/components/Preloader";
 import { Button } from "@/components/ui/button";
 import { AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 const nextIcon = "/nextjs.svg";
 const supabaseIcon = "/supabase.png";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -25,14 +25,14 @@ export default function Home() {
 	const supabaseIconRef = useRef(null);
 
 	useEffect(() => {
-		// const lenis = new Lenis();
-		// lenis.on("scroll", ScrollTrigger.update);
+		const lenis = new Lenis();
+		lenis.on("scroll", ScrollTrigger.update);
 
-		// gsap.ticker.add((time) => {
-		// 	lenis.raf(time * 1000);
-		// });
+		gsap.ticker.add((time: any) => {
+			lenis.raf(time * 1000);
+		});
 
-		// gsap.ticker.lagSmoothing(0);
+		gsap.ticker.lagSmoothing(0);
 		gsap.registerPlugin(ScrollTrigger);
 
 		const tl = gsap.timeline({
@@ -44,15 +44,21 @@ export default function Home() {
 			},
 		});
 
-		tl
-			.to(supabaseIconRef.current, { x: -200, opacity: 100 }, ">")
-			.to(nextIconRef.current, { x: 200, opacity: 100 }, "<");
+		if (window.innerWidth > 768) {
+			tl
+				.to(supabaseIconRef.current, { x: -200, opacity: 100 }, ">")
+				.to(nextIconRef.current, { x: 200, opacity: 100 }, "<");
+		} else {
+			tl
+				.to(supabaseIconRef.current, { x: -15, opacity: 100 }, ">")
+				.to(nextIconRef.current, { x: 15, opacity: 100 }, "<");
+		}
 	}, []);
 
 	return (
 		<>
 			<main className="min-h-screen">
-				<AnimatePresence mode="wait">{isLoading && <Preloader />}</AnimatePresence>
+				{/* <AnimatePresence mode="wait">{isLoading && <Preloader />}</AnimatePresence> */}
 				<div className="text-center px-10 pt-20 h-[50vh]">
 					<h1
 						className="scroll-m-20 md:text-7xl mc-auto text-4xl font-extrabold tracking-tight"

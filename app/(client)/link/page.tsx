@@ -96,7 +96,7 @@ export default function Page() {
 									placeholder="Search links..."
 									value={searchQuery}
 									onChange={handleSearch}
-									className="mb-4 px-4 py-2 float-end border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+									className="mb-4 px-4 py-2 me-3 float-end border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
 								/>
 								<Menubar className="border-none">
 									<MenubarMenu>
@@ -121,10 +121,10 @@ export default function Page() {
 									</MenubarMenu>
 								</Menubar>
 							</div>
-							<Table className="bg-zinc-90 max-w-3xl rounded-lg bg-opacity-70 backdrop-blur-md bg-teal-900 ">
+							<Table className="max-w-3xl rounded-lg bg-opacity-70 backdrop-blur-md bg-slate-300">
 								<ScrollArea className="h-[400px] rounded-md">
 									<TableHeader>
-										<TableRow className="bg-black dark:bg-zinc-700">
+										<TableRow className="dark:bg-zinc-700">
 											<TableHead className="w-[100px]">Id</TableHead>
 											<TableHead>Name</TableHead>
 											<TableHead>Description</TableHead>
@@ -132,18 +132,26 @@ export default function Page() {
 										</TableRow>
 									</TableHeader>
 									<TableBody>
-										{filteredLinks.map((link: any, index: any) => (
-											<TableRow key={index + 1}>
-												<TableCell className="font-medium">
-													<Link href={`${window.location.pathname}/${link.id}`}>
-														<Button variant="default">{index + 1}</Button>
-													</Link>
+										{filteredLinks.length === 0 ? (
+											<TableRow>
+												<TableCell colSpan={4} className="text-center">
+													No result
 												</TableCell>
-												<TableCell>{link.category}</TableCell>
-												<TableCell>{link.desc}</TableCell>
-												<TableCell className="text-right">{link.created_at}</TableCell>
 											</TableRow>
-										))}
+										) : (
+											filteredLinks.map((link: any, index: any) => (
+												<TableRow key={index + 1}>
+													<TableCell className="font-medium">
+														<Link href={`${window.location.pathname}/${link.id}`}>
+															<Button variant="default">{index + 1}</Button>
+														</Link>
+													</TableCell>
+													<TableCell>{link.category}</TableCell>
+													<TableCell>{link.desc}</TableCell>
+													<TableCell className="text-right">{link.created_at}</TableCell>
+												</TableRow>
+											))
+										)}
 									</TableBody>
 								</ScrollArea>
 							</Table>

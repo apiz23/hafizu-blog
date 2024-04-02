@@ -4,29 +4,26 @@ import Preloader from "@/components/Preloader";
 import { Button } from "@/components/ui/button";
 import { AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-const nextIcon = "/next-js.svg";
-const supabaseIcon = "/supabase.png";
+import { useEffect, useRef, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Lenis from "@studio-freight/lenis";
 import { toast } from "sonner";
+import { LoaderIcon } from "lucide-react";
+
+const nextIcon = "/next-js.svg";
+const supabaseIcon = "/supabase.png";
 
 interface Quote {
-	_id: string;
-	content: string;
 	author: string;
-	tags: string[];
-	authorSlug: string;
-	length: number;
-	dateAdded: string;
-	dateModified: string;
+	quote: string;
+	category: string;
 }
 
 export default function Home() {
 	const [isLoading, setIsLoading] = useState(true);
-	const [quotes, setQuotes] = useState<Quote | null>(null);
+	const [quotes, setQuotes] = useState<Quote[]>([]);
 	const containerRef = useRef(null);
 	const nextIconRef = useRef(null);
 	const supabaseIconRef = useRef(null);
@@ -34,19 +31,26 @@ export default function Home() {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				await new Promise((resolve) => setTimeout(resolve, 2000));
-
+				const token = "aIeYYuA5/L5bGO45XY8q6w==QunyhvLAU682Kwbv";
+				const headers = new Headers();
+				headers.append("Authorization", `Bearer ${token}`);
 				const response = await fetch(
-					"https://api.quotable.io/quotes/random?tags=technology,famous-quotes"
+					"https://api.api-ninjas.com/v1/quotes?category=computers",
+					{
+						method: "GET",
+						headers: {
+							"X-Api-Key": token,
+						},
+					}
 				);
+
 				if (!response.ok) {
 					throw new Error("Network response was not ok");
 				}
 				const jsonData = await response.json();
 				setQuotes(jsonData);
-				console.log(quotes);
 			} catch (error: any) {
-				toast.error(error);
+				toast.error(error.message);
 			}
 		};
 
@@ -84,7 +88,6 @@ export default function Home() {
 				.to(nextIconRef.current, { x: 30, opacity: 100 }, "<");
 		}
 	}, []);
-	console.log(quotes);
 
 	return (
 		<>
@@ -111,18 +114,18 @@ export default function Home() {
 						</Button>
 					</Link>
 				</div>
-				<div className="max-w-2xl p-5 mx-auto">
-					<blockquote className="mt-6 border-l-2 pl-6 italic">
-						{quotes && (
-							<div key={quotes._id}>
-								<h3>{quotes.content}</h3>
-								<p>Author: {quotes.author}</p>
-								<p>Date Added: {quotes.dateAdded}</p>
-								<p>Date Modified: {quotes.dateModified}</p>
-							</div>
-						)}
-					</blockquote>
-				</div>
+				{isLoading ? (
+					<LoaderIcon className="animate-spin mx-auto text-black" />
+				) : (
+					<div className="max-w-2xl p-5 md:mx-auto mx-5 rounded-lg shadow-md hover:shadow-2xl dark:shadow-white duration-500">
+						{quotes.map((quote, index) => (
+							<blockquote key={index} className="my-10 border-l-2 pl-6 italic">
+								<h3>{quote.quote}</h3>
+								<p className="float-right mt-2">Author: {quote.author}</p>
+							</blockquote>
+						))}
+					</div>
+				)}
 			</main>
 			<main className="min-h-screen">
 				<div className="flex justify-between py-36" ref={containerRef}>

@@ -152,24 +152,16 @@ export default function DataDetails({
 												className="w-full object-contain"
 											/>
 										) : (
-											<>
-												<a
-													href={data.url}
-													target="_blank"
-													rel="noopener noreferrer"
-													className="text-blue-600 hover:text-blue-800"
-												>
-													{data.desc || "Link"}
-												</a>
-												<button
-													className="ms-5 mt-2 pt-2 hover:text-blue-800"
+											<div className="flex justify-end">
+												<Button
+													className="ms-5 mt-2 pt-2 hover:text-blue-400"
 													onClick={() => {
 														handleDownload(data.url);
 													}}
 												>
 													<Download />
-												</button>
-											</>
+												</Button>
+											</div>
 										)}
 									</div>
 								</CardContent>

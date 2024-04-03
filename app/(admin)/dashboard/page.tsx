@@ -38,7 +38,7 @@ interface DataType {
 export default function Page() {
 	const [data, setData] = useState<DataType[]>([]);
 	const [isFileInput, setIsFileInput] = useState(false);
-	const [selectedFile, setSelectedFile] = useState(null);
+	const [selectedFile, setSelectedFile] = useState<File | null>(null);
 	const [formData, setFormData] = useState({
 		url: "",
 		desc: "",

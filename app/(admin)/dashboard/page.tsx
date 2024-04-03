@@ -14,24 +14,18 @@ import {
 import {
 	Dialog,
 	DialogContent,
-	DialogDescription,
 	DialogHeader,
-	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-
 import supabase from "@/lib/supabase";
+import { v4 as uuidv4 } from "uuid";
 import { useEffect, useState } from "react";
-import {
-	ArrowBigLeft,
-	LoaderIcon,
-	Plus,
-	RefreshCcw,
-	Trash,
-} from "lucide-react";
+import { ArrowBigLeft, Plus, CloudUpload } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { toast } from "sonner";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 
 interface DataType {
 	id: number;
@@ -43,6 +37,8 @@ interface DataType {
 
 export default function Page() {
 	const [data, setData] = useState<DataType[]>([]);
+	const [isFileInput, setIsFileInput] = useState(false);
+	const [selectedFile, setSelectedFile] = useState(null);
 	const [formData, setFormData] = useState({
 		url: "",
 		desc: "",
@@ -78,19 +74,50 @@ export default function Page() {
 		}));
 	};
 
+	const handleChangeFile = () => {
+		setIsFileInput(!isFileInput);
+		setSelectedFile(null);
+		setFormData((prevData) => ({ ...prevData, url: "" }));
+	};
+
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		if (!formData.url || !formData.desc || !formData.category || !formData.type) {
-			toast.error("Please fill all the form fields");
+		if (
+			!(formData.url || selectedFile) ||
+			!formData.desc ||
+			!formData.category ||
+			!formData.type
+		) {
+			toast.error("Please fill all the required form fields");
 			return;
 		}
 		try {
-			const { data: insertedData, error } = await supabase
-				.from("link")
-				.insert([formData]);
-			if (error) {
-				toast.error("Error");
+			let fileUrl = "";
+
+			if (selectedFile) {
+				const uniqueId = uuidv4();
+				const { data: fileData, error: fileError } = await supabase.storage
+					.from("Documents")
+					.upload(uniqueId, selectedFile);
+				if (fileError) {
+					toast.error("Error uploading file");
+					return;
+				}
+				fileUrl = uniqueId;
 			}
+			const finalUrl = selectedFile ? fileUrl : formData.url;
+
+			const formDataWithUrl = { ...formData, url: finalUrl };
+
+			const { data: insertedData, error: insertionError } = await supabase
+				.from("link")
+				.insert([formDataWithUrl || formData]);
+			if (insertionError) {
+				console.error("Error inserting data:", insertionError.message);
+				toast.error("Error inserting data");
+				return;
+			}
+
 			const promise = () =>
 				new Promise((resolve) =>
 					setTimeout(() => resolve({ name: "Sonner" }), 2000)
@@ -112,6 +139,10 @@ export default function Page() {
 		} catch (error: any) {
 			toast.error("Error inserting data:", error.message);
 		}
+	};
+
+	const handleFileChange = (event: any) => {
+		setSelectedFile(event.target.files[0]);
 	};
 
 	return (
@@ -138,16 +169,51 @@ export default function Page() {
 									Add Data
 								</DialogHeader>
 								<form onSubmit={handleSubmit}>
+									<div className="flex items-center space-x-2 mb-5">
+										<Label className="me-5">Url or File</Label>
+										<Switch id="Url or File" onClick={handleChangeFile} />
+									</div>
+									{isFileInput ? (
+										<>
+											<label
+												htmlFor="dropzone-file"
+												className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-900 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-800"
+											>
+												<div className="flex flex-col items-center justify-center pt-5 pb-6">
+													<CloudUpload className="text-gray-500" />
+													<p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+														<span className="font-semibold">Click to upload</span> or drag and
+														drop
+													</p>
+													<p className="text-xs text-gray-500 dark:text-gray-400">
+														SVG, PNG, JPG or GIF (MAX. 800x400px)
+													</p>
+												</div>
+												<input
+													id="dropzone-file"
+													type="file"
+													className="hidden"
+													onChange={handleFileChange}
+												/>
+											</label>
+											{selectedFile && (
+												<p className="text-sm text-gray-500 dark:text-gray-400 mb-5">
+													Selected file: {selectedFile.name}
+												</p>
+											)}
+										</>
+									) : (
+										<Input
+											className="mb-5"
+											type="text"
+											placeholder="Url"
+											id="url"
+											value={formData.url}
+											onChange={handleChange}
+										/>
+									)}
 									<Input
-										className="mb-5"
-										type="text"
-										placeholder="Url"
-										id="url"
-										value={formData.url}
-										onChange={handleChange}
-									/>
-									<Input
-										className="mb-5"
+										className="my-5"
 										type="text"
 										placeholder="Description"
 										id="desc"
@@ -182,7 +248,7 @@ export default function Page() {
 					</div>
 					<Table>
 						<TableCaption>List of the subject</TableCaption>
-						<ScrollArea className="h-auto rounded-md border p-4">
+						<ScrollArea className="h-[450px] rounded-md border p-4">
 							<TableHeader>
 								<TableRow>
 									<TableHead className="w-[50px]">No</TableHead>

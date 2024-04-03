@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import {
 	ArrowBigLeft,
 	ArrowLeft,
+	Download,
 	ExternalLink,
 	LoaderIcon,
 	Share,
@@ -21,6 +22,7 @@ import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import supabase from "@/lib/supabase";
 
 export default function DataDetails({
 	params,
@@ -78,6 +80,16 @@ export default function DataDetails({
 			.catch((error) => {
 				toast.error("Failed to copy path: ", error);
 			});
+	};
+
+	const handleDownload = async (url: any) => {
+		try {
+			const { data, error } = await supabase.storage
+				.from("Documents")
+				.download(url);
+		} catch (error) {
+			toast.error("Error Downloading");
+		}
 	};
 	return (
 		<>
@@ -140,14 +152,24 @@ export default function DataDetails({
 												className="w-full object-contain"
 											/>
 										) : (
-											<a
-												href={data.url}
-												target="_blank"
-												rel="noopener noreferrer"
-												className="w-full h-full flex items-center justify-center text-blue-600 hover:text-blue-800"
-											>
-												{data.desc || "Link"}
-											</a>
+											<>
+												<a
+													href={data.url}
+													target="_blank"
+													rel="noopener noreferrer"
+													className="text-blue-600 hover:text-blue-800"
+												>
+													{data.desc || "Link"}
+												</a>
+												<button
+													className="ms-5 mt-2 pt-2 hover:text-blue-800"
+													onClick={() => {
+														handleDownload(data.url);
+													}}
+												>
+													<Download />
+												</button>
+											</>
 										)}
 									</div>
 								</CardContent>

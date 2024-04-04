@@ -92,9 +92,9 @@ export default function Home() {
 		<>
 			<main className="min-h-screen">
 				<AnimatePresence mode="wait">{isLoading && <Preloader />}</AnimatePresence>
-				<div className="text-center px-10 pt-20 h-[50vh]">
+				<div className="text-center px-10 pt-32 h-[50vh]">
 					<h1
-						className="scroll-m-20 md:text-7xl mc-auto text-4xl font-extrabold tracking-tight"
+						className="scroll-m-20 md:text-7xl mx-auto text-4xl font-extrabold tracking-tight mb-5"
 						data-scroll
 						data-scroll-speed="0.5"
 					>

@@ -4,6 +4,7 @@ import "../globals.css";
 import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
+import Footer from "@/components/footer";
 const imagePath = "/images/bg.svg";
 
 export const metadata: Metadata = {
@@ -38,7 +39,9 @@ export default function RootLayout({
 					enableSystem
 					disableTransitionOnChange
 				>
-					<Navbar />
+					<div className="fixed top-0 left-0 w-full z-50">
+						<Navbar />
+					</div>
 					<Toaster richColors />
 					<div
 						className="bg-white dark:bg-black"
@@ -49,6 +52,7 @@ export default function RootLayout({
 						}}
 					>
 						<div className="max-w-screen-xl mx-auto">{children}</div>
+						<Footer />
 					</div>
 				</ThemeProvider>
 			</body>

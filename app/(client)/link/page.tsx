@@ -12,7 +12,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { ListFilter } from "lucide-react";
+import { ListFilter, LoaderIcon } from "lucide-react";
 import {
 	Menubar,
 	MenubarContent,
@@ -67,7 +67,7 @@ export default function Page() {
 		<>
 			<div className="min-h-screen">
 				<div className="space-x-3 py-5">
-					<div className="py-5 my-10">
+					<div className="py-5 my-20">
 						<div className="max-w-3xl mx-auto">
 							<div className="flex float-end">
 								<input
@@ -100,10 +100,10 @@ export default function Page() {
 									</MenubarMenu>
 								</Menubar>
 							</div>
-							<Table className="max-w-3xl bg-opacity-70 backdrop-blur-md bg-slate-300">
+							<Table className="max-w-3xl bg-opacity-30 backdrop-blur-lg">
 								<ScrollArea className="h-[500px]">
 									<TableHeader>
-										<TableRow className="dark:bg-zinc-700">
+										<TableRow className="dark:bg-zinc-900 tracking-wider font-mono">
 											<TableHead className="w-[100px]">Id</TableHead>
 											<TableHead>Name</TableHead>
 											<TableHead>Description</TableHead>
@@ -114,7 +114,7 @@ export default function Page() {
 										{filteredLinks.length === 0 ? (
 											<TableRow>
 												<TableCell colSpan={4} className="text-center">
-													No result
+													<LoaderIcon className="animate-spin mx-auto " />
 												</TableCell>
 											</TableRow>
 										) : (
@@ -127,7 +127,9 @@ export default function Page() {
 													</TableCell>
 													<TableCell>{link.category}</TableCell>
 													<TableCell>{link.desc}</TableCell>
-													<TableCell className="text-right">{link.created_at}</TableCell>
+													<TableCell className="text-center">
+														{new Date(link.created_at).toLocaleDateString()}
+													</TableCell>
 												</TableRow>
 											))
 										)}

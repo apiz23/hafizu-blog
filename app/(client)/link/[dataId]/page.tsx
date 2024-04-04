@@ -1,19 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-	Card,
-	CardContent,
-	CardHeader,
-	CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import {
-	ArrowBigLeft,
-	Download,
-	LoaderIcon,
-	Share,
-} from "lucide-react";
+import { ArrowBigLeft, Download, LoaderIcon, Share } from "lucide-react";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { useRouter } from "next/navigation";
@@ -90,7 +80,7 @@ export default function DataDetails({
 	return (
 		<>
 			<div className="min-h-screen">
-				<div className="max-w-xl mx-auto py-10 px-5">
+				<div className="max-w-xl mx-auto py-32 px-5">
 					<div className="flex">
 						<Link href="/link">
 							<Button variant="ghost" className=" mb-5">

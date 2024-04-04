@@ -4,19 +4,15 @@ import { useEffect, useState } from "react";
 import {
 	Card,
 	CardContent,
-	CardFooter,
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
 	ArrowBigLeft,
-	ArrowLeft,
 	Download,
-	ExternalLink,
 	LoaderIcon,
 	Share,
-	TrashIcon,
 } from "lucide-react";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
@@ -84,13 +80,13 @@ export default function DataDetails({
 
 	const handleDownload = async (url: any) => {
 		try {
-			const { data, error } = await supabase.storage
-				.from("Documents")
-				.download(url);
+			const { data } = supabase.storage.from("Documents").getPublicUrl(url);
+			window.open(data.publicUrl, "_blank");
 		} catch (error) {
 			toast.error("Error Downloading");
 		}
 	};
+
 	return (
 		<>
 			<div className="min-h-screen">
@@ -119,30 +115,30 @@ export default function DataDetails({
 							<>
 								<CardContent className="font-normal text-lg">
 									<p className="text-gray-500 overflow-hidden dark:text-gray-400">
-										URL:
+										Category:{" "}
 										<Link
 											href={data.url}
 											target="\_blank"
 											className="hover:text-blue-400 truncate"
 											rel="noreferrer"
 										>
-											{data.url}
+											{data.category}
 										</Link>
 									</p>
 									<p className="text-gray-500 whitespace-nowrap dark:text-gray-400">
-										Category: {data.desc}
+										Description: {data.desc}
 									</p>
 									<div>
 										{data.url.includes("youtube.com") || data.url.includes("youtu.be") ? (
 											getYoutubeId(data.url) !== "error" && (
 												<iframe
 													width="500"
-													height="315"
+													height="415"
 													src={`https://www.youtube.com/embed/${getYoutubeId(data.url)}`}
 													frameBorder="0"
 													allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
 													allowFullScreen
-													className="w-full h-full"
+													className="w-full h-72"
 												/>
 											)
 										) : data.url.match(/\.(jpeg|jpg|gif|png)$/) !== null ? (

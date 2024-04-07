@@ -20,13 +20,15 @@ import {
 import supabase from "@/lib/supabase";
 import { v4 as uuidv4 } from "uuid";
 import { useEffect, useState } from "react";
-import { ArrowBigLeft, Plus, CloudUpload } from "lucide-react";
+import { ArrowBigLeft, Plus, CloudUpload, LogOut } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { toast } from "sonner";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-
+import { useSession, signIn, signOut } from "next-auth/react";
+import Image from "next/image";
+import { redirect } from "next/navigation";
 interface DataType {
 	id: number;
 	url: string;
@@ -45,7 +47,10 @@ export default function Page() {
 		category: "",
 		type: "",
 	});
-
+	const { data: session, status } = useSession();
+	if (!session && status === "loading") {
+		return redirect("/login");
+	}
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -156,10 +161,27 @@ export default function Page() {
 					</Link>
 				</div>
 				<div className="max-w-4xl mx-auto">
-					<h1 className="text-black dark:text-white scroll-m-20 text-4xl text-center font-extrabold tracking-wider my-5 lg:text-5xl">
-						Admin
-					</h1>
+					<div className="flex justify-center space-x-4">
+						<Image
+							src={session?.user?.image as string}
+							width={100}
+							height={100}
+							alt=""
+							className="object-cover rounded-full"
+						/>
+						<h1 className="text-black dark:text-white scroll-m-20 text-4xl text-center font-extrabold tracking-wider my-5 lg:text-5xl">
+							Admin
+						</h1>
+					</div>
 					<div className="flex my-5 justify-end">
+						<Button
+							onClick={() => {
+								signOut();
+							}}
+							className="mx-5"
+						>
+							<LogOut />
+						</Button>
 						<Dialog>
 							<DialogTrigger className="rounded-md bg-zinc-800 p-2.5">
 								<Plus className="w-5 h-5 text-white" />

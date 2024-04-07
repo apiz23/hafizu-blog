@@ -14,6 +14,7 @@ export const metadata = {
 	},
 };
 import { Toaster } from "sonner";
+import { NextAuthProvider } from "@/components/session-provider";
 
 export default function RootLayout({
 	children,
@@ -30,7 +31,7 @@ export default function RootLayout({
 					disableTransitionOnChange
 				>
 					<Toaster richColors />
-					{children}
+					<NextAuthProvider>{children}</NextAuthProvider>
 				</ThemeProvider>
 			</body>
 		</html>

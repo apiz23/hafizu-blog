@@ -12,7 +12,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { ListFilter, LoaderIcon } from "lucide-react";
+import { ListFilter, LoaderIcon, RefreshCcw } from "lucide-react";
 import {
 	Menubar,
 	MenubarContent,
@@ -76,6 +76,12 @@ export default function Page() {
 									value={searchQuery}
 									onChange={handleSearch}
 									className="mb-4 px-4 py-2 me-3 float-end border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+								/>
+								<RefreshCcw
+									className="hover:cursor-pointer mx-5 mt-2.5"
+									onClick={() => {
+										window.location.reload();
+									}}
 								/>
 								<Menubar className="border-none">
 									<MenubarMenu>

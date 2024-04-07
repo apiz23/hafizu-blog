@@ -38,24 +38,6 @@ export default function DataDetails({
 		fetchData();
 	}, [params.dataId]);
 
-	const handleDelete = async () => {
-		try {
-			const response = await fetch(
-				`${window.location.origin}/api/link/${params.dataId}`,
-				{
-					method: "DELETE",
-				}
-			);
-			if (response.ok) {
-				router.push("/dashboard");
-			} else {
-				toast.error("Failed to delete link");
-			}
-		} catch (error: any) {
-			toast.error("Error deleting link:", error);
-		}
-	};
-
 	const copyPathToClipboard = () => {
 		const path = window.location.href;
 		navigator.clipboard

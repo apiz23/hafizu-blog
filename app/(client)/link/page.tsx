@@ -30,14 +30,14 @@ export default function Page() {
 	useEffect(() => {
 		async function fetchLinks() {
 			try {
-				const response = await fetch(`${window.location.origin}/api/link`);
-				const data = await response.json();
-				if (response.ok) {
-					setLinks(data);
-					setFilteredLinks(data);
-				} else {
-					toast.error(data.error);
+				const { data: fetchedData, error } = await supabase
+					.from("link")
+					.select("*");
+				if (error) {
+					toast.error(error.message);
 				}
+				setLinks(fetchedData || []);
+				setFilteredLinks(fetchedData || []);
 			} catch (error: any) {
 				toast.error(error.message);
 			}
@@ -45,8 +45,6 @@ export default function Page() {
 
 		fetchLinks();
 	}, []);
-
-	console.log(links);
 
 	const handleCategoryClick = (category: string) => {
 		const filtered = links.filter((link: any) => link.type === category);

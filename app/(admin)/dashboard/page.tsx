@@ -48,26 +48,26 @@ export default function Page() {
 		type: "",
 	});
 	const { data: session, status } = useSession();
-	if (!session && status === "loading") {
-		return redirect("/login");
-	}
 	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const { data: fetchedData, error } = await supabase
-					.from("link")
-					.select("*");
-				if (error) {
-					throw error;
+		if (!session && status === "loading") {
+			redirect("/login");
+		} else {
+			const fetchData = async () => {
+				try {
+					const { data: fetchedData, error } = await supabase
+						.from("link")
+						.select("*");
+					if (error) {
+						throw error;
+					}
+					setData(fetchedData || []);
+				} catch (error) {
+					console.log(error);
 				}
-				setData(fetchedData || []);
-			} catch (error) {
-				console.log(error);
-			}
-		};
-
-		fetchData();
-	}, []);
+			};
+			fetchData();
+		}
+	}, [session, status]);
 
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>

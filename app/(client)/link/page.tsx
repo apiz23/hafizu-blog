@@ -79,7 +79,7 @@ export default function Page() {
 				<div className="space-x-3 py-5">
 					<div className="py-5 my-20">
 						<div className="max-w-4xl mx-auto">
-							<div className="flex flex-1 justify-end mb-5 space-x-3">
+							<div className="flex flex-1 justify-end mb-5 space-x-3 px-2">
 								<input
 									type="text"
 									placeholder="Search links..."
@@ -87,48 +87,36 @@ export default function Page() {
 									onChange={handleSearch}
 									className="mb-4 px-4 py-2 md:w-full w-32 me-3 float-end border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
 								/>
-								<RefreshCcw
-									className="hover:cursor-pointer mx-5 mt-2.5"
-									onClick={() => {
-										window.location.reload();
-									}}
-								/>
-								<Button
-									onClick={() => handleViewModeToggle("table")}
-									variant="ghost"
-									className={`${viewMode === "table" ? "bg-gray-800" : "bg-gray-500"}`}
+								<div
+									className="inline-flex rounded-md shadow-sm pb-2 hover:cursor-pointer"
+									role="group"
 								>
-									<List />
-								</Button>
-								<Button
-									onClick={() => handleViewModeToggle("card")}
-									variant="ghost"
-									className={`${viewMode === "card" ? "bg-gray-800" : "bg-gray-500"}`}
-								>
-									<LayoutGrid />
-								</Button>
-								<Menubar className="border-none">
-									<MenubarMenu>
-										<MenubarTrigger>
-											<ListFilter />
-										</MenubarTrigger>
-										<MenubarContent>
-											{Array.from(new Set(links.map((link: any) => link.type))).map(
-												(linkType: any, index: any) => (
-													<>
-														<MenubarItem
-															className="font-sans text-md my-2.5 px-2.5 hover:cursor-pointer	hover:text-zinc-600"
-															onClick={() => handleCategoryClick(linkType)}
-															key={index}
-														>
-															{linkType}
-														</MenubarItem>
-													</>
-												)
-											)}
-										</MenubarContent>
-									</MenubarMenu>
-								</Menubar>
+									<button
+										type="button"
+										className="px-5 py-1 text-sm font-medium me-2 text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white"
+										onClick={() => {
+											window.location.reload();
+										}}
+									>
+										<RefreshCcw />
+									</button>
+									<button
+										onClick={() => handleViewModeToggle("table")}
+										className={`px-5 py-1 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white ${
+											viewMode === "table" ? "bg-gray-800" : "bg-gray-500"
+										}`}
+									>
+										<List />
+									</button>
+									<button
+										onClick={() => handleViewModeToggle("card")}
+										className={`px-5 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white${
+											viewMode === "card" ? "bg-gray-800" : "bg-gray-500"
+										}`}
+									>
+										<LayoutGrid />
+									</button>
+								</div>
 							</div>
 							{viewMode === "table" ? (
 								<Table className="max-w-4xl bg-opacity-30 backdrop-blur-lg">
@@ -145,7 +133,7 @@ export default function Page() {
 											{filteredLinks.length === 0 ? (
 												<TableRow>
 													<TableCell colSpan={4} className="text-center">
-														<LoaderIcon className="animate-spin mx-auto " />
+														<LoaderIcon className="animate-spin mx-auto" />
 													</TableCell>
 												</TableRow>
 											) : (
@@ -167,9 +155,11 @@ export default function Page() {
 										</TableBody>
 									</ScrollArea>
 								</Table>
+							) : filteredLinks.length === 0 ? (
+								<LoaderIcon className="animate-spin mx-auto" />
 							) : (
 								<ScrollArea className="h-[600px]">
-									<HoverEffect items={links} />
+									<HoverEffect items={filteredLinks} />
 								</ScrollArea>
 							)}
 						</div>

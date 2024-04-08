@@ -12,6 +12,7 @@ import {
 import { ModeToggle } from "./themeBtn";
 import { Separator } from "./ui/separator";
 import { Label } from "./ui/label";
+import Footer from "./footer";
 
 export default function Navbar() {
 	const itemNav = [
@@ -46,8 +47,8 @@ export default function Navbar() {
 					<img src="/logo.png" alt="logo" className="w-8 h-8" />
 				</div>
 			</nav>
-			<aside className="fixed top-0 left-0 z-40 w-80 h-screen bg-white dark:bg-black transition-transform -translate-x-full sm:translate-x-0 md:block hidden shadow-md shadow-gray-500">
-				<div className="mt-10">
+			<aside className="w-80 min-h-screen bg-white dark:bg-black transition-transform -translate-x-full sm:translate-x-0 md:block hidden shadow-md shadow-gray-500">
+				<div className="pt-10">
 					<div className="flex justify-between pe-5 mb-10">
 						<span className="text-2xl px-5 font-semibold whitespace-nowrap dark:text-white text-black">
 							Hafizu Blog
@@ -73,6 +74,7 @@ export default function Navbar() {
 						</div>
 					))}
 				</div>
+				<Footer />
 			</aside>
 		</>
 	);

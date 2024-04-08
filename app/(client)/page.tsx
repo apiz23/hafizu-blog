@@ -119,7 +119,7 @@ export default function Home() {
 							maxSize={1}
 							particleDensity={1200}
 							className="w-full h-full"
-							particleColor={particleColor}
+							particleColor={particleColor[0]}
 						/>
 
 						<div className="absolute inset-0 w-full h-full bg-white dark:bg-black [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]"></div>

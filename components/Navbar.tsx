@@ -1,14 +1,16 @@
 "use client";
 
-import { MenuIcon, Home, LucideLink, Lock } from "lucide-react";
+import { MenuIcon, Home, LucideLink, Lock, Menu } from "lucide-react";
 import Link from "next/link";
 import {
-	Menubar,
-	MenubarContent,
-	MenubarItem,
-	MenubarMenu,
-	MenubarTrigger,
-} from "@/components/ui/menubar";
+	Sheet,
+	SheetContent,
+	SheetDescription,
+	SheetHeader,
+	SheetTitle,
+	SheetTrigger,
+} from "@/components/ui/sheet";
+
 import { ModeToggle } from "./themeBtn";
 import { Separator } from "./ui/separator";
 import { Label } from "./ui/label";
@@ -24,26 +26,42 @@ export default function Navbar() {
 		<>
 			<nav className="bg-white dark:bg-black border-b-2 md:hidden">
 				<div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2.5">
-					<Menubar>
-						<MenubarMenu>
-							<MenubarTrigger>
-								<MenuIcon />
-							</MenubarTrigger>
-							<MenubarContent className="p-4">
+					<Sheet>
+						<SheetTrigger>
+							<Menu className="hover:text-zinc-500" />
+						</SheetTrigger>
+						<SheetContent side="left">
+							<SheetHeader>
+								<SheetTitle>
+									<span className="text-2xl px-5 flex font-semibold whitespace-nowrap dark:text-white text-black">
+										Hafizu Blog
+										<img src="/logo.png" alt="logo" className="w-8 h-8 ms-5 mt-1" />
+									</span>
+								</SheetTitle>
+							</SheetHeader>
+							<div className="block my-10">
 								<div className="flex space-x-5">
 									<Label>Theme</Label>
 									<ModeToggle />
 								</div>
 								{itemNav.map((item) => (
-									<div key={item.title}>
-										<Link href={item.url}>
-											<MenubarItem>{item.title}</MenubarItem>
+									<div
+										key={item.title}
+										className="p-5 border bg-white dark:bg-black border-black dark:border-white rounded-md my-5 mx-5 dark:hover:bg-slate-800 hover:bg-slate-200"
+									>
+										<Link
+											href={item.url}
+											className="flex space-x-5 text-black dark:text-white"
+										>
+											<item.icon />
+											<p>{item.title}</p>
 										</Link>
 									</div>
 								))}
-							</MenubarContent>
-						</MenubarMenu>
-					</Menubar>
+							</div>
+							<Footer />
+						</SheetContent>
+					</Sheet>
 					<img src="/logo.png" alt="logo" className="w-8 h-8" />
 				</div>
 			</nav>

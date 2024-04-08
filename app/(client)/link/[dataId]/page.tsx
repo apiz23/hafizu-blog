@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { ArrowBigLeft, Download, LoaderIcon, Share } from "lucide-react";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import supabase from "@/lib/supabase";
 
@@ -16,7 +15,6 @@ export default function DataDetails({
 	params: { dataId: string };
 }) {
 	const [data, setData] = useState<any>(null);
-	const router = useRouter();
 
 	useEffect(() => {
 		const fetchData = async () => {

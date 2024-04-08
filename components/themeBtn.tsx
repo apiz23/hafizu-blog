@@ -9,7 +9,6 @@ export function ModeToggle() {
 	return (
 		<>
 			<div className="flex space-x-2 mb-5">
-				<p>Theme: </p>
 				<Switch
 					onClick={() => setTheme(theme === "light" ? "dark" : "light")}
 					checked={theme === "dark"}

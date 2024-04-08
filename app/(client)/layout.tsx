@@ -44,7 +44,7 @@ export default function RootLayout({
 					</div>
 					<Toaster richColors />
 					<div
-						className="bg-white dark:bg-black"
+						className="bg-white dark:bg-black sm:ml-80"
 						style={{
 							backgroundImage: `url(${imagePath})`,
 							backgroundSize: "cover",

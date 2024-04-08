@@ -1,28 +1,27 @@
 "use client";
 
-import { MenuIcon } from "lucide-react";
+import { MenuIcon, Home, LucideLink, Lock } from "lucide-react";
 import Link from "next/link";
 import {
 	Menubar,
 	MenubarContent,
 	MenubarItem,
 	MenubarMenu,
-	MenubarSeparator,
-	MenubarShortcut,
 	MenubarTrigger,
 } from "@/components/ui/menubar";
 import { ModeToggle } from "./themeBtn";
+import { Separator } from "./ui/separator";
+import { Label } from "./ui/label";
 
 export default function Navbar() {
 	const itemNav = [
-		{ title: "Home", url: "/" },
-		{ title: "Link", url: "/link" },
-		{ title: "Admin", url: "/login" },
+		{ title: "Home", url: "/", icon: Home },
+		{ title: "Link", url: "/link", icon: LucideLink },
+		{ title: "Admin", url: "/login", icon: Lock },
 	];
-
 	return (
 		<>
-			<nav className="bg-white dark:bg-black border-b-2">
+			<nav className="bg-white dark:bg-black border-b-2 md:hidden">
 				<div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2.5">
 					<Menubar>
 						<MenubarMenu>
@@ -30,7 +29,10 @@ export default function Navbar() {
 								<MenuIcon />
 							</MenubarTrigger>
 							<MenubarContent className="p-4">
-								<ModeToggle />
+								<div className="flex space-x-5">
+									<Label>Theme</Label>
+									<ModeToggle />
+								</div>
 								{itemNav.map((item) => (
 									<div key={item.title}>
 										<Link href={item.url}>
@@ -42,36 +44,36 @@ export default function Navbar() {
 						</MenubarMenu>
 					</Menubar>
 					<img src="/logo.png" alt="logo" className="w-8 h-8" />
-					{/* <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-						image
-						<span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-							Flowbite
-						</span>
-					</a> */}
-					{/* <button
-						data-collapse-toggle="navbar-default"
-						type="button"
-						className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-						aria-controls="navbar-default"
-						aria-expanded="false"
-					>
-						<span className="sr-only">Open main menu</span>
-						<MenuIcon />
-					</button> */}
-					{/* <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-						<ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-							<li>
-								<Link
-									href="/"
-									className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500"
-								>
-									Home
-								</Link>
-							</li>
-						</ul>
-					</div> */}
 				</div>
 			</nav>
+			<aside className="fixed top-0 left-0 z-40 w-80 h-screen bg-white dark:bg-black transition-transform -translate-x-full sm:translate-x-0 md:block hidden shadow-md shadow-gray-500">
+				<div className="mt-10">
+					<div className="flex justify-between pe-5 mb-10">
+						<span className="text-2xl px-5 font-semibold whitespace-nowrap dark:text-white text-black">
+							Hafizu Blog
+						</span>
+						<img src="/logo.png" alt="logo" className="w-8 h-8" />
+					</div>
+					<Separator />
+					<div className="flex ps-10 pt-10">
+						<ModeToggle />
+					</div>
+					{itemNav.map((item) => (
+						<div
+							key={item.title}
+							className="p-5 border bg-white dark:bg-black border-black dark:border-white rounded-md my-5 mx-5 dark:hover:bg-slate-800 hover:bg-slate-200"
+						>
+							<Link
+								href={item.url}
+								className="flex space-x-5 text-black dark:text-white"
+							>
+								<item.icon />
+								<p>{item.title}</p>
+							</Link>
+						</div>
+					))}
+				</div>
+			</aside>
 		</>
 	);
 }

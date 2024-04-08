@@ -11,6 +11,8 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Lenis from "@studio-freight/lenis";
 import { toast } from "sonner";
 import { LoaderIcon } from "lucide-react";
+import { SparklesCore } from "@/components/ui/sparkles";
+import { useTheme } from "next-themes";
 
 const nextIcon = "/next-js.svg";
 const supabaseIcon = "/supabase.png";
@@ -87,12 +89,16 @@ export default function Home() {
 				.to(nextIconRef.current, { x: 30, opacity: 100 }, "<");
 		}
 	}, []);
+	const { theme } = useTheme();
+
+	const particleColor =
+		theme === "dark" ? ["#FFFFFF", "#FFFFFF"] : ["#000000", "#000000"];
 
 	return (
 		<>
 			<main className="min-h-screen">
 				<AnimatePresence mode="wait">{isLoading && <Preloader />}</AnimatePresence>
-				<div className="text-center px-10 pt-32 h-[50vh]">
+				<div className="h-[40rem] w-full bg-white dark:bg-black flex flex-col items-center justify-center overflow-hidden rounded-md">
 					<h1
 						className="scroll-m-20 md:text-7xl mx-auto text-4xl font-extrabold tracking-tight mb-5"
 						data-scroll
@@ -100,19 +106,40 @@ export default function Home() {
 					>
 						Welcome to my blog
 					</h1>
+
+					<div className="w-[40rem] h-40 relative">
+						<div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-3/4 blur-sm" />
+						<div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-3/4" />
+						<div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] w-1/4 blur-sm" />
+						<div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/4" />
+
+						<SparklesCore
+							background="transparent"
+							minSize={0.4}
+							maxSize={1}
+							particleDensity={1200}
+							className="w-full h-full"
+							particleColor={particleColor}
+						/>
+
+						<div className="absolute inset-0 w-full h-full bg-white dark:bg-black [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]"></div>
+					</div>
+
 					<p
-						className="leading-7 px-10 [&:not(:first-child)]:mt-6 text-zinc-400"
+						className="absolute leading-7 px-10 [&:not(:first-child)]:mt-6 text-zinc-400"
 						data-scroll
 						data-scroll-speed="0.7"
 					>
 						One of the source of learning material for my Studies Journey
 					</p>
-					<Link href="/link">
+
+					<Link href="/link" className="absolute pt-28">
 						<Button className="mt-10 text-white bg-gray-800 hover:bg-gray-900 hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
 							Get Started
 						</Button>
 					</Link>
 				</div>
+
 				{isLoading ? (
 					<LoaderIcon className="animate-spin mx-auto text-black" />
 				) : (

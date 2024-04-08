@@ -45,18 +45,15 @@ export default function Navbar() {
 									<ModeToggle />
 								</div>
 								{itemNav.map((item) => (
-									<div
-										key={item.title}
-										className="p-5 border bg-white dark:bg-black border-black dark:border-white rounded-md my-5 mx-5 dark:hover:bg-slate-800 hover:bg-slate-200"
-									>
-										<Link
-											href={item.url}
-											className="flex space-x-5 text-black dark:text-white"
+									<Link href={item.url}>
+										<div
+											key={item.title}
+											className="p-5 border bg-white dark:bg-black dark:bg-blac flex space-x-5 text-black dark:text-white border-black dark:border-white rounded-md my-5 mx-5 dark:hover:bg-slate-800 hover:bg-slate-200"
 										>
 											<item.icon />
 											<p>{item.title}</p>
-										</Link>
-									</div>
+										</div>
+									</Link>
 								))}
 							</div>
 							<Footer />
@@ -78,18 +75,15 @@ export default function Navbar() {
 						<ModeToggle />
 					</div>
 					{itemNav.map((item) => (
-						<div
-							key={item.title}
-							className="p-5 border bg-white dark:bg-black border-black dark:border-white rounded-md my-5 mx-5 dark:hover:bg-slate-800 hover:bg-slate-200"
-						>
-							<Link
-								href={item.url}
-								className="flex space-x-5 text-black dark:text-white"
+						<Link href={item.url}>
+							<div
+								key={item.title}
+								className="p-5 border bg-white dark:bg-black dark:bg-blac flex space-x-5 text-black dark:text-white border-black dark:border-white rounded-md my-5 mx-5 dark:hover:bg-slate-800 hover:bg-slate-200"
 							>
 								<item.icon />
 								<p>{item.title}</p>
-							</Link>
-						</div>
+							</div>
+						</Link>
 					))}
 				</div>
 				<Footer />

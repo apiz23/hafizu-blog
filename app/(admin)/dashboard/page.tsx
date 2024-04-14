@@ -154,7 +154,7 @@ export default function Page() {
 		<>
 			<div className="min-h-screen bg-white dark:bg-black">
 				<div className="flex">
-					<Link href="/login">
+					<Link href="/">
 						<Button variant="ghost" className="m-3">
 							<ArrowBigLeft />
 						</Button>
@@ -169,11 +169,11 @@ export default function Page() {
 							alt=""
 							className="object-cover rounded-full"
 						/>
-						<h1 className="text-black dark:text-white scroll-m-20 text-4xl text-center font-extrabold tracking-wider my-5 lg:text-5xl">
-							Admin
-						</h1>
 					</div>
-					<div className="flex my-5 justify-end">
+					<h1 className="text-black dark:text-white font-mono scroll-m-20 text-4xl text-center font-extrabold tracking-wider my-5 lg:text-5xl">
+						Hello {session?.user?.name}
+					</h1>
+					<div className="flex my-5 justify-end mx-5">
 						<Button
 							onClick={() => {
 								signOut();
@@ -268,33 +268,35 @@ export default function Page() {
 							</DialogContent>
 						</Dialog>
 					</div>
-					<Table>
-						<TableCaption>List of the subject</TableCaption>
-						<ScrollArea className="h-[450px] rounded-md border p-4">
-							<TableHeader>
-								<TableRow>
-									<TableHead className="w-[50px]">No</TableHead>
-									<TableHead>Category</TableHead>
-									<TableHead>Desc</TableHead>
-									<TableHead>Created Date</TableHead>
-								</TableRow>
-							</TableHeader>
-							<TableBody>
-								{data.map((item, index) => (
-									<TableRow key={item.id}>
-										<TableCell className="font-medium">
-											<Link href={`${window.location.pathname}/${item.id}`}>
-												<Button variant="default">{index + 1}</Button>
-											</Link>
-										</TableCell>
-										<TableCell>{item.category}</TableCell>
-										<TableCell>{item.desc}</TableCell>
-										<TableCell>{item.created_at}</TableCell>
+					<div className="p-4">
+						<Table>
+							<TableCaption>List of the Data Link</TableCaption>
+							<ScrollArea className="h-[450px] rounded-md border p-4">
+								<TableHeader>
+									<TableRow>
+										<TableHead className="w-[50px]">No</TableHead>
+										<TableHead>Category</TableHead>
+										<TableHead>Desc</TableHead>
+										<TableHead>Created Date</TableHead>
 									</TableRow>
-								))}
-							</TableBody>
-						</ScrollArea>
-					</Table>
+								</TableHeader>
+								<TableBody>
+									{data.map((item, index) => (
+										<TableRow key={item.id}>
+											<TableCell className="font-medium">
+												<Link href={`${window.location.pathname}/${item.id}`}>
+													<Button variant="default">{index + 1}</Button>
+												</Link>
+											</TableCell>
+											<TableCell>{item.category}</TableCell>
+											<TableCell>{item.desc}</TableCell>
+											<TableCell>{item.created_at}</TableCell>
+										</TableRow>
+									))}
+								</TableBody>
+							</ScrollArea>
+						</Table>
+					</div>
 				</div>
 			</div>
 		</>

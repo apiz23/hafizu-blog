@@ -12,20 +12,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import {
-	LayoutGrid,
-	List,
-	ListFilter,
-	LoaderIcon,
-	RefreshCcw,
-} from "lucide-react";
-import {
-	Menubar,
-	MenubarContent,
-	MenubarItem,
-	MenubarMenu,
-	MenubarTrigger,
-} from "@/components/ui/menubar";
+import { LayoutGrid, List, LoaderIcon, RefreshCcw } from "lucide-react";
 import supabase from "@/lib/supabase";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 
@@ -40,7 +27,8 @@ export default function Page() {
 			try {
 				const { data: fetchedData, error } = await supabase
 					.from("link")
-					.select("*");
+					.select("*")
+					.order("created_at", { ascending: false });
 				if (error) {
 					toast.error(error.message);
 				}
@@ -53,11 +41,6 @@ export default function Page() {
 
 		fetchLinks();
 	}, []);
-
-	const handleCategoryClick = (category: string) => {
-		const filtered = links.filter((link: any) => link.type === category);
-		setFilteredLinks(filtered);
-	};
 
 	const handleSearch = (e: any) => {
 		const query = e.target.value.toLowerCase();
@@ -79,48 +62,52 @@ export default function Page() {
 				<div className="space-x-3 py-5">
 					<div className="py-5 my-20">
 						<div className="max-w-4xl mx-auto">
-							<div className="flex flex-1 justify-end mb-5 space-x-3 px-2">
-								<input
-									type="text"
-									placeholder="Search links..."
-									value={searchQuery}
-									onChange={handleSearch}
-									className="mb-4 px-4 py-2 md:w-full w-32 me-3 float-end border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-								/>
-								<div
-									className="inline-flex rounded-md shadow-sm pb-2 hover:cursor-pointer"
-									role="group"
-								>
-									<button
-										type="button"
-										className="px-5 py-1 text-sm font-medium me-2 text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white"
-										onClick={() => {
-											window.location.reload();
-										}}
+							<div className="grid grid-cols-1 md:grid-cols-5 mb-5 space-x-3 px-2 mx-5">
+								<div className="col-span-3 flex justify-end">
+									<input
+										type="text"
+										placeholder="Search links..."
+										value={searchQuery}
+										onChange={handleSearch}
+										className="mb-4 px-4 py-2 w-full me-3 float-end border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+									/>
+								</div>
+								<div className="col-span-2 flex justify-end">
+									<div
+										className="inline-flex rounded-md shadow-sm pb-2 hover:cursor-pointer"
+										role="group"
 									>
-										<RefreshCcw />
-									</button>
-									<button
-										onClick={() => handleViewModeToggle("table")}
-										className={`px-5 py-1 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white ${
-											viewMode === "table" ? "bg-gray-800" : "bg-gray-500"
-										}`}
-									>
-										<List />
-									</button>
-									<button
-										onClick={() => handleViewModeToggle("card")}
-										className={`px-5 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white${
-											viewMode === "card" ? "bg-gray-800" : "bg-gray-500"
-										}`}
-									>
-										<LayoutGrid />
-									</button>
+										<button
+											type="button"
+											className="px-5 py-1 text-sm font-medium me-2 text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white"
+											onClick={() => {
+												window.location.reload();
+											}}
+										>
+											<RefreshCcw />
+										</button>
+										<button
+											onClick={() => handleViewModeToggle("table")}
+											className={`px-5 py-1 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white ${
+												viewMode === "table" ? "bg-gray-800" : "bg-gray-500"
+											}`}
+										>
+											<List />
+										</button>
+										<button
+											onClick={() => handleViewModeToggle("card")}
+											className={`px-5 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white${
+												viewMode === "card" ? "bg-gray-800" : "bg-gray-500"
+											}`}
+										>
+											<LayoutGrid />
+										</button>
+									</div>
 								</div>
 							</div>
 							{viewMode === "table" ? (
-								<Table className="max-w-4xl bg-opacity-30 backdrop-blur-lg">
-									<ScrollArea className="h-[500px]">
+								<ScrollArea className="h-[500px]">
+									<Table className="max-w-4xl bg-opacity-30 backdrop-blur-lg mx-2.5">
 										<TableHeader>
 											<TableRow className="dark:bg-zinc-900 tracking-wider font-mono">
 												<TableHead className="w-[100px]">Id</TableHead>
@@ -141,7 +128,7 @@ export default function Page() {
 													<TableRow key={index + 1}>
 														<TableCell className="font-medium">
 															<Link href={`${window.location.pathname}/${link.id}`}>
-																<Button variant="default">{index + 1}</Button>
+																<Button variant="outline">{index + 1}</Button>
 															</Link>
 														</TableCell>
 														<TableCell>{link.category}</TableCell>
@@ -153,8 +140,8 @@ export default function Page() {
 												))
 											)}
 										</TableBody>
-									</ScrollArea>
-								</Table>
+									</Table>
+								</ScrollArea>
 							) : filteredLinks.length === 0 ? (
 								<LoaderIcon className="animate-spin mx-auto" />
 							) : (

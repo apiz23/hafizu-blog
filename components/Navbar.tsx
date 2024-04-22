@@ -32,23 +32,20 @@ export default function Navbar() {
 						</SheetTrigger>
 						<SheetContent side="left">
 							<SheetHeader>
-								<SheetTitle>
+								<SheetTitle className="flex">
 									<span className="text-2xl px-5 flex font-semibold whitespace-nowrap dark:text-white text-black">
 										Hafizu Blog
 										<img src="/logo.png" alt="logo" className="w-8 h-8 ms-5 mt-1" />
 									</span>
+									<ModeToggle />
 								</SheetTitle>
 							</SheetHeader>
 							<div className="block my-10">
-								<div className="flex space-x-5">
-									<Label>Theme</Label>
-									<ModeToggle />
-								</div>
 								{itemNav.map((item, index) => (
 									<Link key={index} href={item.url}>
 										<div
 											key={item.title}
-											className="p-5 border bg-white dark:bg-black dark:bg-blac flex space-x-5 text-black dark:text-white border-black dark:border-white rounded-md my-5 mx-5 dark:hover:bg-slate-800 hover:bg-slate-200"
+											className="p-5 border bg-white dark:bg-black flex space-x-5 text-black dark:text-white border-black dark:border-white rounded-md my-5 mx-5 dark:hover:bg-slate-800 hover:bg-slate-200"
 										>
 											<item.icon />
 											<p>{item.title}</p>
@@ -69,11 +66,9 @@ export default function Navbar() {
 							Hafizu Blog
 						</span>
 						<img src="/logo.png" alt="logo" className="w-8 h-8" />
-					</div>
-					<Separator />
-					<div className="flex ps-10 pt-10">
 						<ModeToggle />
 					</div>
+					<Separator />
 					{itemNav.map((item, index) => (
 						<Link key={index} href={item.url}>
 							<div

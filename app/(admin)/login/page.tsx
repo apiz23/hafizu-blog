@@ -14,6 +14,7 @@ import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
 import { Separator } from "@/components/ui/separator";
 import { redirect } from "next/navigation";
+import { Input } from "@/components/ui/input";
 
 export default function Page() {
 	const { data: session } = useSession();
@@ -35,6 +36,7 @@ export default function Page() {
 								<CardTitle>Login</CardTitle>
 							</CardHeader>
 							<CardContent>
+								<Input type="password" placeholder="Token" />
 								<blockquote className="mt-6 border-l-2 pl-6 italic">
 									404 Error
 								</blockquote>

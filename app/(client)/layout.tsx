@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import "../globals.css";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
+import { BackgroundBeams } from "@/components/ui/background-beams";
 const imagePath = "/images/bg.svg";
 
 export const metadata: Metadata = {
@@ -38,18 +39,19 @@ export default function RootLayout({
 					enableSystem
 					disableTransitionOnChange
 				>
-					<div className="block md:fixed top-0 left-0 z-50">
+					<div className="fixed w-full">
 						<Navbar />
 					</div>
 					<Toaster richColors />
 					<div
-						className="bg-white dark:bg-black sm:ml-80"
+						className="bg-neutral-100 dark:bg-black"
 						style={{
 							backgroundImage: `url(${imagePath})`,
 							backgroundSize: "cover",
 							backgroundPosition: "center",
 						}}
 					>
+						<BackgroundBeams />
 						<div className="max-w-screen-xl mx-auto">{children}</div>
 					</div>
 				</ThemeProvider>

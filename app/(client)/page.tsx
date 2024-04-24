@@ -98,7 +98,7 @@ export default function Home() {
 		<>
 			<main className="min-h-screen">
 				<AnimatePresence mode="wait">{isLoading && <Preloader />}</AnimatePresence>
-				<div className="h-[40rem] w-full bg-white dark:bg-black flex flex-col items-center justify-center overflow-hidden rounded-md">
+				<div className="h-[40rem] w-full flex flex-col items-center justify-center overflow-hidden rounded-md">
 					<h1
 						className="scroll-m-20 md:text-7xl mx-auto text-4xl font-extrabold tracking-tight mb-5"
 						data-scroll
@@ -122,7 +122,7 @@ export default function Home() {
 							particleColor={particleColor[0]}
 						/>
 
-						<div className="absolute inset-0 w-full h-full bg-white dark:bg-black [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]"></div>
+						<div className="absolute inset-0 w-full h-full bg-neutral-100 dark:bg-black [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]"></div>
 					</div>
 
 					<p

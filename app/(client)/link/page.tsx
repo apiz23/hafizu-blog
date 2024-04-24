@@ -59,7 +59,7 @@ export default function Page() {
 	return (
 		<>
 			<div className="min-h-screen">
-				<div className="space-x-3 py-5">
+				<div className="space-x-3 py-10">
 					<div className="py-5 my-20">
 						<div className="max-w-4xl mx-auto">
 							<div className="grid grid-cols-1 md:grid-cols-5 mb-5 space-x-3 px-2 mx-5">
@@ -134,7 +134,7 @@ export default function Page() {
 														<TableCell>{link.category}</TableCell>
 														<TableCell>{link.desc}</TableCell>
 														<TableCell className="text-center">
-															{new Date(link.created_at).toLocaleDateString()}
+															{new Date(link.created_at).toLocaleDateString("en-GB")}
 														</TableCell>
 													</TableRow>
 												))

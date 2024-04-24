@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import "../globals.css";
-import Navbar from "@/components/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
 import { BackgroundBeams } from "@/components/ui/background-beams";
+import Navbar from "@/components/Navbar";
 const imagePath = "/images/bg.svg";
 
 export const metadata: Metadata = {

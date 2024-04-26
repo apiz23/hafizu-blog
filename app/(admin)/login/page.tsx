@@ -14,6 +14,7 @@ import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { Input } from "@/components/ui/input";
+import supabase from "@/lib/supabase";
 
 interface Token {
 	value: string;
@@ -24,18 +25,27 @@ export default function Page() {
 	const [token, setToken] = useState<Token | undefined>({ value: "" });
 	const [tokenMatched, setTokenMatched] = useState(false);
 
-	const handleCheckToken = () => {
-		if (token?.value === "123") {
-			setTokenMatched(true);
-			localStorage.setItem("token-hafiz", token.value);
+	if (session && localStorage.getItem("token-hafiz")) {
+		return redirect(`${window.location.origin}/dashboard`);
+	}
+
+	const handleCheckToken = async () => {
+		let { data: tokens, error } = await supabase.from("tokens").select("*");
+		if (tokens && tokens.length > 0) {
+			const matchedToken = tokens.find(
+				(t: { token: string }) => t.token === token?.value
+			);
+			console.log(tokens, matchedToken);
+			if (matchedToken) {
+				setTokenMatched(true);
+				localStorage.setItem("token-hafiz", token?.value || "");
+			} else {
+				setTokenMatched(false);
+			}
 		} else {
 			setTokenMatched(false);
 		}
 	};
-
-	if (session && localStorage.getItem("token-hafiz") === "123") {
-		return redirect(`${window.location.origin}/dashboard`);
-	}
 
 	return (
 		<>

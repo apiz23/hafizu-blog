@@ -134,7 +134,9 @@ export default function Page() {
 													<TableRow key={index + 1} className="capitalize">
 														<TableCell className="font-medium">
 															<Link href={`${window.location.pathname}/${link.id}`}>
-																<Button variant="outline">{index + 1}</Button>
+																<Button variant="default" className="rounded-full">
+																	{index + 1}
+																</Button>
 															</Link>
 														</TableCell>
 														<TableCell>{link.category}</TableCell>

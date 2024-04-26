@@ -92,7 +92,7 @@ export default function Page() {
 												viewMode === "table" ? "bg-gray-800" : "bg-gray-500"
 											}`}
 										>
-											<List />
+											<LayoutGrid />
 										</button>
 										<button
 											onClick={() => handleViewModeToggle("card")}
@@ -100,17 +100,23 @@ export default function Page() {
 												viewMode === "card" ? "bg-gray-800" : "bg-gray-500"
 											}`}
 										>
-											<LayoutGrid />
+											<List />
 										</button>
 									</div>
 								</div>
 							</div>
 							{viewMode === "table" ? (
-								<ScrollArea className="h-[500px]">
+								<ScrollArea className="h-[550px]">
+									<HoverEffect items={filteredLinks} />
+								</ScrollArea>
+							) : filteredLinks.length === 0 ? (
+								<LoaderIcon className="animate-spin mx-auto" />
+							) : (
+								<ScrollArea className="h-[550px]">
 									<Table className="max-w-4xl bg-opacity-30 backdrop-blur-lg mx-2.5">
 										<TableHeader>
-											<TableRow className="dark:bg-zinc-900 tracking-wider font-mono">
-												<TableHead className="w-[100px]">Id</TableHead>
+											<TableRow className="bg-zinc-200 dark:bg-zinc-900 tracking-wider font-mono">
+												<TableHead className="w-[60px]">No</TableHead>
 												<TableHead>Name</TableHead>
 												<TableHead>Description</TableHead>
 												<TableHead className="text-center">Date Created</TableHead>
@@ -125,7 +131,7 @@ export default function Page() {
 												</TableRow>
 											) : (
 												filteredLinks.map((link: any, index: any) => (
-													<TableRow key={index + 1}>
+													<TableRow key={index + 1} className="capitalize">
 														<TableCell className="font-medium">
 															<Link href={`${window.location.pathname}/${link.id}`}>
 																<Button variant="outline">{index + 1}</Button>
@@ -141,12 +147,6 @@ export default function Page() {
 											)}
 										</TableBody>
 									</Table>
-								</ScrollArea>
-							) : filteredLinks.length === 0 ? (
-								<LoaderIcon className="animate-spin mx-auto" />
-							) : (
-								<ScrollArea className="h-[600px]">
-									<HoverEffect items={filteredLinks} />
 								</ScrollArea>
 							)}
 						</div>

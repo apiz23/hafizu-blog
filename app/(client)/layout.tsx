@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/footer";
 const imagePath = "/images/bg.svg";
 
 export const metadata: Metadata = {
@@ -53,6 +54,7 @@ export default function RootLayout({
 					>
 						<BackgroundBeams />
 						<div className="max-w-screen-xl mx-auto">{children}</div>
+						<Footer />
 					</div>
 				</ThemeProvider>
 			</body>

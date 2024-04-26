@@ -34,12 +34,15 @@ export default function Navbar() {
 		<>
 			<nav className="bg-transparent">
 				<div className="max-w-screen-sm rounded-3xl mt-5 md:bg-neutral-200 md:dark:bg-neutral-800 flex mx-auto p-4">
-					<div className="block md:hidden">
+					<div className="block md:hidden flex-col h-full">
 						<Sheet>
 							<SheetTrigger>
 								<Menu className="hover:text-zinc-500" />
 							</SheetTrigger>
-							<SheetContent side="left">
+							<SheetContent
+								side="left"
+								className="flex flex-col justify-between h-full"
+							>
 								<SheetHeader>
 									<SheetTitle className="flex">
 										<span className="text-2xl px-5 flex font-semibold whitespace-nowrap dark:text-white text-black">
@@ -68,6 +71,7 @@ export default function Navbar() {
 							</SheetContent>
 						</Sheet>
 					</div>
+
 					<div className="hidden w-full md:block md:w-auto mx-auto">
 						<NavigationMenu>
 							<NavigationMenuList>

@@ -15,6 +15,7 @@ export const metadata = {
 };
 import { Toaster } from "sonner";
 import { NextAuthProvider } from "@/components/session-provider";
+import { BackgroundBeams } from "@/components/ui/background-beams";
 
 export default function RootLayout({
 	children,
@@ -31,7 +32,10 @@ export default function RootLayout({
 					disableTransitionOnChange
 				>
 					<Toaster richColors />
-					<NextAuthProvider>{children}</NextAuthProvider>
+					<NextAuthProvider>
+						<BackgroundBeams />
+						{children}
+					</NextAuthProvider>
 				</ThemeProvider>
 			</body>
 		</html>

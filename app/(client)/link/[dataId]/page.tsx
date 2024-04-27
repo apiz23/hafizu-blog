@@ -84,44 +84,54 @@ export default function DataDetails({
 						{data ? (
 							<>
 								<CardContent className="font-normal text-lg">
-									<p className="text-gray-500 overflow-hidden dark:text-gray-400">
-										Category:
-										{data.category}
-									</p>
-									<p className="text-gray-500 whitespace-nowrap dark:text-gray-400">
-										Description: {data.desc}
-									</p>
-									<div>
-										{data.url.includes("youtube.com") || data.url.includes("youtu.be") ? (
-											getYoutubeId(data.url) !== "error" && (
-												<iframe
-													width="500"
-													height="415"
-													src={`https://www.youtube.com/embed/${getYoutubeId(data.url)}`}
-													frameBorder="0"
-													allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-													allowFullScreen
-													className="w-full h-72"
-												/>
-											)
-										) : data.url.match(/\.(jpeg|jpg|gif|png)$/) !== null ? (
-											<img
-												src={data.url}
-												alt={data.desc}
-												className="w-full object-contain"
-											/>
-										) : (
-											<div className="flex justify-end">
-												<Button
-													className="ms-5 mt-2 pt-2 hover:text-blue-400"
-													onClick={() => {
-														handleDownload(data.url);
-													}}
-												>
-													<Download />
-												</Button>
+									<div className="flow-root py-3 px-5 shadow-sm text-gray-100">
+										<dl className="-my-3 divide-y divide-gray-100 text-sm">
+											<div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
+												<dt className="font-medium"> Category</dt>
+												<dd className="text-gray-300 sm:col-span-2"> {data.category}</dd>
 											</div>
-										)}
+
+											<div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
+												<dt className="font-medium"> Description</dt>
+												<dd className="text-gray-300 sm:col-span-2">{data.desc}</dd>
+											</div>
+
+											<div className="grid grid-cols-1 gap-1 p-3 ">
+												<dd className="text-gray-300">
+													{data.url.includes("youtube.com") ||
+													data.url.includes("youtu.be") ? (
+														getYoutubeId(data.url) !== "error" && (
+															<iframe
+																width="500"
+																height="415"
+																src={`https://www.youtube.com/embed/${getYoutubeId(data.url)}`}
+																frameBorder="0"
+																allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+																allowFullScreen
+																className="w-full h-72"
+															/>
+														)
+													) : data.url.match(/\.(jpeg|jpg|gif|png)$/) !== null ? (
+														<img
+															src={data.url}
+															alt={data.desc}
+															className="w-full object-contain"
+														/>
+													) : (
+														<div className="flex justify-end">
+															<Button
+																className="ms-5 mt-2 pt-2 hover:text-blue-400"
+																onClick={() => {
+																	handleDownload(data.url);
+																}}
+															>
+																<Download />
+															</Button>
+														</div>
+													)}
+												</dd>
+											</div>
+										</dl>
 									</div>
 								</CardContent>
 							</>

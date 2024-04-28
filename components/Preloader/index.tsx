@@ -51,7 +51,7 @@ export default function Preloader() {
 		},
 	};
 
-	const fillColor = theme === "dark" ? "#1f2937" : "#aabfd1";
+	const fillColor = theme === "dark" ? "#1f2937" : "#10223b";
 
 	return (
 		<motion.div
@@ -78,7 +78,7 @@ export default function Preloader() {
 							variants={curve}
 							initial="initial"
 							exit="exit"
-							fill={fillColor}
+							fill="#10223b"
 						></motion.path>
 					</svg>
 				</>

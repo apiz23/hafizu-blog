@@ -3,7 +3,14 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowBigLeft, Download, LoaderIcon, Share } from "lucide-react";
+import {
+	ArrowBigLeft,
+	ArrowLeft,
+	ArrowRight,
+	Download,
+	LoaderIcon,
+	Share,
+} from "lucide-react";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { toast } from "sonner";
@@ -84,16 +91,21 @@ export default function DataDetails({
 						{data ? (
 							<>
 								<CardContent className="font-normal text-lg">
-									<div className="flow-root py-3 px-5 shadow-sm text-gray-100">
+									<div className="flow-root py-3 px-5 shadow-sm text-gray-500 dark:text-gray-100">
 										<dl className="-my-3 divide-y divide-gray-100 text-sm">
 											<div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
 												<dt className="font-medium"> Category</dt>
-												<dd className="text-gray-300 sm:col-span-2"> {data.category}</dd>
+												<dd className="text-gray-600 dark:text-gray-300 sm:col-span-2">
+													{" "}
+													{data.category}
+												</dd>
 											</div>
 
 											<div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
 												<dt className="font-medium"> Description</dt>
-												<dd className="text-gray-300 sm:col-span-2">{data.desc}</dd>
+												<dd className="text-gray-600 dark:text-gray-300 sm:col-span-2">
+													{data.desc}
+												</dd>
 											</div>
 
 											<div className="grid grid-cols-1 gap-1 p-3 ">
@@ -119,14 +131,18 @@ export default function DataDetails({
 														/>
 													) : (
 														<div className="flex justify-end">
-															<Button
-																className="ms-5 mt-2 pt-2 hover:text-blue-400"
+															<div
+																className="group relative inline-block focus:outline-none focus:ring mt-5"
 																onClick={() => {
 																	handleDownload(data.url);
 																}}
 															>
-																<Download />
-															</Button>
+																<span className="absolute inset-0 translate-x-1.5 translate-y-1.5 bg-yellow-300 transition-transform group-hover:translate-x-0 group-hover:translate-y-0"></span>
+
+																<span className="relative inline-block border-2 dark:border-white border-current px-8 py-3 text-sm font-bold uppercase tracking-widest text-black group-active:text-opacity-75">
+																	Download
+																</span>
+															</div>
 														</div>
 													)}
 												</dd>

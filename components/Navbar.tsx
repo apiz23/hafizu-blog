@@ -23,8 +23,11 @@ import {
 	NavigationMenuContent,
 	NavigationMenuLink,
 } from "@radix-ui/react-navigation-menu";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
+	const pathname = usePathname();
+
 	const itemNav = [
 		{ title: "Home", url: "/", icon: Home },
 		{ title: "Link", url: "/link", icon: LucideLink },
@@ -80,10 +83,22 @@ export default function Navbar() {
 										<NavigationMenuLink
 											key={index}
 											href={item.url}
-											className="flex mx-5 py-2"
+											className={`flex mx-5 py-2 ${
+												pathname === item.url ? "text-yellow-500" : "text-gray-300"
+											}`}
 										>
-											<item.icon />
-											<p className="ms-2">{item.title}</p>
+											{pathname === item.url ? (
+												<item.icon className="h-5 w-5 text-yellow-500" />
+											) : (
+												<item.icon className="h-5 w-5" />
+											)}
+											<p
+												className={`ms-2 ${
+													pathname === item.url ? "text-yellow-500" : "text-gray-300"
+												}`}
+											>
+												{item.title}
+											</p>
 										</NavigationMenuLink>
 									))}
 									<ModeToggle />

@@ -96,7 +96,6 @@ export default function DataDetails({
 											<div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
 												<dt className="font-medium"> Category</dt>
 												<dd className="text-gray-600 dark:text-gray-300 sm:col-span-2">
-													{" "}
 													{data.category}
 												</dd>
 											</div>

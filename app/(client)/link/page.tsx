@@ -107,7 +107,11 @@ export default function Page() {
 							</div>
 							{viewMode === "table" ? (
 								<ScrollArea className="h-[550px]">
-									<HoverEffect items={filteredLinks} />
+									{filteredLinks.length === 0 ? (
+										<LoaderIcon className="animate-spin mx-auto" />
+									) : (
+										<HoverEffect items={filteredLinks} />
+									)}
 								</ScrollArea>
 							) : filteredLinks.length === 0 ? (
 								<LoaderIcon className="animate-spin mx-auto" />

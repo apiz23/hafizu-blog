@@ -62,10 +62,22 @@ export default function Navbar() {
 										<Link key={index} href={item.url}>
 											<div
 												key={item.title}
-												className="p-5 border bg-white dark:bg-black flex text-black dark:text-white border-black dark:border-white rounded-md my-5 mx-5 dark:hover:bg-slate-800 hover:bg-slate-200"
+												className={`p-5 border bg-white dark:bg-black flex space-x-3 text-black dark:text-white border-black dark:border-white rounded-md my-5 mx-5 dark:hover:bg-slate-800 hover:bg-slate-200 ${
+													pathname === item.url ? "text-yellow-500" : ""
+												}`}
 											>
-												<item.icon />
-												<p>{item.title}</p>
+												<item.icon
+													className={
+														pathname === item.url ? "h-5 w-5 text-yellow-500" : "h-5 w-5"
+													}
+												/>
+												<p
+													className={
+														pathname === item.url ? "h-5 w-5 text-yellow-500" : "h-5 w-5"
+													}
+												>
+													{item.title}
+												</p>
 											</div>
 										</Link>
 									))}
@@ -84,7 +96,9 @@ export default function Navbar() {
 											key={index}
 											href={item.url}
 											className={`flex mx-5 py-2 ${
-												pathname === item.url ? "text-yellow-500" : "text-gray-300"
+												pathname === item.url
+													? "text-yellow-500"
+													: "text-gray-700 dark:text-gray-300"
 											}`}
 										>
 											{pathname === item.url ? (
@@ -94,7 +108,9 @@ export default function Navbar() {
 											)}
 											<p
 												className={`ms-2 ${
-													pathname === item.url ? "text-yellow-500" : "text-gray-300"
+													pathname === item.url
+														? "text-yellow-500"
+														: "text-gray-700 dark:text-gray-300"
 												}`}
 											>
 												{item.title}

@@ -40,17 +40,17 @@ export default function RootLayout({
 					enableSystem
 					disableTransitionOnChange
 				>
-					<div className="fixed w-full">
+					<div className="w-full z-50 fixed">
 						<Navbar />
 					</div>
 					<Toaster richColors />
 					<div
-						className="bg-neutral-100 dark:bg-black"
-						style={{
-							backgroundImage: `url(${imagePath})`,
-							backgroundSize: "cover",
-							backgroundPosition: "center",
-						}}
+						className="bg-neutral-300 dark:bg-black"
+						// style={{
+						// 	backgroundImage: `url(${imagePath})`,
+						// 	backgroundSize: "cover",
+						// 	backgroundPosition: "center",
+						// }}
 					>
 						<BackgroundBeams />
 						<div className="max-w-screen-xl mx-auto">{children}</div>

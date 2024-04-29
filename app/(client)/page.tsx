@@ -122,7 +122,7 @@ export default function Home() {
 							particleColor={particleColor[0]}
 						/>
 
-						<div className="absolute inset-0 w-full h-full bg-neutral-100 dark:bg-black [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]"></div>
+						<div className="absolute inset-0 w-full h-full bg-neutral-300 dark:bg-black [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]"></div>
 					</div>
 
 					<p

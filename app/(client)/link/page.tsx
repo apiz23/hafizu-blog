@@ -106,7 +106,7 @@ export default function Page() {
 								</div>
 							</div>
 							{viewMode === "table" ? (
-								<ScrollArea className="h-[550px]">
+								<ScrollArea className="h-[560px]">
 									{filteredLinks.length === 0 ? (
 										<LoaderIcon className="animate-spin mx-auto" />
 									) : (

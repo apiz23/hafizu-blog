@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { ArrowBigLeft, Github } from "lucide-react";
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import {
 	Card,
 	CardContent,
@@ -15,6 +15,7 @@ import { signIn, useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import supabase from "@/lib/supabase";
+import { setCache, getCookies } from "@/lib/auth";
 
 interface Token {
 	value: string;
@@ -25,9 +26,18 @@ export default function Page() {
 	const [token, setToken] = useState<Token | undefined>({ value: "" });
 	const [tokenMatched, setTokenMatched] = useState(false);
 
-	if (session && localStorage.getItem("token-hafiz")) {
+	if (session) {
 		return redirect(`${window.location.origin}/dashboard`);
 	}
+
+	useEffect(() => {
+		const checkToken = async () => {
+			if (session && (await getCookies())) {
+				setTokenMatched(true);
+			}
+		};
+		checkToken();
+	}, [session]);
 
 	const handleCheckToken = async () => {
 		let { data: tokens, error } = await supabase.from("tokens").select("*");
@@ -35,15 +45,22 @@ export default function Page() {
 			const matchedToken = tokens.find(
 				(t: { token: string }) => t.token === token?.value
 			);
-			console.log(tokens, matchedToken);
 			if (matchedToken) {
 				setTokenMatched(true);
-				localStorage.setItem("token-hafiz", token?.value || "");
+				setCache();
 			} else {
 				setTokenMatched(false);
 			}
 		} else {
 			setTokenMatched(false);
+		}
+	};
+
+	const handleSignIn = async () => {
+		if (session && (await getCookies())) {
+			redirect(`${window.location.origin}/dashboard`);
+		} else {
+			signIn("github");
 		}
 	};
 
@@ -77,7 +94,7 @@ export default function Page() {
 							<Button
 								variant="ghost"
 								disabled={tokenMatched ? false : true}
-								onClick={() => signIn("github")}
+								onClick={handleSignIn}
 							>
 								<Github className="w-fit h-fit" />
 							</Button>

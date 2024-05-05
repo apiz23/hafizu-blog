@@ -26,9 +26,10 @@ import Link from "next/link";
 import { toast } from "sonner";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
+import { deleteCookies } from "@/lib/auth";
 interface DataType {
 	id: number;
 	url: string;
@@ -177,6 +178,7 @@ export default function Page() {
 						<Button
 							onClick={() => {
 								signOut();
+								deleteCookies();
 							}}
 							className="mx-5"
 						>

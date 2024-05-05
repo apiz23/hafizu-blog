@@ -26,10 +26,6 @@ export default function Page() {
 	const [token, setToken] = useState<Token | undefined>({ value: "" });
 	const [tokenMatched, setTokenMatched] = useState(false);
 
-	if (session) {
-		return redirect(`${window.location.origin}/dashboard`);
-	}
-
 	useEffect(() => {
 		const checkToken = async () => {
 			if (session && (await getCookies())) {
@@ -63,6 +59,10 @@ export default function Page() {
 			signIn("github");
 		}
 	};
+
+	if (session) {
+		return redirect(`${window.location.origin}/dashboard`);
+	}
 
 	return (
 		<>

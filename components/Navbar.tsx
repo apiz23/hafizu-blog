@@ -1,26 +1,21 @@
 "use client";
 
-import { MenuIcon, Home, LucideLink, Lock, Menu } from "lucide-react";
+import { Home, LucideLink, Lock, Menu, Calculator } from "lucide-react";
 import Link from "next/link";
 import {
 	Sheet,
 	SheetContent,
-	SheetDescription,
 	SheetHeader,
 	SheetTitle,
 	SheetTrigger,
 } from "@/components/ui/sheet";
 
 import { ModeToggle } from "./themeBtn";
-import { Separator } from "./ui/separator";
-import { Label } from "./ui/label";
 import Footer from "./footer";
 import {
 	NavigationMenu,
 	NavigationMenuList,
 	NavigationMenuItem,
-	NavigationMenuTrigger,
-	NavigationMenuContent,
 	NavigationMenuLink,
 } from "@radix-ui/react-navigation-menu";
 import { usePathname } from "next/navigation";
@@ -32,6 +27,7 @@ export default function Navbar() {
 		{ title: "Home", url: "/", icon: Home },
 		{ title: "Link", url: "/link", icon: LucideLink },
 		{ title: "Admin", url: "/login", icon: Lock },
+		{ title: "Calculator", url: "/calculator", icon: Calculator },
 	];
 	return (
 		<>

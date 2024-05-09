@@ -33,7 +33,7 @@ export default function Page() {
 					{items.map((item, index) => (
 						<Link
 							key={index}
-							href={`${window.location.pathname}${item.url}`}
+							href={`calculator/${item.url}`}
 							className="group block overflow-hidden"
 						>
 							<Card

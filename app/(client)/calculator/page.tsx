@@ -11,7 +11,6 @@ import {
 import Link from "next/link";
 
 export default function Page() {
-
 	const items = [
 		{ title: "Quadratic Equation", url: "/quadratic", image: "" },
 		{ title: "Matrix", url: "/matrix", image: "" },
@@ -33,6 +32,7 @@ export default function Page() {
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 					{items.map((item, index) => (
 						<Link
+							key={index}
 							href={`${window.location.pathname}${item.url}`}
 							className="group block overflow-hidden"
 						>

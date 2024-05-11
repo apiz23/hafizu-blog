@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
-export default function Page() {
+export default function Quadratic() {
 	const [a, setA] = useState("");
 	const [b, setB] = useState("");
 	const [c, setC] = useState("");
@@ -30,13 +30,11 @@ export default function Page() {
 
 	return (
 		<>
-			<div className="h-screen pt-32">
-				<h1 className="scroll-m-20 text-4xl font-extrabold tracking-wider uppercase lg:text-6xl">
+			<div className="h-screen pt-10">
+				{/* <h1 className="scroll-m-20 text-4xl font-extrabold tracking-wider uppercase lg:text-6xl">
 					Quadratic
-				</h1>
-				<p className="text-gray-300 text-xl font-mono">
-					Quadratic equation: {a}x^2 + {b}x + {c}
-				</p>
+				</h1> */}
+				<p className="text-gray-300 text-xl">General Form: ax^2 + bx + c</p>
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-3 md:px-0 mt-10">
 					<div className="mb-4">
 						<input

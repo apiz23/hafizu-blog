@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 
 export default function Matrix() {
@@ -9,14 +11,14 @@ export default function Matrix() {
 	const [size, setSize] = useState(3);
 	const [result, setResult] = useState(null);
 
-	const handleChange = (e, i, j) => {
+	const handleChange = (e: any, i: any, j: any) => {
 		const newMatrix = [...matrix];
 		newMatrix[i][j] = parseFloat(e.target.value);
 		setMatrix(newMatrix);
 	};
 
 	const calculateDeterminant = () => {
-		let det;
+		let det: any | null = null;
 		if (size === 2) {
 			det = matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
 		} else if (size === 3) {
@@ -61,7 +63,7 @@ export default function Matrix() {
 		setResult(det);
 	};
 
-	const handleSizeChange = (e) => {
+	const handleSizeChange = (e: any) => {
 		const newSize = parseInt(e.target.value);
 		setSize(newSize);
 		setMatrix(new Array(newSize).fill(0).map(() => new Array(newSize).fill(0)));

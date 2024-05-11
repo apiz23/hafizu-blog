@@ -30,7 +30,7 @@ export default function Quadratic() {
 
 	return (
 		<>
-			<div className="h-screen pt-10">
+			<div className="h-full pt-10">
 				{/* <h1 className="scroll-m-20 text-4xl font-extrabold tracking-wider uppercase lg:text-6xl">
 					Quadratic
 				</h1> */}

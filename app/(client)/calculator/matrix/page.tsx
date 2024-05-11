@@ -1,5 +1,6 @@
 "use client";
 
+import { Separator } from "@/components/ui/separator";
 import React, { useState } from "react";
 
 export default function Matrix() {
@@ -71,24 +72,27 @@ export default function Matrix() {
 
 	const renderInputFields = () => {
 		return matrix.map((row, i) => (
-			<div key={i}>
-				{row.map((value, j) => (
-					<input
-						key={`${i}-${j}`}
-						type="number"
-						value={value}
-						onChange={(e) => handleChange(e, i, j)}
-						className="h-20 px-2.5 w-24 m-3 rounded-xl border-gray-200"
-					/>
-				))}
-			</div>
+			<>
+				<div key={i}>
+					{row.map((value, j) => (
+						<input
+							key={`${i}-${j}`}
+							type="number"
+							value={value}
+							onChange={(e) => handleChange(e, i, j)}
+							className="h-8 md:h-20 px-2.5 w-8 md:w-24 m-5 md:m-3 rounded-xl border-gray-200"
+						/>
+					))}
+				</div>
+				<Separator />
+			</>
 		));
 	};
 
 	return (
 		<div className="h-screen pt-10">
 			<div>
-				<h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+				<h3 className="text-2xl font-semibold tracking-tight">
 					{size}x{size} Determinant
 				</h3>
 				<div className="w-full mx-auto">{renderInputFields()}</div>

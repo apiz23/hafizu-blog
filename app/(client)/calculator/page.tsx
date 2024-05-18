@@ -1,14 +1,6 @@
 "use client";
 
 import { Tabs } from "@/components/tabs";
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from "@/components/ui/card";
 import Quadratic from "./quadratic/page";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Matrix from "./matrix/page";
@@ -56,8 +48,8 @@ export default function Page() {
 						and etc.
 					</p>
 				</header>
-				<ScrollArea className="h-fit md:px-0 px-5">
-					<div className="h-[50rem] md:h-[50rem] [perspective:1000px] relative b flex flex-col max-w-5xl mx-auto w-full  items-start justify-start mb-40">
+				<ScrollArea className="h-fit md:px-0 px-5 rounded-lg">
+					<div className="h-[20rem] md:h-screen [perspective:1000px] relative b flex flex-col max-w-5xl mx-auto w-full  items-start justify-start mb-40">
 						<Tabs tabs={tabs} />
 					</div>
 				</ScrollArea>

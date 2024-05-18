@@ -26,8 +26,8 @@ export default function Navbar() {
 	const itemNav = [
 		{ title: "Home", url: "/", icon: Home },
 		{ title: "Link", url: "/link", icon: LucideLink },
-		{ title: "Admin", url: "/login", icon: Lock },
 		{ title: "Calculator", url: "/calculator", icon: Calculator },
+		{ title: "Admin", url: "/login", icon: Lock },
 	];
 	return (
 		<>

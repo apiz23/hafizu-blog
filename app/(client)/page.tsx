@@ -10,9 +10,14 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Lenis from "@studio-freight/lenis";
 import { toast } from "sonner";
-import { LoaderIcon } from "lucide-react";
-import { SparklesCore } from "@/components/ui/sparkles";
+import { Badge, LoaderIcon } from "lucide-react";
 import { useTheme } from "next-themes";
+import BlurIn from "@/components/magicui/blur-in";
+import Loader from "@/components/Preloader";
+import { BorderBeam } from "@/components/magicui/border-beam";
+import ShinyButton from "@/components/magicui/shiny-button";
+import { MacbookScroll } from "@/components/macbook-scroll";
+import FlipText from "@/components/magicui/flip-text";
 
 const nextIcon = "/next-js.svg";
 const supabaseIcon = "/supabase.png";
@@ -81,8 +86,8 @@ export default function Home() {
 
 		if (window.innerWidth > 768) {
 			tl
-				.to(supabaseIconRef.current, { x: -200, opacity: 100 }, ">")
-				.to(nextIconRef.current, { x: 200, opacity: 100 }, "<");
+				.to(supabaseIconRef.current, { x: -400, opacity: 100 }, ">")
+				.to(nextIconRef.current, { x: 400, opacity: 100 }, "<");
 		} else {
 			tl
 				.to(supabaseIconRef.current, { x: -30, opacity: 100 }, ">")
@@ -91,70 +96,57 @@ export default function Home() {
 	}, []);
 	const { theme } = useTheme();
 
-	const particleColor =
-		theme === "dark" ? ["#FFFFFF", "#FFFFFF"] : ["#000000", "#000000"];
-
 	return (
 		<>
-			<main className="min-h-screen">
-				<AnimatePresence mode="wait">{isLoading && <Preloader />}</AnimatePresence>
+			<section className="min-h-screen">
+				<Loader />
 				<div className="h-[40rem] w-full flex flex-col items-center justify-center overflow-hidden rounded-md">
-					<h1
-						className="scroll-m-20 md:text-7xl mx-auto text-4xl font-extrabold tracking-tight mb-5"
-						data-scroll
-						data-scroll-speed="0.5"
-					>
-						Welcome to my blog
-					</h1>
-
-					<div className="w-[40rem] h-40 relative">
-						<div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-3/4 blur-sm" />
-						<div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-3/4" />
-						<div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] w-1/4 blur-sm" />
-						<div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/4" />
-
-						<SparklesCore
-							background="transparent"
-							minSize={0.4}
-							maxSize={1}
-							particleDensity={1200}
-							className="w-full h-full"
-							particleColor={particleColor[0]}
-						/>
-
-						<div className="absolute inset-0 w-full h-full bg-neutral-300 dark:bg-black [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]"></div>
+					<BlurIn
+						word="Welcome to my blog"
+						className="text-4xl font-bold uppercase text-black dark:text-white"
+					/>
+					<div className="my-10">
+						<ShinyButton text="Shiny Button" />
 					</div>
-
-					<p
-						className="absolute leading-7 px-10 [&:not(:first-child)]:mt-6 text-zinc-400"
-						data-scroll
-						data-scroll-speed="0.7"
-					>
-						One of the source of learning material for my Studies Journey
-					</p>
-
-					<Link href="/link" className="absolute pt-28">
-						<Button className="mt-10 text-white bg-gray-800 hover:bg-gray-900 hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
-							Get Started
-						</Button>
-					</Link>
 				</div>
 
 				{isLoading ? (
-					<LoaderIcon className="animate-spin mx-auto text-black" />
+					<LoaderIcon className="animate-spin mx-auto text-white" />
 				) : (
-					<div className="max-w-2xl p-5 md:mx-auto mx-5 rounded-lg shadow-md hover:shadow-2xl dark:shadow-white duration-500">
+					<div className="relative max-w-2xl p-5 md:mx-auto mx-5 mb-10 rounded-lg duration-500">
 						{quotes.map((quote, index) => (
 							<blockquote key={index} className="my-10 border-l-2 pl-6 italic">
 								<h3>{quote.quote}</h3>
 								<p className="float-right mt-2">Author: {quote.author}</p>
 							</blockquote>
 						))}
+						<BorderBeam />
 					</div>
 				)}
-			</main>
-			<main className="min-h-screen">
-				<div className="flex justify-between py-36" ref={containerRef}>
+			</section>
+			<div className="overflow-hidden bg-black w-full">
+				<MacbookScroll
+					title={
+						<BlurIn
+							word="NEXT JS + SUPABASE"
+							className="text-4xl font-bold uppercase text-black dark:text-white"
+						/>
+					}
+					badge={
+						<Link href="https://peerlist.io/manuarora">
+							<Badge className="h-10 w-10 transform -rotate-12" />
+						</Link>
+					}
+					src={`/linear.webp`}
+					showGradient={false}
+				/>
+			</div>
+			<section className="min-h-screen pt-52">
+				<FlipText
+					className="text-4xl font-bold uppercase tracking-[-0.1em] py-10 text-black dark:text-white md:text-7xl md:leading-[5rem]"
+					word="Tech"
+				/>
+				<div className="flex justify-between pt-20" ref={containerRef}>
 					<Avatar
 						ref={nextIconRef}
 						className="md:w-72 w-32 md:h-72 h-32 md:mx-0 ms-5 dark:outline"
@@ -171,7 +163,7 @@ export default function Home() {
 						<AvatarFallback>Supabase</AvatarFallback>
 					</Avatar>
 				</div>
-			</main>
+			</section>
 		</>
 	);
 }

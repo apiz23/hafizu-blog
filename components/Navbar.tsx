@@ -49,9 +49,9 @@ export default function Navbar() {
 											<img src="/logo.png" alt="logo" className="w-8 h-8 ms-5 mt-1" />
 										</span>
 									</SheetTitle>
-									<div className="mx-auto">
+									{/* <div className="mx-auto">
 										<ModeToggle />
-									</div>
+									</div> */}
 								</SheetHeader>
 								<div className="block my-10">
 									{itemNav.map((item, index) => (
@@ -113,7 +113,7 @@ export default function Navbar() {
 											</p>
 										</NavigationMenuLink>
 									))}
-									<ModeToggle />
+									{/* <ModeToggle /> */}
 								</NavigationMenuItem>
 							</NavigationMenuList>
 						</NavigationMenu>

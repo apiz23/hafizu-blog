@@ -25,12 +25,13 @@
     "@radix-ui/react-switch": "^1.0.3",
     "@studio-freight/lenis": "^1.0.42",
     "@supabase/supabase-js": "^2.39.8",
+    "@tabler/icons-react": "^3.8.0",
     "@tsparticles/engine": "^3.3.0",
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.3.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
-    "framer-motion": "^11.1.9",
+    "framer-motion": "^11.2.13",
     "gsap": "^3.12.5",
     "install": "^0.13.0",
     "locomotive-scroll": "^5.0.0-beta.11",
@@ -56,7 +57,7 @@
     "eslint": "^8",
     "eslint-config-next": "14.1.3",
     "postcss": "^8",
-    "tailwindcss": "^3.3.0",
+    "tailwindcss": "^3.4.4",
     "typescript": "^5"
   }
 }

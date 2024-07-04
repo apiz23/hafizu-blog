@@ -3,9 +3,9 @@ import { Inter as FontSans } from "next/font/google";
 import "../globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
-import { BackgroundBeams } from "@/components/ui/background-beams";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/footer";
+import RetroGrid from "@/components/magicui/retro-grid";
 const imagePath = "/images/bg.svg";
 
 export const metadata: Metadata = {
@@ -45,15 +45,15 @@ export default function RootLayout({
 					</div>
 					<Toaster richColors />
 					<div
-						className="bg-neutral-300 dark:bg-black"
+						className="h-fit bg-black"
 						// style={{
 						// 	backgroundImage: `url(${imagePath})`,
 						// 	backgroundSize: "cover",
 						// 	backgroundPosition: "center",
 						// }}
 					>
-						<BackgroundBeams />
-						<div className="max-w-screen-xl mx-auto">{children}</div>
+						{/* <BackgroundBeams /> */}
+						<div className="mx-auto">{children}</div>
 						<Footer />
 					</div>
 				</ThemeProvider>

@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useTheme } from "next-themes";
 
 const opacity = {
@@ -23,7 +23,7 @@ const slideUp = {
 	},
 };
 
-export default function Preloader() {
+export function Preloader() {
 	const [dimension, setDimension] = useState({ width: 0, height: 0 });
 	const { theme } = useTheme();
 
@@ -84,5 +84,19 @@ export default function Preloader() {
 				</>
 			)}
 		</motion.div>
+	);
+}
+
+export default function Loader() {
+	const [isLoading, setIsLoading] = useState(true);
+
+	useEffect(() => {
+		setTimeout(() => {
+			setIsLoading(false);
+		}, 2000);
+	});
+
+	return (
+		<AnimatePresence mode="wait">{isLoading && <Preloader />}</AnimatePresence>
 	);
 }

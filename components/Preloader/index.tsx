@@ -68,6 +68,7 @@ export function Preloader() {
 						animate="enter"
 						className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl flex items-center relative z-10"
 					>
+						<img src="/logo22.png" />
 						Hafizu Blog
 					</motion.p>
 					<svg
@@ -88,13 +89,19 @@ export function Preloader() {
 }
 
 export default function Loader() {
-	const [isLoading, setIsLoading] = useState(true);
+	const [isLoading, setIsLoading] = useState(() => {
+		return sessionStorage.getItem("isLoading") !== "false";
+	});
 
 	useEffect(() => {
-		setTimeout(() => {
-			setIsLoading(false);
-		}, 2000);
-	});
+		if (isLoading) {
+			const timer = setTimeout(() => {
+				setIsLoading(false);
+				sessionStorage.setItem("isLoading", "false");
+			}, 2000);
+			return () => clearTimeout(timer);
+		}
+	}, [isLoading]);
 
 	return (
 		<AnimatePresence mode="wait">{isLoading && <Preloader />}</AnimatePresence>

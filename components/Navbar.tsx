@@ -26,13 +26,12 @@ export default function Navbar() {
 	const itemNav = [
 		{ title: "Home", url: "/", icon: Home },
 		{ title: "Link", url: "/link", icon: LucideLink },
-		{ title: "Calculator", url: "/calculator", icon: Calculator },
 		{ title: "Admin", url: "/login", icon: Lock },
 	];
 	return (
 		<>
 			<nav className="bg-transparent">
-				<div className="max-w-screen-sm rounded-3xl mt-5 md:bg-neutral-200 md:dark:bg-neutral-800 flex mx-auto p-4">
+				<div className="max-w-screen-sm mt-5 flex mx-auto p-4">
 					<div className="block md:hidden flex-col h-full">
 						<Sheet>
 							<SheetTrigger>

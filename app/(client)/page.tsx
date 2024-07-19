@@ -106,7 +106,9 @@ export default function Home() {
 						className="text-4xl font-bold uppercase text-black dark:text-white"
 					/>
 					<div className="my-10">
-						<ShinyButton text="Shiny Button" />
+						<Link href="/link">
+							<ShinyButton text="Get Started" />
+						</Link>
 					</div>
 				</div>
 

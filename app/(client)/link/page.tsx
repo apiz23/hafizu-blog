@@ -58,7 +58,7 @@ export default function Page() {
 	};
 	return (
 		<>
-			<div className="min-h-screen">
+			<div className="min-h-screen bg-neutral-900">
 				<div className="space-x-3 py-10">
 					<div className="py-5 my-20">
 						<div className="max-w-4xl mx-auto">

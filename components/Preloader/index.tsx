@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTheme } from "next-themes";
@@ -90,18 +91,26 @@ export function Preloader() {
 
 export default function Loader() {
 	const [isLoading, setIsLoading] = useState(() => {
-		return sessionStorage.getItem("isLoading") !== "false";
+		if (typeof window !== 'undefined') {
+			return sessionStorage.getItem("isLoading") !== "false";
+		}
+		return true;
 	});
 
 	useEffect(() => {
-		if (isLoading) {
-			const timer = setTimeout(() => {
+		if (typeof window !== 'undefined') {
+			const isLoadingSession = sessionStorage.getItem("isLoading");
+			if (isLoadingSession === "false") {
 				setIsLoading(false);
-				sessionStorage.setItem("isLoading", "false");
-			}, 2000);
-			return () => clearTimeout(timer);
+			} else {
+				const timer = setTimeout(() => {
+					setIsLoading(false);
+					sessionStorage.setItem("isLoading", "false");
+				}, 2000);
+				return () => clearTimeout(timer);
+			}
 		}
-	}, [isLoading]);
+	}, []);
 
 	return (
 		<AnimatePresence mode="wait">{isLoading && <Preloader />}</AnimatePresence>

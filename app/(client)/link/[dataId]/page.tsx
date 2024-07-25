@@ -15,6 +15,7 @@ import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { toast } from "sonner";
 import supabase from "@/lib/supabase";
+import Image from "next/image";
 
 export default function DataDetails({
 	params,
@@ -123,7 +124,7 @@ export default function DataDetails({
 															/>
 														)
 													) : data.url.match(/\.(jpeg|jpg|gif|png)$/) !== null ? (
-														<img
+														<Image
 															src={data.url}
 															alt={data.desc}
 															className="w-full object-contain"

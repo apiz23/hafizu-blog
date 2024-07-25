@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTheme } from "next-themes";
+import Image from "next/image";
 
 const opacity = {
 	initial: {
@@ -69,7 +70,7 @@ export function Preloader() {
 						animate="enter"
 						className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl flex items-center relative z-10"
 					>
-						<img src="/logo22.png" />
+						<Image src="/logo22.png" alt="logo" />
 						Hafizu Blog
 					</motion.p>
 					<svg
@@ -91,14 +92,14 @@ export function Preloader() {
 
 export default function Loader() {
 	const [isLoading, setIsLoading] = useState(() => {
-		if (typeof window !== 'undefined') {
+		if (typeof window !== "undefined") {
 			return sessionStorage.getItem("isLoading") !== "false";
 		}
 		return true;
 	});
 
 	useEffect(() => {
-		if (typeof window !== 'undefined') {
+		if (typeof window !== "undefined") {
 			const isLoadingSession = sessionStorage.getItem("isLoading");
 			if (isLoadingSession === "false") {
 				setIsLoading(false);

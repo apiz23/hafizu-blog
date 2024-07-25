@@ -21,11 +21,6 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import confetti, {
-	Confetti,
-	ConfettiButton,
-} from "@/components/magicui/confetti";
-import type { ConfettiRef } from "@/components/magicui/confetti";
 
 interface GradeListItem {
 	grade: string;
@@ -38,7 +33,7 @@ interface CGPAProps {
 	desc: string;
 }
 
-export default function CGPA({ title, desc }: CGPAProps) {
+export default function CGPA() {
 	const [rowCount, setRowCount] = useState<number>(1);
 	const [grades, setGrades] = useState<string[]>([""]);
 	const [credit, setCredits] = useState<string[]>([""]);
@@ -264,9 +259,7 @@ export default function CGPA({ title, desc }: CGPAProps) {
 					<Dialog>
 						<div className="relative overflow-x-auto sm:rounded-md py-5 flex justify-end">
 							<DialogTrigger type="submit">
-								<ConfettiButton>
-									<Send className="text-blackk" />
-								</ConfettiButton>
+								<Send className="text-blackk" />
 							</DialogTrigger>
 						</div>
 						<DialogContent>

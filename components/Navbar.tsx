@@ -25,6 +25,7 @@ import {
 	NavigationMenuLink,
 } from "@radix-ui/react-navigation-menu";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 export default function Navbar() {
 	const pathname = usePathname();
@@ -53,7 +54,7 @@ export default function Navbar() {
 									<SheetTitle className="flex">
 										<span className="text-2xl px-5 flex font-semibold whitespace-nowrap dark:text-white text-black">
 											Hafizu Blog
-											<img src="/logo.png" alt="logo" className="w-8 h-8 ms-5 mt-1" />
+											<Image src="/logo.png" alt="logo" className="w-8 h-8 ms-5 mt-1" />
 										</span>
 									</SheetTitle>
 									{/* <div className="mx-auto">

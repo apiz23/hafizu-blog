@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, ChangeEvent, FormEvent, useRef } from "react";
 import { motion } from "framer-motion";
 import { PlusIcon, Send, Trash2 } from "lucide-react";

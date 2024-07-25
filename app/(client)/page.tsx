@@ -139,7 +139,7 @@ export default function Home() {
 							<Badge className="h-10 w-10 transform -rotate-12" />
 						</Link>
 					}
-					src={`/linear.webp`}
+					src={`https://i.pinimg.com/originals/8e/53/96/8e5396ad34a3eecbc7cc88c291747796.jpg`}
 					showGradient={false}
 				/>
 			</div>

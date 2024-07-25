@@ -8,6 +8,7 @@ const nextConfig = {
 				hostname: "avatars.githubusercontent.com",
 			},
 		],
+		domains: ["i.pinimg.com"],
 	},
 };
 

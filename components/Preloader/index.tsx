@@ -70,7 +70,7 @@ export function Preloader() {
 						animate="enter"
 						className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl flex items-center relative z-10"
 					>
-						<Image src="/logo22.png" alt="logo" />
+						<Image src="/logo22.png" alt="logo" width="100" height="100" />
 						Hafizu Blog
 					</motion.p>
 					<svg

@@ -213,7 +213,7 @@ export default function CGPA({ title, desc }: CGPAProps) {
 						</TableHeader>
 						<TableBody>
 							{Array.from({ length: rowCount }).map((_, index) => (
-								<TableRow>
+								<TableRow key={index}>
 									<TableCell className="font-medium">{index + 1}</TableCell>
 									<TableCell className="px-3 py-4 w-1/2">
 										<select

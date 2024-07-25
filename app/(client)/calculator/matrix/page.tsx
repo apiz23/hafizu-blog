@@ -90,36 +90,34 @@ export default function Matrix() {
 	};
 
 	return (
-		<div className="h-screen pt-10">
-			<div>
-				<h3 className="text-2xl font-semibold tracking-tight">
-					{size}x{size} Determinant
-				</h3>
-				<div className="w-full mx-auto">{renderInputFields()}</div>
-				<div className="flex justify-between space-x-4 mt-10">
-					<select
-						className="mt-1.5 py-2.5 ps-2 w-full md:w-1/5 rounded-lg sm:text-sm"
-						onChange={handleSizeChange}
-						value={size}
-					>
-						<option value={2}>2x2</option>
-						<option value={3}>3x3</option>
-						<option value={4}>4x4</option>
-					</select>
-					<button
-						className="group relative inline-block text-sm font-medium text-indigo-600 focus:outline-none focus:ring active:text-indigo-500"
-						onClick={calculateDeterminant}
-					>
-						<span className="absolute inset-0 translate-x-0.5 translate-y-0.5 bg-indigo-600 transition-transform group-hover:translate-x-0 group-hover:translate-y-0"></span>
+		<div>
+			<h3 className="text-2xl font-semibold tracking-tight">
+				{size}x{size} Determinant
+			</h3>
+			<div className="w-full mx-auto">{renderInputFields()}</div>
+			<div className="flex justify-between space-x-4 mt-10">
+				<select
+					className="mt-1.5 py-2.5 ps-2 w-full md:w-1/5 rounded-lg sm:text-sm"
+					onChange={handleSizeChange}
+					value={size}
+				>
+					<option value={2}>2x2</option>
+					<option value={3}>3x3</option>
+					<option value={4}>4x4</option>
+				</select>
+				<button
+					className="group relative inline-block text-sm font-medium text-indigo-600 focus:outline-none focus:ring active:text-indigo-500"
+					onClick={calculateDeterminant}
+				>
+					<span className="absolute inset-0 translate-x-0.5 translate-y-0.5 bg-indigo-600 transition-transform group-hover:translate-x-0 group-hover:translate-y-0"></span>
 
-						<span className="relative block border border-current bg-white px-8 py-3">
-							Calculate
-						</span>
-					</button>
-				</div>
-				<div className="h-full flex justify-center item-center">
-					{result !== null && <p>Answer: {result}</p>}
-				</div>
+					<span className="relative block border border-current bg-white px-8 py-3">
+						Calculate
+					</span>
+				</button>
+			</div>
+			<div className="h-full flex justify-center item-center">
+				{result !== null && <p>Answer: {result}</p>}
 			</div>
 		</div>
 	);

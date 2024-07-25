@@ -1,6 +1,13 @@
 "use client";
 
-import { Home, LucideLink, Lock, Menu, Calculator } from "lucide-react";
+import {
+	Home,
+	LucideLink,
+	Lock,
+	Menu,
+	Calculator,
+	MessageSquare,
+} from "lucide-react";
 import Link from "next/link";
 import {
 	Sheet,
@@ -10,7 +17,6 @@ import {
 	SheetTrigger,
 } from "@/components/ui/sheet";
 
-import { ModeToggle } from "./themeBtn";
 import Footer from "./footer";
 import {
 	NavigationMenu,
@@ -25,12 +31,14 @@ export default function Navbar() {
 
 	const itemNav = [
 		{ title: "Home", url: "/", icon: Home },
+		{ title: "Feed", url: "/feed", icon: MessageSquare },
 		{ title: "Link", url: "/link", icon: LucideLink },
+		{ title: "Calculator", url: "/calculator", icon: Calculator },
 		{ title: "Admin", url: "/login", icon: Lock },
 	];
 	return (
 		<>
-			<nav className="bg-transparent">
+			<nav className="bg-black w-fit rounded-md md:mx-auto">
 				<div className="max-w-screen-sm mt-5 flex mx-auto p-4">
 					<div className="block md:hidden flex-col h-full">
 						<Sheet>

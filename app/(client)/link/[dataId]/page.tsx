@@ -3,14 +3,7 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import {
-	ArrowBigLeft,
-	ArrowLeft,
-	ArrowRight,
-	Download,
-	LoaderIcon,
-	Share,
-} from "lucide-react";
+import { ArrowBigLeft, LoaderIcon, Share } from "lucide-react";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { toast } from "sonner";
@@ -76,7 +69,7 @@ export default function DataDetails({
 							</Button>
 						</Link>
 					</div>
-					<Card>
+					<Card className="bg-neutral-800">
 						<CardHeader>
 							<div className="flex justify-between">
 								<CardTitle>Link Details</CardTitle>

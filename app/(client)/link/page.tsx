@@ -15,6 +15,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { LayoutGrid, List, LoaderIcon, RefreshCcw } from "lucide-react";
 import supabase from "@/lib/supabase";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
+import GradualSpacing from "@/components/magicui/gradual-spacing";
 
 export default function Page() {
 	const [links, setLinks] = useState<any>([]);
@@ -57,9 +58,13 @@ export default function Page() {
 		setViewMode(mode);
 	};
 	return (
-		<div className="space-x-3 md:py-10">
+		<div className="min-h-screen space-x-3 md:py-10">
 			<div className="py-5 my-20">
-				<div className="max-w-4xl mx-auto ">
+				<GradualSpacing
+					className="scroll-m-20 text-2xl font-extrabold tracking-wider uppercase lg:text-6xl mb-20"
+					text="File Link"
+				/>
+				<div className="max-w-5xl mx-auto ">
 					<div className="grid grid-cols-1 md:grid-cols-5 mb-5 space-x-3 px-2 mx-5">
 						<div className="col-span-3 flex justify-end">
 							<input

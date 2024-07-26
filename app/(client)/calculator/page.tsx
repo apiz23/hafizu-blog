@@ -11,7 +11,7 @@ export default function Page() {
 			title: "CGPA Calculator",
 			value: "CGPA Calculator",
 			content: (
-				<div className="w-full overflow-hidden relative h-3/5 rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-purple-600 to-slate-900">
+				<div className="w-full overflow-hidden relative h-3/5 rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-neutral-500 to-black">
 					<GradualSpacing
 						className="scroll-m-20 text-2xl font-extrabold tracking-wider uppercase lg:text-6xl"
 						text="CGPA Calculator"
@@ -24,7 +24,7 @@ export default function Page() {
 			title: "Quadratic Equation",
 			value: "quadratic equation",
 			content: (
-				<div className="w-full overflow-hidden relative h-3/5 rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-purple-600 to-slate-900">
+				<div className="w-full overflow-hidden relative h-3/5 rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-neutral-500 to-black">
 					<GradualSpacing
 						className="scroll-m-20 text-2xl font-extrabold tracking-wider uppercase lg:text-6xl"
 						text="Quadratic Equation"
@@ -39,7 +39,10 @@ export default function Page() {
 		<>
 			<>
 				<header className="text-center pt-36">
-					<h2 className="text-xl font-bold text-gray-300 sm:text-5xl">Calculator</h2>
+					<GradualSpacing
+						className="scroll-m-20 text-2xl font-extrabold tracking-wider uppercase lg:text-6xl"
+						text="Calculator"
+					/>
 					<p className="mx-auto mt-4 max-w-md text-gray-400">
 						Very few calculator for doing online calculation such as quadratic, matrix
 						and etc.

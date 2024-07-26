@@ -1,8 +1,5 @@
 "use client";
 
-import Preloader from "@/components/Preloader";
-import { Button } from "@/components/ui/button";
-import { AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -38,21 +35,26 @@ export default function Home() {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const token = "aIeYYuA5/L5bGO45XY8q6w==QunyhvLAU682Kwbv";
+				const token = process.env.NEXT_PUBLIC_API_NINJA;
+				if (!token) {
+					throw new Error("API token is not defined");
+				}
+
 				const headers = new Headers();
-				headers.append("Authorization", `Bearer ${token}`);
+				headers.append("X-Api-Key", token);
+
 				const response = await fetch(
 					"https://api.api-ninjas.com/v1/quotes?category=computers",
 					{
 						method: "GET",
-						headers: {
-							"X-Api-Key": token,
-						},
+						headers: headers,
 					}
 				);
+
 				if (!response.ok) {
 					throw new Error("Network response was not ok");
 				}
+
 				const jsonData = await response.json();
 				setQuotes(jsonData);
 			} catch (error: any) {
@@ -126,7 +128,7 @@ export default function Home() {
 					</div>
 				)}
 			</section>
-			<div className="overflow-hidden bg-black w-full">
+			<div className="overflow-hidden bg-black w-full md:block hidden">
 				<MacbookScroll
 					title={
 						<BlurIn

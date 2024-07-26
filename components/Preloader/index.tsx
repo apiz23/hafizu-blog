@@ -68,9 +68,15 @@ export function Preloader() {
 						variants={opacity}
 						initial="initial"
 						animate="enter"
-						className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl flex items-center relative z-10"
+						className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl relative z-10"
 					>
-						<Image src="/logo22.png" alt="logo" width="100" height="100" />
+						<Image
+							src="/logo2.png"
+							alt="logo"
+							width="100"
+							height="100"
+							className="mx-auto mb-10"
+						/>
 						Hafizu Blog
 					</motion.p>
 					<svg

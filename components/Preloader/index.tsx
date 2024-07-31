@@ -53,14 +53,12 @@ export function Preloader() {
 		},
 	};
 
-	const fillColor = theme === "dark" ? "#1f2937" : "#10223b";
-
 	return (
 		<motion.div
 			variants={slideUp}
 			initial="initial"
 			exit="exit"
-			className="fixed inset-0 flex items-center justify-center z-50 bg-white dark:bg-black"
+			className="fixed inset-0 flex items-center justify-center z-50 bg-black"
 		>
 			{dimension.width > 0 && (
 				<>
@@ -68,7 +66,7 @@ export function Preloader() {
 						variants={opacity}
 						initial="initial"
 						animate="enter"
-						className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl relative z-10"
+						className="text-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl relative z-10"
 					>
 						<Image
 							src="/logo2.png"
@@ -87,7 +85,7 @@ export function Preloader() {
 							variants={curve}
 							initial="initial"
 							exit="exit"
-							fill="#10223b"
+							fill="#fbbf24"
 						></motion.path>
 					</svg>
 				</>

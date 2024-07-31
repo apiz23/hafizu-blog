@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, ChangeEvent, FormEvent, useRef } from "react";
-import { motion } from "framer-motion";
-import { PlusIcon, Send, Trash2 } from "lucide-react";
+import { useState, ChangeEvent, FormEvent } from "react";
+import { PlusIcon, Trash2 } from "lucide-react";
 import {
 	Table,
 	TableBody,
@@ -16,129 +15,60 @@ import {
 import {
 	Dialog,
 	DialogContent,
-	DialogDescription,
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-
-interface GradeListItem {
-	grade: string;
-	max: number;
-	min: number;
-}
-
-interface CGPAProps {
-	title: string;
-	desc: string;
-}
+import { Button } from "@/components/ui/button";
+import { calculateWeightedAverage } from "./calculation";
 
 export default function CGPA() {
-	const [rowCount, setRowCount] = useState<number>(1);
-	const [grades, setGrades] = useState<string[]>([""]);
-	const [credit, setCredits] = useState<string[]>([""]);
+	const [rows, setRows] = useState([{ grade: "", credit: "" }]);
 	const [lastCpa, setLastCpa] = useState<number>(0);
 	const [lastCredit, setLastCredit] = useState<number>(0);
-	const [resultMin, setResultMin] = useState<string>("0");
-	const [resultMax, setResultMax] = useState<string>("0");
-	const [resultMin1, setResultMin1] = useState<string>("0");
-	const [resultMax1, setResultMax1] = useState<string>("0");
+	const [results, setResults] = useState({
+		min: "0",
+		max: "0",
+		min1: "0",
+		max1: "0",
+	});
 
-	const addRow = () => {
-		setRowCount(rowCount + 1);
+	const handleRowChange = (
+		index: number,
+		field: "grade" | "credit",
+		value: string
+	) => {
+		const updatedRows = [...rows];
+		updatedRows[index][field] = value;
+		setRows(updatedRows);
 	};
 
+	const addRow = () => setRows([...rows, { grade: "", credit: "" }]);
+
 	const deleteRow = (index: number) => {
-		if (rowCount > 1) {
-			setRowCount((prevCount) => prevCount - 1);
-
-			const newGrades = [...grades];
-			newGrades.splice(index, 1);
-
-			const newCredits = [...credit];
-			newCredits.splice(index, 1);
-
-			setGrades(newGrades);
-			setCredits(newCredits);
+		if (rows.length > 1) {
+			setRows(rows.filter((_, i) => i !== index));
 		} else {
 			alert("You need at least one row.");
 		}
 	};
 
-	const handleLastCpa = (event: ChangeEvent<HTMLInputElement>) => {
+	const handleLastCpaChange = (event: ChangeEvent<HTMLInputElement>) =>
 		setLastCpa(Number(event.target.value));
-	};
-
-	const handleLastCredit = (event: ChangeEvent<HTMLInputElement>) => {
+	const handleLastCreditChange = (event: ChangeEvent<HTMLInputElement>) =>
 		setLastCredit(Number(event.target.value));
-	};
 
-	const handleGradeChange = (index: number, value: string) => {
-		const newGrades = [...grades];
-		newGrades[index] = value;
-		setGrades(newGrades);
-	};
-
-	const handleCreditChange = (index: number, value: string) => {
-		const newCredits = [...credit];
-		newCredits[index] = value;
-		setCredits(newCredits);
-	};
-
-	const calculateWeightedAverage = (
-		grades: string[],
-		credit: string[],
-		list: GradeListItem[]
-	) => {
-		let max = 0;
-		let min = 0;
-		let totalCredit = 0;
-
-		for (let i = 0; i < grades.length; i++) {
-			for (let j = 0; j < list.length; j++) {
-				if (grades[i] === list[j].grade) {
-					const creditValue = parseFloat(credit[i]);
-					min += list[j].min * creditValue;
-					max += list[j].max * creditValue;
-					totalCredit += creditValue;
-				}
-			}
-		}
-
-		return {
-			min: (min / totalCredit).toFixed(2),
-			max: (max / totalCredit).toFixed(2),
-			min1: ((min + lastCpa * lastCredit) / (lastCredit + totalCredit)).toFixed(2),
-			max1: ((max + lastCpa * lastCredit) / (lastCredit + totalCredit)).toFixed(2),
-		};
-	};
-
-	const handleSubmit = (event: any) => {
+	const handleSubmit = (event: FormEvent) => {
 		event.preventDefault();
-
-		const list: GradeListItem[] = [
-			{ grade: "A+", max: 4, min: 4 },
-			{ grade: "A", max: 4, min: 4 },
-			{ grade: "A-", max: 3.94, min: 3.7 },
-			{ grade: "B+", max: 3.62, min: 3.3 },
-			{ grade: "B", max: 3.24, min: 3 },
-			{ grade: "B-", max: 2.94, min: 2.7 },
-			{ grade: "C+", max: 2.62, min: 2.3 },
-			{ grade: "C", max: 2.24, min: 2 },
-			{ grade: "C-", max: 1.9, min: 1.5 },
-			{ grade: "D", max: 1.4, min: 1 },
-			{ grade: "E", max: 0, min: 0 },
-		];
 		const { min, max, min1, max1 } = calculateWeightedAverage(
-			grades,
-			credit,
-			list
+			rows.map((row) => row.grade),
+			rows.map((row) => row.credit),
+			lastCpa,
+			lastCredit
 		);
-		setResultMin(min);
-		setResultMax(max);
-		setResultMin1(min1);
-		setResultMax1(max1);
+		setResults({ min, max, min1, max1 });
 	};
+
 	return (
 		<section className="py-2 md:px-2.5">
 			<div>
@@ -153,9 +83,8 @@ export default function CGPA() {
 						<input
 							type="number"
 							id="cpa-input"
-							aria-describedby="helper-text-explanation"
-							onChange={handleLastCpa}
-							className=" py-2.5 w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
+							onChange={handleLastCpaChange}
+							className="py-2.5 w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
 						/>
 						<p
 							id="helper-text-explanation"
@@ -174,8 +103,7 @@ export default function CGPA() {
 						<input
 							type="number"
 							id="credit-input"
-							aria-describedby="helper-text-explanation"
-							onChange={handleLastCredit}
+							onChange={handleLastCreditChange}
 							className="py-2.5 w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
 						/>
 						<p
@@ -207,16 +135,16 @@ export default function CGPA() {
 							</TableRow>
 						</TableHeader>
 						<TableBody>
-							{Array.from({ length: rowCount }).map((_, index) => (
+							{rows.map((row, index) => (
 								<TableRow key={index}>
 									<TableCell className="font-medium">{index + 1}</TableCell>
-									<TableCell className="px-3 py-4 w-1/2">
+									<TableCell className="p-0 pe-2 md:px-3 md:py-4 w-1/2">
 										<select
 											className="mt-1.5 w-full py-2.5 rounded-lg bg-white border-gray-300 text-gray-700 sm:text-sm"
-											value={grades[index]}
-											onChange={(e) => handleGradeChange(index, e.target.value)}
+											value={row.grade}
+											onChange={(e) => handleRowChange(index, "grade", e.target.value)}
 										>
-											<option defaultValue="">Grade</option>
+											<option value="">Grade</option>
 											<option value="A+">A+</option>
 											<option value="A">A</option>
 											<option value="A-">A-</option>
@@ -230,13 +158,13 @@ export default function CGPA() {
 											<option value="E">E</option>
 										</select>
 									</TableCell>
-									<TableCell className="px-3 py-4 w-1/2">
+									<TableCell className="p-0 pe-2 md:px-3 md:py-4 w-1/2">
 										<select
 											className="mt-1.5 w-full py-2.5 rounded-lg bg-white border-gray-300 text-gray-700 sm:text-sm"
-											value={credit[index]}
-											onChange={(e) => handleCreditChange(index, e.target.value)}
+											value={row.credit}
+											onChange={(e) => handleRowChange(index, "credit", e.target.value)}
 										>
-											<option defaultValue="">Credit</option>
+											<option value="">Credit</option>
 											<option value="1">1</option>
 											<option value="2">2</option>
 											<option value="3">3</option>
@@ -244,13 +172,12 @@ export default function CGPA() {
 										</select>
 									</TableCell>
 									<TableCell className="px-3 py-4">
-										<button
-											type="button"
+										<Button
 											className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-md text-sm px-5 py-2.5 mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
 											onClick={() => deleteRow(index)}
 										>
 											<Trash2 className="h-5 w-5 text-white" />
-										</button>
+										</Button>
 									</TableCell>
 								</TableRow>
 							))}
@@ -258,8 +185,11 @@ export default function CGPA() {
 					</Table>
 					<Dialog>
 						<div className="relative overflow-x-auto sm:rounded-md py-5 flex justify-end">
-							<DialogTrigger type="submit">
-								<Send className="text-blackk" />
+							<DialogTrigger
+								type="submit"
+								className="rounded-md bg-white text-black p-2.5 text-lg"
+							>
+								Submit
 							</DialogTrigger>
 						</div>
 						<DialogContent>
@@ -268,14 +198,10 @@ export default function CGPA() {
 							</DialogHeader>
 							<div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-5">
 								<div className="text-center rounded-md bg-neutral-700 py-3">
-									{`${resultMin}`} {" < "}
-									GPA {" < "}
-									{`${resultMax}`}
+									{`${results.min}`} {" < "} GPA {" < "} {`${results.max}`}
 								</div>
 								<div className="text-center rounded-md bg-neutral-700 py-3">
-									{`${resultMin1}`} {" < "}
-									CPA {" < "}
-									{`${resultMax1}`}
+									{`${results.min1}`} {" < "} CPA {" < "} {`${results.max1}`}
 								</div>
 							</div>
 						</DialogContent>

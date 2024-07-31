@@ -8,7 +8,7 @@ const nextConfig = {
 				hostname: "avatars.githubusercontent.com",
 			},
 		],
-		domains: ["i.pinimg.com"],
+		domains: ["api.microlink.io"],
 	},
 };
 

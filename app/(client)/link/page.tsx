@@ -1,4 +1,5 @@
 "use client";
+
 import {
 	Table,
 	TableBody,
@@ -7,7 +8,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -16,52 +17,48 @@ import { LayoutGrid, List, LoaderIcon, RefreshCcw } from "lucide-react";
 import supabase from "@/lib/supabase";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 import GradualSpacing from "@/components/magicui/gradual-spacing";
+import { useQuery } from "react-query";
+
+async function fetchLinks() {
+	const { data, error } = await supabase
+		.from("link")
+		.select("*")
+		.order("created_at", { ascending: false });
+
+	if (error) {
+		throw new Error(error.message);
+	}
+	return data;
+}
 
 export default function Page() {
-	const [links, setLinks] = useState<any>([]);
-	const [filteredLinks, setFilteredLinks] = useState<any>([]);
+	const { data: links = [], error } = useQuery(["links"], fetchLinks);
 	const [searchQuery, setSearchQuery] = useState("");
 	const [viewMode, setViewMode] = useState("table");
-
-	useEffect(() => {
-		async function fetchLinks() {
-			try {
-				const { data: fetchedData, error } = await supabase
-					.from("link")
-					.select("*")
-					.order("created_at", { ascending: false });
-				if (error) {
-					toast.error(error.message);
-				}
-				setLinks(fetchedData || []);
-				setFilteredLinks(fetchedData || []);
-			} catch (error: any) {
-				toast.error(error.message);
-			}
-		}
-
-		fetchLinks();
-	}, []);
 
 	const handleSearch = (e: any) => {
 		const query = e.target.value.toLowerCase();
 		setSearchQuery(query);
-		const filtered = links.filter(
-			(link: any) =>
-				link.category.toLowerCase().includes(query) ||
-				link.desc.toLowerCase().includes(query)
-		);
-		setFilteredLinks(filtered);
 	};
 
-	const handleViewModeToggle = (mode: any) => {
+	const handleViewModeToggle = (mode: string) => {
 		setViewMode(mode);
 	};
+
+	const filteredLinks = links.filter(
+		(link: any) =>
+			link.category.toLowerCase().includes(searchQuery) ||
+			link.desc.toLowerCase().includes(searchQuery)
+	);
+
+	if (error) {
+		toast.error((error as Error).message);
+	}
 	return (
 		<div className="min-h-screen space-x-3 md:py-10">
 			<div className="py-5 my-20">
 				<GradualSpacing
-					className="scroll-m-20 text-2xl font-extrabold tracking-wider uppercase lg:text-6xl mb-20"
+					className="scroll-m-20 text-2xl font-extrabold tracking-wider uppercase lg:text-6xl mb-14"
 					text="File Link"
 				/>
 				<div className="max-w-5xl mx-auto ">
@@ -119,44 +116,46 @@ export default function Page() {
 					) : filteredLinks.length === 0 ? (
 						<LoaderIcon className="animate-spin mx-auto" />
 					) : (
-						<ScrollArea className="h-[550px]">
-							<Table className="max-w-4xl bg-opacity-30 backdrop-blur-lg mx-2.5">
-								<TableHeader>
-									<TableRow className="bg-zinc-200 dark:bg-zinc-900 tracking-wider font-mono">
-										<TableHead className="w-[60px]">No</TableHead>
-										<TableHead>Name</TableHead>
-										<TableHead>Description</TableHead>
-										<TableHead className="text-center">Date Created</TableHead>
-									</TableRow>
-								</TableHeader>
-								<TableBody>
-									{filteredLinks.length === 0 ? (
-										<TableRow>
-											<TableCell colSpan={4} className="text-center">
-												<LoaderIcon className="animate-spin mx-auto" />
-											</TableCell>
+						<>
+							<ScrollArea className="h-[550px] relative">
+								<Table className="max-w-4xl bg-opacity-30 backdrop-blur-lg mx-2.5">
+									<TableHeader>
+										<TableRow className="bg-zinc-200 dark:bg-zinc-900 tracking-wider font-mono">
+											<TableHead className="w-[60px]">No</TableHead>
+											<TableHead>Name</TableHead>
+											<TableHead>Description</TableHead>
+											<TableHead className="text-center">Date Created</TableHead>
 										</TableRow>
-									) : (
-										filteredLinks.map((link: any, index: any) => (
-											<TableRow key={index + 1} className="capitalize">
-												<TableCell className="font-medium">
-													<Link href={`${window.location.pathname}/${link.id}`}>
-														<Button variant="default" className="rounded-full">
-															{index + 1}
-														</Button>
-													</Link>
-												</TableCell>
-												<TableCell>{link.category}</TableCell>
-												<TableCell>{link.desc}</TableCell>
-												<TableCell className="text-center">
-													{new Date(link.created_at).toLocaleDateString("en-GB")}
+									</TableHeader>
+									<TableBody>
+										{filteredLinks.length === 0 ? (
+											<TableRow>
+												<TableCell colSpan={4} className="text-center">
+													<LoaderIcon className="animate-spin mx-auto" />
 												</TableCell>
 											</TableRow>
-										))
-									)}
-								</TableBody>
-							</Table>
-						</ScrollArea>
+										) : (
+											filteredLinks.map((link: any, index: any) => (
+												<TableRow key={index + 1} className="capitalize">
+													<TableCell className="font-medium">
+														<Link href={`${window.location.pathname}/${link.id}`}>
+															<Button variant="default" className="rounded-full">
+																{index + 1}
+															</Button>
+														</Link>
+													</TableCell>
+													<TableCell>{link.category}</TableCell>
+													<TableCell>{link.desc}</TableCell>
+													<TableCell className="text-center">
+														{new Date(link.created_at).toLocaleDateString("en-GB")}
+													</TableCell>
+												</TableRow>
+											))
+										)}
+									</TableBody>
+								</Table>
+							</ScrollArea>
+						</>
 					)}
 				</div>
 			</div>

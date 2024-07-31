@@ -5,8 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/footer";
-import RetroGrid from "@/components/magicui/retro-grid";
-const imagePath = "/images/bg.svg";
+import ReactQueryProvider from "@/lib/react-query";
 
 export const metadata: Metadata = {
 	title: "Hafizu Blog",
@@ -52,8 +51,9 @@ export default function RootLayout({
 						// 	backgroundPosition: "center",
 						// }}
 					>
-						{/* <BackgroundBeams /> */}
-						<div className="mx-auto">{children}</div>
+						<div className="mx-auto">
+							<ReactQueryProvider>{children}</ReactQueryProvider>
+						</div>
 						<Footer />
 					</div>
 				</ThemeProvider>

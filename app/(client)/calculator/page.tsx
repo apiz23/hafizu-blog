@@ -48,7 +48,7 @@ export default function Page() {
 						and etc.
 					</p>
 				</header>
-				<div className="min-h-screen pt-32 md:px-0 px-2.5 md:mb-0 mb-20">
+				<div className="h-fit pt-32 md:px-0 px-2.5 md:mb-20 mb-20">
 					<Tabs defaultValue={tabs[0].value} className="w-full mx-auto max-w-4xl">
 						<TabsList>
 							{tabs.map((tab) => (

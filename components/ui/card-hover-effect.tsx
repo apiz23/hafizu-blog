@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { BorderBeam } from "../magicui/border-beam";
 
 export const HoverEffect = ({
 	items,
@@ -21,7 +22,10 @@ export const HoverEffect = ({
 
 	return (
 		<div
-			className={cn("grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4", className)}
+			className={cn(
+				"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 relative",
+				className
+			)}
 		>
 			{items.map((item, idx) => (
 				<Link

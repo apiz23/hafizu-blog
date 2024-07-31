@@ -113,7 +113,7 @@ export const MacbookScroll = ({
 				{showGradient && (
 					<div className="h-40 w-full absolute bottom-0 inset-x-0 bg-gradient-to-t dark:from-black from-white via-white dark:via-black to-transparent z-50"></div>
 				)}
-				{badge && <div className="absolute bottom-4 left-4">{badge}</div>}
+				{/* {badge && <div className="absolute bottom-4 left-4">{badge}</div>} */}
 			</div>
 		</div>
 	);

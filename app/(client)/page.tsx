@@ -19,6 +19,7 @@ import {
 } from "react-icons/ri";
 import { SiAuth0 } from "react-icons/si";
 import { useQuery } from "react-query";
+import ContributionsChart from "@/components/contributor";
 
 interface Quote {
 	author: string;
@@ -104,7 +105,12 @@ export default function Home() {
 					</div>
 				)}
 			</section>
-			<section className="min-h-screen"></section>
+			<section className="min-h-screen pt-28 grid grid-cols-1 md:grid-cols-5">
+				<div className="block md:col-span-2 pt-5 md:pt-24">
+					<ContributionsChart />
+				</div>
+				<div className="block"></div>
+			</section>
 			<section className="min-h-screen pt-36">
 				<FlipText
 					className="text-4xl font-bold uppercase tracking-[-0.1em] py-10 mb-10 text-black dark:text-white md:text-7xl md:leading-[5rem]"

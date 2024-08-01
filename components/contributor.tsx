@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { PinContainer } from "./3d-pin";
+import { toast } from "sonner";
 
 interface GitHubAPI {
 	login: string;
@@ -29,8 +30,8 @@ const ContributionsCard = () => {
 				const result = await response.json();
 
 				setContributors(result);
-			} catch (error) {
-				console.error("Error fetching data:", error);
+			} catch (error: any) {
+				toast.error("Error fetching data:", error);
 			}
 		}
 
@@ -40,7 +41,11 @@ const ContributionsCard = () => {
 	return (
 		<div className="p-4 max-w-fit mx-auto">
 			{contributors.map((contributor) => (
-				<PinContainer title="GitHub Repo" href={contributor.html_url}>
+				<PinContainer
+					key={contributor.id}
+					title="GitHub Repo"
+					href={contributor.html_url}
+				>
 					<div className="flex basis-full flex-col p-4 tracking-tight text-slate-700/80 sm:basis-1/2 w-[15rem] md:w-[30rem] h-[20rem] md:h-[35rem]">
 						<h3 className="max-w-xs !pb-2 !m-0 font-bold text-base text-slate-700">
 							Hafizu Blog

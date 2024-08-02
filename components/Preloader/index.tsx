@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useTheme } from "next-themes";
 import Image from "next/image";
 
 const opacity = {
@@ -27,7 +26,6 @@ const slideUp = {
 
 export function Preloader() {
 	const [dimension, setDimension] = useState({ width: 0, height: 0 });
-	const { theme } = useTheme();
 
 	useEffect(() => {
 		setDimension({ width: window.innerWidth, height: window.innerHeight });
@@ -58,7 +56,7 @@ export function Preloader() {
 			variants={slideUp}
 			initial="initial"
 			exit="exit"
-			className="fixed inset-0 flex items-center justify-center z-50 bg-black"
+			className="fixed inset-0 flex items-center justify-center z-50"
 		>
 			{dimension.width > 0 && (
 				<>

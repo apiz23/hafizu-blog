@@ -8,7 +8,6 @@ import Lenis from "@studio-freight/lenis";
 import { toast } from "sonner";
 import { LoaderIcon } from "lucide-react";
 import BlurIn from "@/components/magicui/blur-in";
-import Loader from "@/components/Preloader";
 import { BorderBeam } from "@/components/magicui/border-beam";
 import ShinyButton from "@/components/magicui/shiny-button";
 import FlipText from "@/components/magicui/flip-text";
@@ -20,12 +19,6 @@ import {
 import { SiAuth0 } from "react-icons/si";
 import { useQuery } from "react-query";
 import ContributionsChart from "@/components/contributor";
-
-interface Quote {
-	author: string;
-	quote: string;
-	category: string;
-}
 
 export default function Home() {
 	const [isLoading, setIsLoading] = useState(true);
@@ -78,13 +71,12 @@ export default function Home() {
 	return (
 		<>
 			<section className="min-h-screen">
-				<Loader />
 				<div className="h-[30rem] md:h-[40rem] w-full flex flex-col items-center justify-center overflow-hidden rounded-md">
 					<BlurIn
 						word="Welcome to my blog"
 						className="text-4xl font-bold uppercase text-black dark:text-white"
 					/>
-					<div className="md:my-5">
+					<div className="my-5">
 						<Link href="/link">
 							<ShinyButton text="Get Started" />
 						</Link>

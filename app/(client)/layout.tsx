@@ -6,6 +6,7 @@ import { Toaster } from "sonner";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/footer";
 import ReactQueryProvider from "@/lib/react-query";
+import Loader from "@/components/Preloader";
 
 export const metadata: Metadata = {
 	title: "Hafizu Blog",
@@ -41,16 +42,10 @@ export default function RootLayout({
 				>
 					<div className="w-full z-50 fixed">
 						<Navbar />
+						<Loader />
 					</div>
 					<Toaster richColors />
-					<div
-						className="h-fit bg-black"
-						// style={{
-						// 	backgroundImage: `url(${imagePath})`,
-						// 	backgroundSize: "cover",
-						// 	backgroundPosition: "center",
-						// }}
-					>
+					<div className="h-fit bg-black">
 						<div className="mx-auto">
 							<ReactQueryProvider>{children}</ReactQueryProvider>
 						</div>

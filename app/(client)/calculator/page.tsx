@@ -4,6 +4,7 @@ import GradualSpacing from "@/components/magicui/gradual-spacing";
 import CGPA from "./cgpa/page";
 import Quadratic from "./quadratic/page";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import BlurIn from "@/components/magicui/blur-in";
 
 export default function Page() {
 	const tabs = [
@@ -12,9 +13,9 @@ export default function Page() {
 			value: "CGPA Calculator",
 			content: (
 				<div className="w-full overflow-hidden relative h-3/5 rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-neutral-500 to-black">
-					<GradualSpacing
+					<BlurIn
 						className="scroll-m-20 text-2xl font-extrabold tracking-wider uppercase lg:text-6xl"
-						text="CGPA Calculator"
+						word="CGPA Calculator"
 					/>
 					<CGPA />
 				</div>
@@ -25,9 +26,9 @@ export default function Page() {
 			value: "quadratic equation",
 			content: (
 				<div className="w-full overflow-hidden relative h-3/5 rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-neutral-500 to-black">
-					<GradualSpacing
+					<BlurIn
 						className="scroll-m-20 text-2xl font-extrabold tracking-wider uppercase lg:text-6xl"
-						text="Quadratic Equation"
+						word="Quadratic Equation"
 					/>
 					<Quadratic />
 				</div>

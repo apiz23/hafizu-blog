@@ -81,11 +81,11 @@ export default function Home() {
 					/>
 					<BlurIn
 						word="Welcome to my blog"
-						className="text-7xl font-bold uppercase text-white"
+						className="text-2xl md:text-4xl lg:text-7xl font-bold uppercase text-white"
 					/>
 					<BlurIn
 						word="Sharing Note and Feed"
-						className="text-lg font-normal capitalize text-white"
+						className="text-base md:text-lg font-normal capitalize text-white"
 					/>
 				</div>
 

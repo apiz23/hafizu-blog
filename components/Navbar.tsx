@@ -18,7 +18,11 @@ import {
 	SheetTitle,
 	SheetTrigger,
 } from "@/components/ui/sheet";
-import { MdDashboard } from "react-icons/md";
+import {
+	MdDashboard,
+	MdKeyboardArrowUp,
+	MdOutlineKeyboardArrowDown,
+} from "react-icons/md";
 
 import Footer from "./footer";
 import {
@@ -38,9 +42,12 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { signOut, useSession } from "next-auth/react";
 import { deleteCookies } from "@/lib/auth";
 import { Button } from "./ui/button";
+import { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function Navbar() {
 	const pathname = usePathname();
+	const [isMenuVisible, setIsMenuVisible] = useState(false);
 
 	const itemNav = [
 		{ title: "Home", url: "/", icon: Home },
@@ -50,19 +57,20 @@ export default function Navbar() {
 		{ title: "Admin", url: "/login", icon: Lock },
 	];
 
+	const handleToggleMenu = () => {
+		setIsMenuVisible(!isMenuVisible);
+	};
+
 	return (
 		<>
-			<nav className="bg-black bg-opacity-50 w-fit rounded-md md:mx-auto">
-				<div className="max-w-screen-sm mt-5 flex mx-auto p-4">
+			<nav className="fixed top-0 left-0 w-full z-50">
+				<div className="p-4 h-full">
 					<div className="block md:hidden flex-col h-full">
 						<Sheet>
 							<SheetTrigger>
 								<Menu className="hover:text-zinc-500" />
 							</SheetTrigger>
-							<SheetContent
-								side="left"
-								className="flex flex-col justify-between h-full w-2/3"
-							>
+							<SheetContent side="left" className="h-full w-2/3 flex flex-col">
 								<SheetHeader>
 									<SheetTitle className="flex">
 										<span className="text-2xl px-5 flex font-semibold whitespace-nowrap dark:text-white text-black">
@@ -70,34 +78,25 @@ export default function Navbar() {
 										</span>
 									</SheetTitle>
 								</SheetHeader>
-								<div className="block">
+								<div className="flex-1 overflow-auto">
 									{itemNav.map((item, index) => (
 										<SheetClose asChild key={index}>
-											<TooltipProvider>
-												<Tooltip>
-													<TooltipTrigger>
-														<Link href={item.url} passHref>
-															<div
-																className={`p-5 border bg-white dark:bg-black flex space-x-3 text-black dark:text-white border-black dark:border-white rounded-md my-5 mx-5 dark:hover:bg-slate-800 hover:bg-slate-200 ${
-																	pathname === item.url ? "text-yellow-500" : ""
-																}`}
-															>
-																<item.icon
-																	className={
-																		pathname === item.url ? "h-5 w-5 text-yellow-500" : "h-5 w-5"
-																	}
-																/>
-																<p className={pathname === item.url ? "text-yellow-500" : ""}>
-																	{item.title}
-																</p>
-															</div>
-														</Link>
-													</TooltipTrigger>
-													<TooltipContent>
-														<p>{item.title}</p>
-													</TooltipContent>
-												</Tooltip>
-											</TooltipProvider>
+											<Link href={item.url} passHref>
+												<div
+													className={`p-5 border bg-white dark:bg-black flex space-x-3 text-black dark:text-white border-black dark:border-white rounded-md my-5 mx-5 dark:hover:bg-slate-800 hover:bg-slate-200 ${
+														pathname === item.url ? "text-yellow-500" : ""
+													}`}
+												>
+													<item.icon
+														className={
+															pathname === item.url ? "h-5 w-5 text-yellow-500" : "h-5 w-5"
+														}
+													/>
+													<p className={pathname === item.url ? "text-yellow-500" : ""}>
+														{item.title}
+													</p>
+												</div>
+											</Link>
 										</SheetClose>
 									))}
 								</div>
@@ -106,10 +105,19 @@ export default function Navbar() {
 						</Sheet>
 					</div>
 
-					<div className="hidden w-full md:block md:w-auto mx-auto">
+					<motion.div
+						className="w-fit mx-auto"
+						initial={{ opacity: 0, translateY: -10, filter: "blur(10px)" }}
+						animate={{
+							opacity: isMenuVisible ? 1 : 0,
+							translateY: isMenuVisible ? 0 : -10,
+							filter: isMenuVisible ? "blur(0)" : "blur(10px)",
+						}}
+						transition={{ duration: 0.5, ease: "easeInOut" }}
+					>
 						<NavigationMenu>
 							<NavigationMenuList>
-								<NavigationMenuItem className="flex w-full ">
+								<NavigationMenuItem className="flex w-full bg-neutral-700 rounded-full p-2">
 									{itemNav.map((item, index) => (
 										<TooltipProvider key={index}>
 											<Tooltip>
@@ -148,6 +156,15 @@ export default function Navbar() {
 								</NavigationMenuItem>
 							</NavigationMenuList>
 						</NavigationMenu>
+					</motion.div>
+
+					<div className="justify-center hidden md:flex">
+						<button
+							onClick={handleToggleMenu}
+							className="mt-2 p-2 bg-neutral-700 bg-opacity-70 text-white rounded-full"
+						>
+							{isMenuVisible ? <MdKeyboardArrowUp /> : <MdOutlineKeyboardArrowDown />}
+						</button>
 					</div>
 				</div>
 			</nav>

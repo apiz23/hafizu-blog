@@ -50,8 +50,8 @@ export default function Page() {
 		toast.error((error as Error).message);
 	}
 	return (
-		<div className="min-h-screen space-x-3 md:py-10">
-			<div className="py-5 my-20">
+		<div className="min-h-screen space-x-3 px-5 pt-24">
+			<div className="py-5">
 				<GradualSpacing
 					className="scroll-m-20 text-2xl font-extrabold tracking-wider uppercase lg:text-6xl mb-14"
 					text="File Link"
@@ -85,7 +85,7 @@ export default function Page() {
 						</div>
 					</div>
 
-					<ScrollArea className="h-[560px]">
+					<ScrollArea className="h-[50vh] md:h-[560px]">
 						{filteredLinks.length === 0 ? (
 							<LoaderIcon className="animate-spin mx-auto" />
 						) : (

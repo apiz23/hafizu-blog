@@ -7,6 +7,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/footer";
 import ReactQueryProvider from "@/lib/react-query";
 import Loader from "@/components/Preloader";
+import DotPattern from "@/components/magicui/dot-pattern";
+import { cn } from "@/utils/cn";
 
 export const metadata: Metadata = {
 	title: "Hafizu Blog",
@@ -45,11 +47,31 @@ export default function RootLayout({
 						<Loader />
 					</div>
 					<Toaster richColors />
-					<div className="h-fit bg-black">
+					<div className="bg-black">
+						<DotPattern
+							width={20}
+							height={20}
+							cx={1}
+							cy={1}
+							cr={1}
+							className={cn(
+								"[mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)] "
+							)}
+						/>
 						<div className="mx-auto">
 							<ReactQueryProvider>{children}</ReactQueryProvider>
 						</div>
-						<Footer />
+						<DotPattern
+							width={20}
+							height={20}
+							cx={1}
+							cy={1}
+							cr={1}
+							className={cn(
+								"[mask-image:linear-gradient(to_top_left,white,transparent,transparent)] "
+							)}
+						/>
+						{/* <Footer /> */}
 					</div>
 				</ThemeProvider>
 			</body>

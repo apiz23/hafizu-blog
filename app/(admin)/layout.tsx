@@ -7,14 +7,16 @@ export const metadata = {
 	icons: {
 		icon: [
 			{
-				url: "/logo.png",
-				href: "/logo.png",
+				url: "/logo1.png",
+				href: "/logo1.png",
 			},
 		],
 	},
 };
 import { Toaster } from "sonner";
 import { NextAuthProvider } from "@/components/session-provider";
+import ReactQueryProvider from "@/lib/react-query";
+import { NavbarAd } from "@/components/Navbar";
 
 export default function RootLayout({
 	children,
@@ -31,7 +33,10 @@ export default function RootLayout({
 					disableTransitionOnChange
 				>
 					<Toaster richColors />
-					<NextAuthProvider>{children}</NextAuthProvider>
+					<NextAuthProvider>
+						<NavbarAd />
+						<ReactQueryProvider>{children}</ReactQueryProvider>
+					</NextAuthProvider>
 				</ThemeProvider>
 			</body>
 		</html>

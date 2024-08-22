@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
@@ -9,7 +8,6 @@ import { toast } from "sonner";
 import { LoaderIcon } from "lucide-react";
 import BlurIn from "@/components/magicui/blur-in";
 import { BorderBeam } from "@/components/magicui/border-beam";
-import ShinyButton from "@/components/magicui/shiny-button";
 import FlipText from "@/components/magicui/flip-text";
 import {
 	RiNextjsLine,
@@ -18,7 +16,9 @@ import {
 } from "react-icons/ri";
 import { SiAuth0 } from "react-icons/si";
 import { useQuery } from "react-query";
-import ContributionsChart from "@/components/contributor";
+import Image from "next/image";
+import { cn } from "@/utils/cn";
+import DotPattern from "@/components/magicui/dot-pattern";
 
 export default function Home() {
 	const [isLoading, setIsLoading] = useState(true);
@@ -72,15 +72,21 @@ export default function Home() {
 		<>
 			<section className="min-h-screen">
 				<div className="h-[30rem] md:h-[40rem] w-full flex flex-col items-center justify-center overflow-hidden rounded-md">
+					<Image
+						src="/logo2.png"
+						alt="logo"
+						width={500}
+						height={500}
+						className="w-fit h-[20vh]"
+					/>
 					<BlurIn
 						word="Welcome to my blog"
-						className="text-4xl font-bold uppercase text-black dark:text-white"
+						className="text-7xl font-bold uppercase text-white"
 					/>
-					<div className="my-5">
-						<Link href="/link">
-							<ShinyButton text="Get Started" />
-						</Link>
-					</div>
+					<BlurIn
+						word="Sharing Note and Feed"
+						className="text-lg font-normal capitalize text-white"
+					/>
 				</div>
 
 				{isLoading ? (
@@ -96,16 +102,20 @@ export default function Home() {
 						<BorderBeam />
 					</div>
 				)}
+				<DotPattern
+					width={20}
+					height={20}
+					cx={1}
+					cy={1}
+					cr={1}
+					className={cn(
+						"[mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)] "
+					)}
+				/>
 			</section>
-			<section className="min-h-screen pt-28 grid grid-cols-1 md:grid-cols-5">
-				<div className="block md:col-span-2 pt-5 md:pt-24">
-					<ContributionsChart />
-				</div>
-				<div className="block"></div>
-			</section>
-			<section className="min-h-screen pt-36">
+			<section className="min-h-screen pt-36 relative">
 				<FlipText
-					className="text-4xl font-bold uppercase tracking-[-0.1em] py-10 mb-10 text-black dark:text-white md:text-7xl md:leading-[5rem]"
+					className="text-4xl font-bold uppercase tracking-[-0.1em] py-10 mb-10 text-white md:text-7xl md:leading-[5rem]"
 					word="Tech"
 				/>
 				<div className="max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-4 px-5 md:px-10 mx-auto mb-10">
@@ -122,6 +132,16 @@ export default function Home() {
 						<RiTailwindCssFill className="h-20 w-20 text-black mx-auto" />
 					</div>
 				</div>
+				<DotPattern
+					width={20}
+					height={20}
+					cx={1}
+					cy={1}
+					cr={1}
+					className={cn(
+						"[mask-image:linear-gradient(to_top_left,white,transparent,transparent)] "
+					)}
+				/>
 			</section>
 		</>
 	);

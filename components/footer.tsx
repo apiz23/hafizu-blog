@@ -5,7 +5,7 @@ import React from "react";
 export default function Footer() {
 	return (
 		<>
-			<footer className="p-4">
+			<footer className="p-4 bg-transparent">
 				<div className="text-center w-full text-white backdrop-blur-md">
 					<div className="px-4 pb-0 mx-auto">
 						<section className="mb-4 flex justify-center space-x-5">

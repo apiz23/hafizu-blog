@@ -55,22 +55,22 @@ export default function RootLayout({
 							cy={1}
 							cr={1}
 							className={cn(
-								"[mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)] "
+								"fixed bottom-0 left-0 right-0 [mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)] "
 							)}
 						/>
 						<div className="mx-auto">
 							<ReactQueryProvider>{children}</ReactQueryProvider>
+							<DotPattern
+								width={20}
+								height={20}
+								cx={1}
+								cy={1}
+								cr={1}
+								className={cn(
+									"fixed bottom-0 left-0 right-0 [mask-image:linear-gradient(to_top_left,white,transparent,transparent)]"
+								)}
+							/>
 						</div>
-						<DotPattern
-							width={20}
-							height={20}
-							cx={1}
-							cy={1}
-							cr={1}
-							className={cn(
-								"[mask-image:linear-gradient(to_top_left,white,transparent,transparent)] "
-							)}
-						/>
 						{/* <Footer /> */}
 					</div>
 				</ThemeProvider>

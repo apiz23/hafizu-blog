@@ -69,7 +69,7 @@ export default function Home() {
 	}
 
 	return (
-		<>
+		<div className="h-fit">
 			<section className="min-h-screen">
 				<div className="h-[30rem] md:h-[40rem] w-full flex flex-col items-center justify-center overflow-hidden rounded-md">
 					<Image
@@ -102,16 +102,6 @@ export default function Home() {
 						<BorderBeam />
 					</div>
 				)}
-				<DotPattern
-					width={20}
-					height={20}
-					cx={1}
-					cy={1}
-					cr={1}
-					className={cn(
-						"[mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)] "
-					)}
-				/>
 			</section>
 			<section className="min-h-screen pt-36 relative">
 				<FlipText
@@ -132,17 +122,7 @@ export default function Home() {
 						<RiTailwindCssFill className="h-20 w-20 text-black mx-auto" />
 					</div>
 				</div>
-				<DotPattern
-					width={20}
-					height={20}
-					cx={1}
-					cy={1}
-					cr={1}
-					className={cn(
-						"[mask-image:linear-gradient(to_top_left,white,transparent,transparent)] "
-					)}
-				/>
 			</section>
-		</>
+		</div>
 	);
 }

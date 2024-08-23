@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, ChangeEvent, FormEvent } from "react";
 import { PlusIcon, Trash2 } from "lucide-react";
 import {

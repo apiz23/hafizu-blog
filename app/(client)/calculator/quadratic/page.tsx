@@ -1,6 +1,12 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import {
+	Dialog,
+	DialogContent,
+	DialogTitle,
+	DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 import { useState } from "react";
 
 export default function Quadratic() {
@@ -31,13 +37,10 @@ export default function Quadratic() {
 	return (
 		<>
 			<div className="h-full pt-10">
-				{/* <h1 className="scroll-m-20 text-4xl font-extrabold tracking-wider uppercase lg:text-6xl">
-					Quadratic
-				</h1> */}
 				<p className="text-gray-300 text-xl">General Form: ax^2 + bx + c</p>
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-3 md:px-0 mt-10">
 					<div className="mb-4">
-						<input
+						<Input
 							type="text"
 							className="form-input mt-1 block w-full px-2.5 py-3 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
 							value={a}
@@ -47,7 +50,7 @@ export default function Quadratic() {
 					</div>
 
 					<div className="mb-4">
-						<input
+						<Input
 							type="text"
 							className="form-input mt-1 block w-full px-2.5 py-3 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
 							value={b}
@@ -56,7 +59,7 @@ export default function Quadratic() {
 						/>
 					</div>
 					<div className="mb-4">
-						<input
+						<Input
 							type="text"
 							className="form-input mt-1 block w-full px-3 py-3 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
 							value={c}
@@ -65,19 +68,25 @@ export default function Quadratic() {
 						/>
 					</div>
 				</div>
-				<div className="">
-					<Button className="md:w-1/5 w-full mx-auto" onClick={handleCalculate}>
+				<Dialog>
+					<DialogTrigger
+						className="md:w-fit w-full mx-auto text-base bg-white p-4 text-black rounded-md float-end"
+						onClick={handleCalculate}
+					>
 						Calculate
-					</Button>
-					<div className="flex space-x-3 justify-center pt-32">
-						<h2 className="scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0 border rounded-md p-5">
-							Root 1: {answer[0]}
-						</h2>
-						<h2 className="scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0 border rounded-md p-5">
-							Root 2: {answer[1]}
-						</h2>
-					</div>
-				</div>
+					</DialogTrigger>
+					<DialogContent>
+						<DialogTitle>Result</DialogTitle>
+						<div className="flex space-x-3 justify-center">
+							<h2 className="scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0 border rounded-md p-5">
+								Root 1: {answer[0]}
+							</h2>
+							<h2 className="scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0 border rounded-md p-5">
+								Root 2: {answer[1]}
+							</h2>
+						</div>
+					</DialogContent>
+				</Dialog>
 			</div>
 		</>
 	);

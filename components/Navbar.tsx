@@ -104,9 +104,16 @@ export default function Navbar() {
 							</SheetContent>
 						</Sheet>
 					</div>
-
+					<div className="justify-center hidden md:flex">
+						<button
+							onClick={handleToggleMenu}
+							className="mt-2 p-2 bg-neutral-700 bg-opacity-70 text-white rounded-full"
+						>
+							{isMenuVisible ? <MdOutlineKeyboardArrowDown /> : <MdKeyboardArrowUp />}
+						</button>
+					</div>
 					<motion.div
-						className="w-fit mx-auto"
+						className="w-fit mx-auto pt-2"
 						initial={{ opacity: 0, translateY: -10, filter: "blur(10px)" }}
 						animate={{
 							opacity: isMenuVisible ? 1 : 0,
@@ -157,15 +164,6 @@ export default function Navbar() {
 							</NavigationMenuList>
 						</NavigationMenu>
 					</motion.div>
-
-					<div className="justify-center hidden md:flex">
-						<button
-							onClick={handleToggleMenu}
-							className="mt-2 p-2 bg-neutral-700 bg-opacity-70 text-white rounded-full"
-						>
-							{isMenuVisible ? <MdKeyboardArrowUp /> : <MdOutlineKeyboardArrowDown />}
-						</button>
-					</div>
 				</div>
 			</nav>
 		</>

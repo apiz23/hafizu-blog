@@ -19,15 +19,13 @@ import {
 } from "@/components/ui/dialog";
 import supabase from "@/lib/supabase";
 import { v4 as uuidv4 } from "uuid";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Plus, CloudUpload, LogOut } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { toast } from "sonner";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import { useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import {
 	Select,
@@ -36,6 +34,7 @@ import {
 	SelectContent,
 	SelectItem,
 } from "@/components/ui/select";
+import useRequireAuth from "../requireAuth";
 
 const fetchLinks = async () => {
 	const { data, error } = await supabase.from("link").select("*");
@@ -50,6 +49,8 @@ const insertLink = async (formData: any) => {
 };
 
 export default function Page() {
+	useRequireAuth();
+
 	const [isFileInput, setIsFileInput] = useState(false);
 	const [selectedFile, setSelectedFile] = useState<File | null>(null);
 	const [formData, setFormData] = useState({
@@ -58,7 +59,6 @@ export default function Page() {
 		category: "",
 		type: "",
 	});
-	const { data: session, status } = useSession();
 	const queryClient = useQueryClient();
 
 	const { data } = useQuery(["links"], fetchLinks);
@@ -72,12 +72,6 @@ export default function Page() {
 			toast.error(`Error inserting data: ${error.message}`);
 		},
 	});
-
-	useEffect(() => {
-		if (!session && status === "loading") {
-			redirect("/login");
-		}
-	}, [session, status]);
 
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -242,7 +236,7 @@ export default function Page() {
 					<div className="p-4">
 						<Table>
 							<TableCaption>List of the Data Link</TableCaption>
-							<ScrollArea className="h-[450px] rounded-md border p-4">
+							<ScrollArea className="h-[60vh] rounded-md border p-4">
 								<TableHeader>
 									<TableRow>
 										<TableHead className="w-[50px]">No</TableHead>

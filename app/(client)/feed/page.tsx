@@ -9,7 +9,7 @@ export default function Page() {
 					className="scroll-m-20 text-2xl font-extrabold tracking-wider uppercase lg:text-6xl mb-20"
 					text="Feed Sharing"
 				/>
-				<ScrollArea className="h-[65vh] md:h-[60vh] max-w-3xl mx-auto mb-5 border-x-2 p-4">
+				<ScrollArea className="h-[70vh] md:min-h-4/5 mx-auto mb-5 border-2 rounded-md p-4 bg-black">
 					Scroll Areas
 				</ScrollArea>
 			</div>

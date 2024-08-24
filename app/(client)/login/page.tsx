@@ -12,7 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Github, Loader } from "lucide-react";
 import { signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation"; // Import useRouter
+import { useRouter } from "next/navigation";
 import supabase from "@/lib/supabase";
 import { setCache, getCookies } from "@/lib/auth";
 
@@ -27,7 +27,6 @@ export default function Page() {
 	const [tokenMatched, setTokenMatched] = useState(false);
 
 	useEffect(() => {
-		console.log(status);
 		if (status === "authenticated") {
 			router.push("/dashboard");
 		}

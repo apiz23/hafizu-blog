@@ -144,7 +144,7 @@ export default function Page() {
 	return (
 		<>
 			<div className="min-h-screen bg-white dark:bg-black">
-				<div className="max-w-6xl mx-auto pt-14">
+				<div className="mx-auto pt-14">
 					<div className="flex my-5 justify-end mx-5">
 						<Dialog>
 							<DialogTrigger className="rounded-md bg-zinc-800 p-2.5">
@@ -236,7 +236,7 @@ export default function Page() {
 					<div className="p-4">
 						<Table>
 							<TableCaption>List of the Data Link</TableCaption>
-							<ScrollArea className="h-[60vh] rounded-md border p-4">
+							<ScrollArea className="h-[70vh] rounded-md border p-4">
 								<TableHeader>
 									<TableRow>
 										<TableHead className="w-[50px]">No</TableHead>

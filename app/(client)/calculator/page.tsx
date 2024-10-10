@@ -50,7 +50,7 @@ export default function Page() {
 						and etc.
 					</p>
 				</header>
-				<div className="pt-10 md:px-0 px-2.5">
+				<div className="py-10 md:px-0 px-2.5">
 					<Tabs defaultValue={tabs[0].value} className="w-full mx-auto max-w-4xl">
 						<TabsList>
 							{tabs.map((tab) => (

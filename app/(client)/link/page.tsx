@@ -51,7 +51,7 @@ export default function Page() {
 	}
 	return (
 		<div className="min-h-screen space-x-3 px-5 pt-24">
-			<div className="py-5">
+			<div className="pb-20">
 				<GradualSpacing
 					className="scroll-m-20 text-2xl font-extrabold tracking-wider uppercase lg:text-6xl mb-14"
 					text="File Link"
@@ -64,7 +64,7 @@ export default function Page() {
 								placeholder="Search links..."
 								value={searchQuery}
 								onChange={handleSearch}
-								className="mb-4 px-4 py-2 w-full me-3 float-end border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+								className="mb-4 px-4 py-2 w-full me-3 float-end border bg-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
 							/>
 						</div>
 						<div className="col-span-6 flex justify-end">
@@ -74,7 +74,7 @@ export default function Page() {
 							>
 								<button
 									type="button"
-									className="px-5 py-1 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white"
+									className="px-5 py-1 text-sm font-medium border rounded-lg hover:text-blue-700 focus:z-10 focus:ring-2 bg-gray-800 border-gray-700text-whitehover:text-white hover:bg-gray-700 focus:ring-blue-500 focus:text-white"
 									onClick={() => {
 										window.location.reload();
 									}}

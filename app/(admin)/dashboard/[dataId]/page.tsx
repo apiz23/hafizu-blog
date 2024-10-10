@@ -87,13 +87,13 @@ export default function DataDetails({
 				{data ? (
 					<>
 						<CardContent className="font-normal text-lg">
-							<p className="text-gray-500 whitespace-nowrap dark:text-gray-400">
+							<p className="text-gray-500 whitespace-nowraptext-gray-400">
 								ID: {data.id}
 							</p>
-							<p className="text-gray-500 whitespace-nowrap dark:text-gray-400">
+							<p className="text-gray-500 whitespace-nowraptext-gray-400">
 								Category: {data.category}
 							</p>
-							<p className="text-gray-500 overflow-hidden dark:text-gray-400">
+							<p className="text-gray-500 overflow-hiddentext-gray-400">
 								URL:{" "}
 								<Link
 									href={data.url}

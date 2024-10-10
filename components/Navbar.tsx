@@ -31,7 +31,7 @@ import {
 	NavigationMenuItem,
 	NavigationMenuLink,
 } from "@radix-ui/react-navigation-menu";
-import { redirect, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import {
 	Tooltip,
 	TooltipContent,
@@ -44,6 +44,7 @@ import { deleteCookies } from "@/lib/auth";
 import { Button } from "./ui/button";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { ModeToggle } from "./themeBtn";
 
 export default function Navbar() {
 	const pathname = usePathname();
@@ -73,7 +74,7 @@ export default function Navbar() {
 							<SheetContent side="left" className="h-full w-2/3 flex flex-col">
 								<SheetHeader>
 									<SheetTitle className="flex">
-										<span className="text-2xl px-5 flex font-semibold whitespace-nowrap dark:text-white text-black">
+										<span className="text-2xl px-5 flex font-semibold whitespace-nowraptext-white text-black">
 											Hafizu Blog
 										</span>
 									</SheetTitle>
@@ -83,7 +84,7 @@ export default function Navbar() {
 										<SheetClose asChild key={index}>
 											<Link href={item.url} passHref>
 												<div
-													className={`p-5 border bg-white dark:bg-black flex space-x-3 text-black dark:text-white border-black dark:border-white rounded-md my-5 mx-5 dark:hover:bg-slate-800 hover:bg-slate-200 ${
+													className={`p-5 border bg-whitebg-black flex space-x-3 text-blacktext-white border-blackborder-white rounded-md my-5 mx-5hover:bg-slate-800 hover:bg-slate-200 ${
 														pathname === item.url ? "text-yellow-500" : ""
 													}`}
 												>
@@ -133,9 +134,7 @@ export default function Navbar() {
 														key={index}
 														href={item.url}
 														className={`flex mx-5 py-2 ${
-															pathname === item.url
-																? "text-yellow-500"
-																: "text-gray-700 dark:text-gray-300"
+															pathname === item.url ? "text-yellow-500" : "text-gray-300"
 														}`}
 													>
 														{pathname === item.url ? (
@@ -147,7 +146,7 @@ export default function Navbar() {
 															className={`ms-2 ${
 																pathname === item.url
 																	? "text-yellow-500"
-																	: "text-gray-700 dark:text-gray-300 hover:block hidden"
+																	: "text-gray-300 hover:block hidden"
 															}`}
 														>
 															{item.title}
@@ -160,6 +159,7 @@ export default function Navbar() {
 											</Tooltip>
 										</TooltipProvider>
 									))}
+									<ModeToggle />
 								</NavigationMenuItem>
 							</NavigationMenuList>
 						</NavigationMenu>
@@ -185,7 +185,7 @@ export function NavbarAd() {
 						<SheetContent side="left" className="h-full w-2/3 flex flex-col">
 							<SheetHeader>
 								<SheetTitle className="flex">
-									<span className="text-2xl px-5 flex font-semibold whitespace-nowrap dark:text-white text-black">
+									<span className="text-2xl px-5 flex font-semibold whitespace-nowraptext-white text-black">
 										Hafizu Blog
 									</span>
 								</SheetTitle>
@@ -210,7 +210,7 @@ export function NavbarAd() {
 										<>
 											<Link href={item.url} passHref>
 												<div
-													className={`p-5 border bg-white dark:bg-black flex space-x-3 text-black dark:text-white border-black dark:border-white rounded-md my-5 mx-5 dark:hover:bg-slate-800 hover:bg-slate-200 ${
+													className={`p-5 border bg-whitebg-black flex space-x-3 text-blacktext-white border-blackborder-white rounded-md my-5 mx-5hover:bg-slate-800 hover:bg-slate-200 ${
 														pathname === item.url ? "text-yellow-500" : ""
 													}`}
 												>

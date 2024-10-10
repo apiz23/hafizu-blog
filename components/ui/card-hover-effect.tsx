@@ -21,12 +21,7 @@ export const HoverEffect = ({
 	let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
 	return (
-		<div
-			className={cn(
-				"relative",
-				className
-			)}
-		>
+		<div className={cn("relative", className)}>
 			{items.map((item, idx) => (
 				<Link
 					href={`${window.location.pathname}/${item.id}`}
@@ -72,7 +67,7 @@ export const Card = ({
 	return (
 		<div
 			className={cn(
-				"rounded-2xl h-full w-full p-4 overflow-hidden bg-black border border-transparent dark:border-white/[0.2] group-hover:border-yellow-700 relative z-20",
+				"rounded-2xl h-full w-full p-4 overflow-hidden bg-black border border-transparent border-white/[0.2] group-hover:border-yellow-700 relative z-20",
 				className
 			)}
 		>

@@ -10,10 +10,10 @@ export default function Footer() {
 					<div className="px-4 pb-0 mx-auto">
 						<section className="mb-4 flex justify-center space-x-5">
 							<Link href="https://github.com/apiz23" target="_blank">
-								<Github className="text-black dark:text-white hover:cursor-pointer hover:text-blue-500" />
+								<Github className="text-blacktext-white hover:cursor-pointer hover:text-blue-500" />
 							</Link>
 							<Link href="https://linkedin.com/in/muh-hafizuddin" target="_blank">
-								<Linkedin className="text-black dark:text-white hover:cursor-pointer hover:text-blue-500" />
+								<Linkedin className="text-blacktext-white hover:cursor-pointer hover:text-blue-500" />
 							</Link>
 						</section>
 					</div>

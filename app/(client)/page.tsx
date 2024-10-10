@@ -17,8 +17,6 @@ import {
 import { SiAuth0 } from "react-icons/si";
 import { useQuery } from "react-query";
 import Image from "next/image";
-import { cn } from "@/utils/cn";
-import DotPattern from "@/components/magicui/dot-pattern";
 
 export default function Home() {
 	const [isLoading, setIsLoading] = useState(true);
@@ -103,22 +101,38 @@ export default function Home() {
 					</div>
 				)}
 			</section>
-			<section className="min-h-screen pt-36 relative">
+			<section className="min-h-screen py-32 md:pt-32 relative">
 				<FlipText
-					className="text-4xl font-bold uppercase tracking-[-0.1em] py-10 mb-10 text-white md:text-7xl md:leading-[5rem]"
+					className="text-6xl font-bold uppercase tracking-[-0.1em] py-10 mb-10 text-white md:text-7xl md:leading-[5rem]"
 					word="Tech"
 				/>
-				<div className="max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-4 px-5 md:px-10 mx-auto mb-10">
-					<div className="col-span-1 p-4 bg-yellow-500 hover:bg-yellow-600 rounded-lg md:rounded-ss-2xl">
+				<div className="max-w-4xl mx-auto mb-5 px-5">
+					<h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+						Frontend
+					</h1>
+					<p className="leading-7 [&:not(:first-child)]:mt-6">
+						Build using Next.Js & Tailwind CSS
+					</p>
+				</div>
+				<div className="max-w-4xl mx-auto mb-5 px-5 ">
+					<h1 className="scroll-m-20 text-4xl font-extrabold flex justify-end tracking-tight lg:text-5xl">
+						Backend
+					</h1>
+					<p className="leading-7 [&:not(:first-child)]:mt-6 flex justify-end">
+						Nest.Js & Supabase
+					</p>
+				</div>
+				<div className="max-w-4xl grid grid-cols-2 gap-4 px-5 md:px-10 mx-auto mb-10">
+					<div className="col-span-1 p-4 bg-yellow-500 rounded-lg md:rounded-ss-2xl">
 						<RiNextjsLine className="h-20 w-20 text-black mx-auto" />
 					</div>
-					<div className="col-span-1 p-4 bg-yellow-600 hover:bg-yellow-500 rounded-lg md:rounded-tr-lg">
+					<div className="col-span-1 p-4 bg-yellow-600 rounded-lg md:rounded-tr-lg">
 						<RiSupabaseLine className="h-20 w-20 text-black mx-auto" />
 					</div>
-					<div className="col-span-1 p-4 bg-yellow-600 hover:bg-yellow-500 rounded-lg md:rounded-bl-lg">
+					<div className="col-span-1 p-4 bg-yellow-600 rounded-lg md:rounded-bl-lg">
 						<SiAuth0 className="h-20 w-20 text-black mx-auto" />
 					</div>
-					<div className="col-span-1 p-4 bg-yellow-500 hover:bg-yellow-600 rounded-lg md:rounded-ee-lg">
+					<div className="col-span-1 p-4 bg-yellow-500 rounded-lg md:rounded-ee-lg">
 						<RiTailwindCssFill className="h-20 w-20 text-black mx-auto" />
 					</div>
 				</div>

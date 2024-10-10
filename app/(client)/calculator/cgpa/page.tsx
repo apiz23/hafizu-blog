@@ -85,7 +85,7 @@ export default function CGPA() {
 					<div className="my-6">
 						<Label
 							htmlFor="cpa-input"
-							className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+							className="block mb-2 text-sm font-medium text-white"
 						>
 							CPA
 						</Label>
@@ -97,7 +97,7 @@ export default function CGPA() {
 						/>
 						<p
 							id="helper-text-explanation"
-							className="mt-2 text-sm text-gray-500 dark:text-gray-400"
+							className="mt-2 text-sm text-gray-400"
 						>
 							CPA Last Semester
 						</p>
@@ -105,7 +105,7 @@ export default function CGPA() {
 					<div className="my-6">
 						<Label
 							htmlFor="credit-input"
-							className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+							className="block mb-2 text-sm font-medium text-white"
 						>
 							Cumulative Credit
 						</Label>
@@ -117,7 +117,7 @@ export default function CGPA() {
 						/>
 						<p
 							id="helper-text-explanation"
-							className="mt-2 text-sm text-gray-500 dark:text-gray-400"
+							className="mt-2 text-sm text-gray-400"
 						>
 							Cumulative Credit Last Semester
 						</p>
@@ -127,7 +127,7 @@ export default function CGPA() {
 					<div className="relative overflow-x-auto sm:rounded-md">
 						<Button
 							type="button"
-							className="text-white w-fit float-right bg-green-700 hover:bg-green-800 font-medium rounded-md text-sm px-2 py-1.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+							className="text-white w-fit float-right font-medium rounded-md text-sm px-2 py-1.5 text-center mr-2 mb-2 bg-green-600 hover:bg-green-700 focus:ring-green-800"
 							onClick={addRow}
 						>
 							<PlusIcon className="h-6 w-6 text-white" />
@@ -188,7 +188,7 @@ export default function CGPA() {
 									</TableCell>
 									<TableCell className="px-3 py-4">
 										<Button
-											className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-md text-sm px-5 py-2.5 mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+											className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-md text-sm px-5 py-2.5 mr-2bg-red-600hover:bg-red-700focus:ring-red-900"
 											onClick={() => deleteRow(index)}
 										>
 											<Trash2 className="h-5 w-5 text-white" />

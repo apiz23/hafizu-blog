@@ -48,7 +48,7 @@ export default function RootLayout({
 						<Loader />
 					</div>
 					<Toaster richColors />
-					<div className="bg-black relative">
+					<div className="bg-black relative text-white">
 						<DotPattern
 							width={20}
 							height={20}

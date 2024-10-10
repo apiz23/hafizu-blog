@@ -159,7 +159,6 @@ export default function Navbar() {
 											</Tooltip>
 										</TooltipProvider>
 									))}
-									<ModeToggle />
 								</NavigationMenuItem>
 							</NavigationMenuList>
 						</NavigationMenu>

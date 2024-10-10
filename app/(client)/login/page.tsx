@@ -69,9 +69,9 @@ export default function Page() {
 	return (
 		<>
 			<div className="min-h-screen space-x-3 px-5 pt-24">
-				<Card className="mx-auto max-w-md mt-36">
+				<Card className="mx-auto max-w-md mt-36 bg-neutral-800">
 					<CardHeader>
-						<CardTitle>Login</CardTitle>
+						<CardTitle className="text-white">Login</CardTitle>
 					</CardHeader>
 					<CardContent>
 						<Input
@@ -82,11 +82,11 @@ export default function Page() {
 						/>
 					</CardContent>
 					<CardFooter className="flex justify-between pt-5">
-						<Button variant="ghost" onClick={handleCheckToken}>
+						<Button variant="outline" onClick={handleCheckToken}>
 							Check Token
 						</Button>
 						<Button
-							variant="ghost"
+							variant="secondary"
 							disabled={tokenMatched ? false : true}
 							onClick={handleSignIn}
 						>

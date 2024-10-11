@@ -223,6 +223,8 @@ export default function Page() {
 											</SelectItem>
 											<SelectItem value="video">Video</SelectItem>
 											<SelectItem value="image">Image</SelectItem>
+											<SelectItem value="zip">Zip</SelectItem>
+											<SelectItem value="file">File</SelectItem>
 											<SelectItem value="other">Other</SelectItem>
 										</SelectContent>
 									</Select>

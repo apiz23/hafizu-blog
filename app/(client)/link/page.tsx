@@ -2,34 +2,26 @@
 
 import { useState } from "react";
 import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { LayoutGrid, List, LoaderIcon, RefreshCcw } from "lucide-react";
-import supabase from "@/lib/supabase";
+import { LoaderIcon, RefreshCcw } from "lucide-react";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 import GradualSpacing from "@/components/magicui/gradual-spacing";
 import { useQuery } from "react-query";
 
 async function fetchLinks() {
-	const { data, error } = await supabase
-		.from("link")
-		.select("*")
-		.order("created_at", { ascending: false });
+	const response = await fetch(`${window.location.origin}/api/link`);
 
-	if (error) {
-		throw new Error(error.message);
+	if (!response.ok) {
+		const error = await response.json();
+		throw new Error(error.message || "Failed to fetch links");
 	}
-	return data;
+
+	const data = await response.json();
+	return data.sort((a: any, b: any) => b.id - a.id);
 }
 
 export default function Page() {
-	const {
-		data: links = [],
-		error,
-		isLoading,
-		refetch,
-	} = useQuery(["links"], fetchLinks, {
+	const { data: links = [], error } = useQuery(["links"], fetchLinks, {
 		staleTime: 300000,
 		cacheTime: 600000,
 	});
@@ -87,10 +79,10 @@ export default function Page() {
 
 					<ScrollArea className="h-[50vh] md:h-[560px]">
 						{filteredLinks.length === 0 ? (
-							<LoaderIcon className="animate-spin mx-auto" />
+							<LoaderIcon className="animate-spin mx-auto pt-10" />
 						) : (
 							<HoverEffect
-								className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5"
+								className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 px-2"
 								items={filteredLinks}
 							/>
 						)}

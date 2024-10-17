@@ -5,7 +5,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import {
 	Table,
 	TableBody,
-	TableCaption,
 	TableCell,
 	TableHead,
 	TableHeader,
@@ -37,7 +36,11 @@ import {
 import useRequireAuth from "../requireAuth";
 
 const fetchLinks = async () => {
-	const { data, error } = await supabase.from("link").select("*");
+	const email = sessionStorage.getItem("user-email");
+	const { data, error } = await supabase
+		.from("link")
+		.select("*")
+		.eq("email", email);
 	if (error) throw error;
 	return data;
 };
@@ -91,6 +94,7 @@ export default function Page() {
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+
 		if (
 			!(formData.url || selectedFile) ||
 			!formData.desc ||
@@ -102,6 +106,12 @@ export default function Page() {
 		}
 		try {
 			let fileUrl = "";
+
+			const userEmail = sessionStorage.getItem("user-email");
+			if (!userEmail) {
+				toast.error("User email not found. Please log in again.");
+				return;
+			}
 
 			if (selectedFile) {
 				const uniqueId = uuidv4();
@@ -116,15 +126,21 @@ export default function Page() {
 			}
 			const finalUrl = selectedFile ? fileUrl : formData.url;
 
-			const formDataWithUrl = { ...formData, url: finalUrl };
+			const formDataWithUrl = {
+				...formData,
+				url: finalUrl,
+				email: userEmail,
+			};
 
 			mutation.mutate(formDataWithUrl);
+
 			setFormData({
 				url: "",
 				desc: "",
 				category: "",
 				type: "",
 			});
+			setSelectedFile(null);
 		} catch (error: any) {
 			toast.error(`Error inserting data: ${error.message}`);
 		}
@@ -143,8 +159,8 @@ export default function Page() {
 
 	return (
 		<>
-			<div className="min-h-screen bg-whitebg-black">
-				<div className="mx-auto pt-14">
+			<div className="min-h-screen bg-black">
+				<div className="mx-auto pt-14 w-4/5">
 					<div className="flex my-5 justify-end mx-5">
 						<Dialog>
 							<DialogTrigger className="rounded-md bg-zinc-800 p-2.5">
@@ -237,7 +253,6 @@ export default function Page() {
 					</div>
 					<div className="p-4">
 						<Table>
-							<TableCaption>List of the Data Link</TableCaption>
 							<ScrollArea className="h-[70vh] rounded-md border p-4">
 								<TableHeader>
 									<TableRow>

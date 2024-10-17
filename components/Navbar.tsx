@@ -22,6 +22,7 @@ import {
 	MdDashboard,
 	MdKeyboardArrowUp,
 	MdOutlineKeyboardArrowDown,
+	MdOutlineFeed 
 } from "react-icons/md";
 
 import Footer from "./footer";
@@ -44,7 +45,6 @@ import { deleteCookies } from "@/lib/auth";
 import { Button } from "./ui/button";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ModeToggle } from "./themeBtn";
 
 export default function Navbar() {
 	const pathname = usePathname();
@@ -69,9 +69,12 @@ export default function Navbar() {
 					<div className="block md:hidden flex-col h-full">
 						<Sheet>
 							<SheetTrigger>
-								<Menu className="hover:text-zinc-500" />
+								<Menu className="hover:text-zinc-500 text-white" />
 							</SheetTrigger>
-							<SheetContent side="left" className="h-full w-2/3 flex flex-col">
+							<SheetContent
+								side="left"
+								className="bg-black text-white h-full w-2/3 flex flex-col"
+							>
 								<SheetHeader>
 									<SheetTitle className="flex">
 										<span className="text-2xl px-5 flex font-semibold whitespace-nowraptext-white text-black">
@@ -110,7 +113,7 @@ export default function Navbar() {
 							onClick={handleToggleMenu}
 							className="mt-2 p-2 bg-neutral-700 bg-opacity-70 text-white rounded-full"
 						>
-							{isMenuVisible ? <MdOutlineKeyboardArrowDown /> : <MdKeyboardArrowUp />}
+							{isMenuVisible ? <MdOutlineKeyboardArrowDown className="size-8" /> : <MdKeyboardArrowUp className="size-8" />}
 						</button>
 					</div>
 					<motion.div
@@ -171,8 +174,14 @@ export default function Navbar() {
 
 export function NavbarAd() {
 	const { data: session } = useSession();
+	if (session?.user?.email) {
+		sessionStorage.setItem("user-email", session.user.email);
+	}
 	const pathname = usePathname();
-	const itemNav = [{ title: "Dashboard", url: "/dashboard", icon: MdDashboard }];
+	const itemNav = [
+		{ title: "Dashboard", url: "/dashboard", icon: MdDashboard },
+		{ title: "Posts", url: "/posts", icon: MdOutlineFeed },
+	];
 	return (
 		<>
 			<nav className="fixed top-0 left-0 w-full z-50">
@@ -209,7 +218,7 @@ export function NavbarAd() {
 										<>
 											<Link href={item.url} passHref>
 												<div
-													className={`p-5 border bg-whitebg-black flex space-x-3 text-blacktext-white border-blackborder-white rounded-md my-5 mx-5hover:bg-slate-800 hover:bg-slate-200 ${
+													className={`p-5 border bg-whitebg-black flex space-x-3 text-blacktext-white border-white rounded-md my-5 mx-5 hover:bg-slate-800 ${
 														pathname === item.url ? "text-yellow-500" : ""
 													}`}
 												>

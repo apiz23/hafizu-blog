@@ -9,14 +9,7 @@ import { toast } from "sonner";
 import Image from "next/image";
 import { useQuery } from "react-query";
 import supabase from "@/lib/supabase";
-import {
-	Dialog,
-	DialogContent,
-	DialogDescription,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 function getYoutubeId(url: string) {
 	const regExp = /^.*(youtu.be\/|v\/|e\/|u\/\w+\/|embed\/|v=)([^#\&\?]*).*/;
@@ -160,17 +153,10 @@ export default function DataDetails({
 													return (
 														<>
 															<Dialog>
-																<DialogTrigger className="flex justify-center">
-																	<Image
-																		src={fullUrl}
-																		alt={data.desc || "Image preview"}
-																		className="h-72 object-contain shadow-md hover:cursor-pointer"
-																		width={500}
-																		height={500}
-																		loading="lazy"
-																	/>
+																<DialogTrigger className="float-end rounded-lg bg-yellow-300 p-2 text-black">
+																	Preview
 																</DialogTrigger>
-																<DialogContent className="bg-transparent border-none text-white">
+																<DialogContent>
 																	<div className="flex justify-center">
 																		<Image
 																			src={fullUrl}

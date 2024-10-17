@@ -2,7 +2,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { BorderBeam } from "../magicui/border-beam";
 
 export const HoverEffect = ({
 	items,

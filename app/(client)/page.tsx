@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Lenis from "@studio-freight/lenis";
-import { toast } from "sonner";
 import { LoaderIcon } from "lucide-react";
 import BlurIn from "@/components/magicui/blur-in";
 import { BorderBeam } from "@/components/magicui/border-beam";
@@ -15,8 +14,8 @@ import {
 	RiTailwindCssFill,
 } from "react-icons/ri";
 import { SiAuth0 } from "react-icons/si";
-import { useQuery } from "react-query";
 import Image from "next/image";
+import { useQuotes } from "@/hooks/use-quotes";
 
 export default function Home() {
 	const [isLoading, setIsLoading] = useState(true);
@@ -36,35 +35,7 @@ export default function Home() {
 		gsap.registerPlugin(ScrollTrigger);
 	}, []);
 
-	const fetchQuotes = async () => {
-		const token = process.env.NEXT_PUBLIC_API_NINJA;
-		if (!token) {
-			throw new Error("API token is not defined");
-		}
-
-		const headers = new Headers();
-		headers.append("X-Api-Key", token);
-
-		const response = await fetch(
-			"https://api.api-ninjas.com/v1/quotes?category=computers",
-			{
-				method: "GET",
-				headers: headers,
-			}
-		);
-
-		if (!response.ok) {
-			throw new Error("Network response was not ok");
-		}
-
-		return response.json();
-	};
-
-	const { data: quotes, error } = useQuery("quotes", fetchQuotes);
-
-	if (error) {
-		toast.error((error as Error).message);
-	}
+	const { quotes, isLoading: isQuotesLoading } = useQuotes();
 
 	return (
 		<div className="h-fit">
@@ -87,7 +58,7 @@ export default function Home() {
 					/>
 				</div>
 
-				{isLoading ? (
+				{isQuotesLoading ? (
 					<LoaderIcon className="animate-spin mx-auto text-white" />
 				) : (
 					<div className="relative max-w-2xl p-5 md:mx-auto mx-5 mb-10 rounded-lg duration-500">

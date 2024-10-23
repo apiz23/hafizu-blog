@@ -18,12 +18,7 @@ import {
 	SheetTitle,
 	SheetTrigger,
 } from "@/components/ui/sheet";
-import {
-	MdDashboard,
-	MdKeyboardArrowUp,
-	MdOutlineKeyboardArrowDown,
-	MdOutlineFeed 
-} from "react-icons/md";
+import { MdDashboard, MdOutlineFeed } from "react-icons/md";
 
 import Footer from "./footer";
 import {
@@ -44,7 +39,7 @@ import { signOut, useSession } from "next-auth/react";
 import { deleteCookies } from "@/lib/auth";
 import { Button } from "./ui/button";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { Dock, DockIcon } from "@/components/magicui/dock";
 
 export default function Navbar() {
 	const pathname = usePathname();
@@ -58,13 +53,9 @@ export default function Navbar() {
 		{ title: "Admin", url: "/login", icon: Lock },
 	];
 
-	const handleToggleMenu = () => {
-		setIsMenuVisible(!isMenuVisible);
-	};
-
 	return (
 		<>
-			<nav className="fixed top-0 left-0 w-full z-50">
+			<nav className="fixed bottom-auto md:bottom-0 top-0 md:top-auto left-0 w-full z-50">
 				<div className="p-4 h-full">
 					<div className="block md:hidden flex-col h-full">
 						<Sheet>
@@ -108,64 +99,30 @@ export default function Navbar() {
 							</SheetContent>
 						</Sheet>
 					</div>
-					<div className="justify-center hidden md:flex">
-						<button
-							onClick={handleToggleMenu}
-							className="mt-2 p-2 bg-neutral-700 bg-opacity-70 text-white rounded-full"
+					<TooltipProvider>
+						<Dock
+							direction="middle"
+							className="bg-black bg-opacity-50 border-gray-700 border-2 text-white mb-5 md:flex hidden"
 						>
-							{isMenuVisible ? <MdOutlineKeyboardArrowDown className="size-8" /> : <MdKeyboardArrowUp className="size-8" />}
-						</button>
-					</div>
-					<motion.div
-						className="w-fit mx-auto pt-2"
-						initial={{ opacity: 0, translateY: -10, filter: "blur(10px)" }}
-						animate={{
-							opacity: isMenuVisible ? 1 : 0,
-							translateY: isMenuVisible ? 0 : -10,
-							filter: isMenuVisible ? "blur(0)" : "blur(10px)",
-						}}
-						transition={{ duration: 0.5, ease: "easeInOut" }}
-					>
-						<NavigationMenu>
-							<NavigationMenuList>
-								<NavigationMenuItem className="flex w-full bg-neutral-700 rounded-full p-2">
-									{itemNav.map((item, index) => (
-										<TooltipProvider key={index}>
-											<Tooltip>
-												<TooltipTrigger>
-													<NavigationMenuLink
-														key={index}
-														href={item.url}
-														className={`flex mx-5 py-2 ${
-															pathname === item.url ? "text-yellow-500" : "text-gray-300"
-														}`}
-													>
-														{pathname === item.url ? (
-															<item.icon className="h-5 w-5 text-yellow-500" />
-														) : (
-															<item.icon className="h-5 w-5" />
-														)}
-														<p
-															className={`ms-2 ${
-																pathname === item.url
-																	? "text-yellow-500"
-																	: "text-gray-300 hover:block hidden"
-															}`}
-														>
-															{item.title}
-														</p>
-													</NavigationMenuLink>
-												</TooltipTrigger>
-												<TooltipContent>
-													<p>{item.title}</p>
-												</TooltipContent>
-											</Tooltip>
-										</TooltipProvider>
-									))}
-								</NavigationMenuItem>
-							</NavigationMenuList>
-						</NavigationMenu>
-					</motion.div>
+							{itemNav.map((item, index) => (
+								<DockIcon
+									key={index}
+									className="hover:cursor-pointer hover:text-yellow-500"
+								>
+									<Tooltip>
+										<TooltipTrigger asChild>
+											<Link href={item.url} passHref>
+												<item.icon className="h-5 w-5" />
+											</Link>
+										</TooltipTrigger>
+										<TooltipContent>
+											<p>{item.title}</p>
+										</TooltipContent>
+									</Tooltip>
+								</DockIcon>
+							))}
+						</Dock>
+					</TooltipProvider>
 				</div>
 			</nav>
 		</>
@@ -188,12 +145,15 @@ export function NavbarAd() {
 				<div className="mt-5 p-4 h-full">
 					<Sheet>
 						<SheetTrigger>
-							<Menu className="hover:text-zinc-500" />
+							<Menu className="hover:text-zinc-500 text-white" />
 						</SheetTrigger>
-						<SheetContent side="left" className="h-full w-2/3 flex flex-col">
+						<SheetContent
+							side="left"
+							className="h-full w-2/3 flex flex-col bg-black text-white"
+						>
 							<SheetHeader>
 								<SheetTitle className="flex">
-									<span className="text-2xl px-5 flex font-semibold whitespace-nowraptext-white text-black">
+									<span className="text-2xl px-5 flex font-semibold whitespace-nowraptext-white text-white">
 										Hafizu Blog
 									</span>
 								</SheetTitle>
@@ -241,7 +201,7 @@ export function NavbarAd() {
 									signOut();
 									deleteCookies();
 								}}
-								className="mx-5"
+								className="mx-5 text-white bg-gray-500"
 							>
 								<LogOut />
 							</Button>

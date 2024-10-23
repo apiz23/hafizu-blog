@@ -10,11 +10,12 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Github, Loader } from "lucide-react";
+import { Github, Loader, LoaderIcon } from "lucide-react";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import supabase from "@/lib/supabase";
 import { setCache, getCookies } from "@/lib/auth";
+import { useQuotes } from "@/hooks/use-quotes";
 
 interface Token {
 	value: string;
@@ -25,6 +26,7 @@ export default function Page() {
 	const router = useRouter();
 	const [token, setToken] = useState<Token | undefined>({ value: "" });
 	const [tokenMatched, setTokenMatched] = useState(false);
+	const { quotes, isLoading: isQuotesLoading } = useQuotes();
 
 	useEffect(() => {
 		if (status === "authenticated") {
@@ -68,32 +70,44 @@ export default function Page() {
 	}
 	return (
 		<>
-			<div className="min-h-screen space-x-3 px-5 pt-24">
-				<Card className="mx-auto max-w-md mt-36 bg-neutral-800">
-					<CardHeader>
-						<CardTitle className="text-white">Login</CardTitle>
-					</CardHeader>
-					<CardContent>
-						<Input
-							type="password"
-							placeholder="Token"
-							value={token?.value || ""}
-							onChange={(e) => setToken({ value: e.target.value })}
-						/>
-					</CardContent>
-					<CardFooter className="flex justify-between pt-5">
-						<Button variant="outline" onClick={handleCheckToken}>
-							Check Token
-						</Button>
-						<Button
-							variant="secondary"
-							disabled={tokenMatched ? false : true}
-							onClick={handleSignIn}
-						>
-							<Github className="w-fit h-fit" />
-						</Button>
-					</CardFooter>
-				</Card>
+			<div className="min-h-screen flex">
+				<div className="hidden md:flex flex-col justify-center items-start bg-neutral-900 text-white w-1/2 px-16">
+					<h1 className="text-3xl font-semibold mb-6">Hafizu Blog</h1>
+					{isQuotesLoading ? (
+						<LoaderIcon className="animate-spin mx-auto text-white" />
+					) : (
+						<div className="relative py-5 mb-10 rounded-lg duration-500">
+							{quotes.map((quote: any, index: any) => (
+								<div key={index} className="italic space-y-4">
+									<h3>{quote.quote}</h3>
+									<p>Author: {quote.author}</p>
+								</div>
+							))}
+						</div>
+					)}
+				</div>
+
+				<div className="flex md:flex-col justify-center items-center w-full md:w-1/2 bg-neutral-800 px-16">
+					<Card className="w-full max-w-md bg-transparent border-none">
+						<CardHeader>
+							<CardTitle className="text-white">Login Account</CardTitle>
+							<p className="text-gray-400">Enter the token below to login</p>
+						</CardHeader>
+						<CardContent>
+							<Input
+								type="password"
+								placeholder="Token"
+								className="mb-4"
+								value={token?.value || ""}
+								onChange={(e) => setToken({ value: e.target.value })}
+							/>
+
+							<Button variant="outline" className="w-full" onClick={handleSignIn}>
+								<Github className="mr-2" /> GitHub
+							</Button>
+						</CardContent>
+					</Card>
+				</div>
 			</div>
 		</>
 	);

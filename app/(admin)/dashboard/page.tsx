@@ -253,7 +253,7 @@ export default function Page() {
 					</div>
 					<div className="p-4">
 						<Table>
-							<ScrollArea className="h-[70vh] rounded-md border p-4">
+							<ScrollArea className="h-[70vh] rounded-md border p-4 text-white">
 								<TableHeader>
 									<TableRow>
 										<TableHead className="w-[50px]">No</TableHead>

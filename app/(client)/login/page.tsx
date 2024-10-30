@@ -68,6 +68,7 @@ export default function Page() {
 			</div>
 		);
 	}
+
 	return (
 		<>
 			<div className="min-h-screen flex">
@@ -100,9 +101,15 @@ export default function Page() {
 								className="mb-4"
 								value={token?.value || ""}
 								onChange={(e) => setToken({ value: e.target.value })}
+								onBlur={handleCheckToken}
 							/>
 
-							<Button variant="outline" className="w-full" onClick={handleSignIn}>
+							<Button
+								variant="outline"
+								className="w-full"
+								onClick={handleSignIn}
+								disabled={!tokenMatched}
+							>
 								<Github className="mr-2" /> GitHub
 							</Button>
 						</CardContent>

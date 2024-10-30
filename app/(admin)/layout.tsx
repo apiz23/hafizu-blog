@@ -1,4 +1,3 @@
-import { ThemeProvider } from "@/components/theme-provider";
 import "../globals.css";
 
 export const metadata = {
@@ -17,6 +16,7 @@ import { Toaster } from "sonner";
 import { NextAuthProvider } from "@/components/session-provider";
 import ReactQueryProvider from "@/lib/react-query";
 import { NavbarAd } from "@/components/Navbar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
 export default function RootLayout({
 	children,
@@ -26,18 +26,16 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body>
-				<ThemeProvider
-					attribute="class"
-					defaultTheme="system"
-					enableSystem
-					disableTransitionOnChange
-				>
+				<SidebarProvider>
 					<Toaster richColors />
 					<NextAuthProvider>
 						<NavbarAd />
-						<ReactQueryProvider>{children}</ReactQueryProvider>
+						<ReactQueryProvider>
+							<SidebarTrigger className="text-white hover:bg-black hover:text-white" />
+							{children}
+						</ReactQueryProvider>
 					</NextAuthProvider>
-				</ThemeProvider>
+				</SidebarProvider>
 			</body>
 		</html>
 	);

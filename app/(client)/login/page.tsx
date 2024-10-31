@@ -88,7 +88,7 @@ export default function Page() {
 					)}
 				</div>
 
-				<div className="flex md:flex-col justify-center items-center w-full md:w-1/2 bg-neutral-800 px-16">
+				<div className="flex md:flex-col justify-center items-center w-full md:w-1/2 md:bg-neutral-800 md:px-16">
 					<Card className="w-full max-w-md bg-transparent border-none">
 						<CardHeader>
 							<CardTitle className="text-white">Login Account</CardTitle>

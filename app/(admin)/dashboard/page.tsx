@@ -68,7 +68,7 @@ export default function Page() {
 
 	return (
 		<>
-			<div className="w-full">
+			<div className="w-full ps-10">
 				<div className="flex py-8 px-5 text-white">
 					<h3 className="scroll-m-20 text-4xl font-bold tracking-tight">
 						Dashboard
@@ -79,7 +79,7 @@ export default function Page() {
 						<Input
 							type="text"
 							placeholder="Filter"
-							className="bg-black text-white rounded w-[30vw]"
+							className="bg-black text-white rounded md:w-[30vw]"
 							value={searchQuery}
 							onChange={handleSearch}
 						/>
@@ -106,7 +106,7 @@ export default function Page() {
 						>
 							<TableHeader>
 								<TableRow className="hover:bg-gray-800 font-bold">
-									<TableHead className="w-[50px]">No</TableHead>
+									<TableHead>No</TableHead>
 									<TableHead>Category</TableHead>
 									<TableHead>Description</TableHead>
 									<TableHead>Type</TableHead>

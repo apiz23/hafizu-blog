@@ -83,8 +83,8 @@ export default function Page() {
 	}
 
 	return (
-		<div className="min-h-screen space-x-3 px-5 pt-24">
-			<div className="pb-20">
+		<div className="min-h-screen space-x-3 px-5">
+			<div className="pb-20 pt-14 md:pt-24">
 				<GradualSpacing
 					className="scroll-m-20 text-2xl font-extrabold tracking-wider uppercase lg:text-6xl mb-14"
 					text="File Link"
@@ -122,9 +122,9 @@ export default function Page() {
 						{filteredLinks.length === 0 ? (
 							<LoaderIcon className="animate-spin mx-auto pt-10" />
 						) : (
-							<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+							<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
 								{paginatedLinks.map((link: any) => (
-									<Link href={`${window.location.pathname}/${link.id}`} key={link.id}>
+									<Link href={`/link/${link.id}`} key={link.id}>
 										<Card className="bg-gray-950 hover:bg-gray-800 text-white border rounded-tr rounded-bl shadow-md">
 											<CardHeader>
 												<CardTitle className="capitalize">{link.category}</CardTitle>

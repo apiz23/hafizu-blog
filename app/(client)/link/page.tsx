@@ -84,7 +84,7 @@ export default function Page() {
 
 	return (
 		<div className="min-h-screen space-x-3 px-5">
-			<div className="pb-20 pt-14 md:pt-24">
+			<div className="pb-32 pt-14 md:pt-24">
 				<GradualSpacing
 					className="scroll-m-20 text-2xl font-extrabold tracking-wider uppercase lg:text-6xl mb-14"
 					text="File Link"

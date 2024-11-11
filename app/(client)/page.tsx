@@ -64,11 +64,8 @@ export default function Home() {
 				) : (
 					<div className="relative max-w-2xl p-5 md:mx-auto mx-5 mb-10 rounded-lg duration-500">
 						{quotes.map((quote: any, index: any) => (
-							<NeonGradientCard className="bg-black">
-								<blockquote
-									key={index}
-									className="my-5 border-l-2 pl-6 italic drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)]"
-								>
+							<NeonGradientCard className="bg-black" key={index}>
+								<blockquote className="my-5 border-l-2 pl-6 italic drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)]">
 									<h3>{quote.quote}</h3>
 									<p className="float-right mt-2">Author: {quote.author}</p>
 								</blockquote>

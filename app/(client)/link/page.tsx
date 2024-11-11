@@ -12,7 +12,7 @@ import {
 	CardContent,
 } from "@/components/ui/card";
 import GradualSpacing from "@/components/magicui/gradual-spacing";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { Input } from "@/components/ui/input";
 import {
 	Pagination,
@@ -41,11 +41,14 @@ async function fetchLinks() {
 
 export default function Page() {
 	const { data: links = [], error } = useQuery(["links"], fetchLinks, {
-		staleTime: 300000,
+		staleTime: 0,
 		cacheTime: 600000,
+		refetchOnWindowFocus: true,
 	});
+
 	const [searchQuery, setSearchQuery] = useState("");
 	const [currentPage, setCurrentPage] = useState(1);
+	const queryClient = useQueryClient();
 
 	const handleSearch = (e: any) => {
 		const query = e.target.value.toLowerCase();
@@ -108,24 +111,21 @@ export default function Page() {
 								<button
 									type="button"
 									className="px-5 py-1 text-sm font-medium border rounded-lg hover:text-blue-700 focus:z-10 focus:ring-2 bg-gray-800 border-gray-700 text-white hover:bg-gray-700 focus:ring-blue-500"
-									onClick={() => {
-										window.location.reload();
-									}}
+									onClick={() => queryClient.invalidateQueries("links")}
 								>
 									<RefreshCcw />
 								</button>
 							</div>
 						</div>
 					</div>
-
-					<ScrollArea className="h-[50vh] md:h-[520px]">
+					<ScrollArea className="h-[50vh] md:h-fit">
 						{filteredLinks.length === 0 ? (
 							<LoaderIcon className="animate-spin mx-auto pt-10" />
 						) : (
 							<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
 								{paginatedLinks.map((link: any) => (
 									<Link href={`/link/${link.id}`} key={link.id}>
-										<Card className="bg-gray-950 hover:bg-gray-800 text-white border rounded-tr rounded-bl shadow-md">
+										<Card className="h-full bg-gray-950 hover:bg-gray-800 text-white border rounded-xl">
 											<CardHeader>
 												<CardTitle className="capitalize">{link.category}</CardTitle>
 												<CardDescription>{link.desc}</CardDescription>
@@ -139,8 +139,7 @@ export default function Page() {
 							</div>
 						)}
 					</ScrollArea>
-
-					<Pagination className="flex justify-center mt-6 space-x-4">
+					<Pagination className="flex justify-center my-5 space-x-4">
 						<PaginationContent>
 							<PaginationItem>
 								<PaginationPrevious href="#" onClick={handlePreviousPage} />

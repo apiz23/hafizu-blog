@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
 	title: "Hafizu Blog",
@@ -27,7 +28,9 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body className={fontSans.className}>{children}</body>
+			<body className={fontSans.className}>
+				{children} <Analytics />
+			</body>
 		</html>
 	);
 }

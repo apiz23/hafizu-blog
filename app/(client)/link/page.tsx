@@ -93,7 +93,7 @@ export default function Page() {
 					text="File Link"
 				/>
 				<div className="max-w-7xl mx-auto">
-					<div className="grid grid-cols-1 md:grid-cols-12 mb-5 space-x-3 px-2">
+					<div className="grid grid-cols-1 md:grid-cols-12 mb-10 space-x-3 px-2">
 						<div className="col-span-6 flex justify-end">
 							<Input
 								type="text"
@@ -103,7 +103,7 @@ export default function Page() {
 								className="mb-4 px-4 py-2 w-full me-3 float-end border bg-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
 							/>
 						</div>
-						<div className="col-span-6 flex justify-end">
+						{/* <div className="col-span-6 flex justify-end">
 							<div
 								className="inline-flex rounded-md shadow-sm pb-2 hover:cursor-pointer"
 								role="group"
@@ -116,7 +116,7 @@ export default function Page() {
 									<RefreshCcw />
 								</button>
 							</div>
-						</div>
+						</div> */}
 					</div>
 					<ScrollArea className="h-[50vh] md:h-fit">
 						{filteredLinks.length === 0 ? (

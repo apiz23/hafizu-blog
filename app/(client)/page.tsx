@@ -6,7 +6,6 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Lenis from "@studio-freight/lenis";
 import { LoaderIcon } from "lucide-react";
 import BlurIn from "@/components/magicui/blur-in";
-import { BorderBeam } from "@/components/magicui/border-beam";
 import FlipText from "@/components/magicui/flip-text";
 import {
 	RiNextjsLine,

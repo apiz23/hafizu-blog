@@ -104,8 +104,8 @@ export default function Page() {
 									: "70vh",
 							}}
 						>
-							<TableHeader>
-								<TableRow className="hover:bg-gray-800 font-bold">
+							<TableHeader className="font-bold">
+								<TableRow className="hover:bg-neutral-900">
 									<TableHead>No</TableHead>
 									<TableHead>Category</TableHead>
 									<TableHead>Description</TableHead>
@@ -113,7 +113,7 @@ export default function Page() {
 									<TableHead>Created Date</TableHead>
 								</TableRow>
 							</TableHeader>
-							<TableBody className="font-mono">
+							<TableBody className="font-semibold">
 								{filteredLinks?.map((item, index) => (
 									<TableRow key={item.id}>
 										<TableCell className="font-medium">

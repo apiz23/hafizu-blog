@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter as FontSans } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "../globals.css";
 import { Toaster } from "sonner";
 import Navbar from "@/components/Navbar";
@@ -22,9 +22,10 @@ export const metadata: Metadata = {
 	},
 };
 
-const fontSans = FontSans({
+const fontSans = Poppins({
 	subsets: ["latin"],
 	variable: "--font-sans",
+	weight: "500"
 });
 
 export default function RootLayout({

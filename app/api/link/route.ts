@@ -11,7 +11,11 @@ export async function GET() {
 			throw error;
 		}
 
-		return NextResponse.json(data);
+		return NextResponse.json(data, {
+			headers: {
+				"Cache-Control": "no-store, max-age=0",
+			},
+		});
 	} catch (error: any) {
 		console.error("Error fetching data from Supabase:", error.message);
 	}

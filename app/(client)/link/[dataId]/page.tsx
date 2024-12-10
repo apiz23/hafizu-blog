@@ -8,7 +8,6 @@ import { Separator } from "@/components/ui/separator";
 import { toast } from "sonner";
 import Image from "next/image";
 import { useQuery } from "react-query";
-import supabase from "@/lib/supabase";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import useYoutubeId from "@/hooks/youtube-id";
 import { handleDownload } from "@/hooks/link-hook";

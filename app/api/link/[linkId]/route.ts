@@ -1,3 +1,5 @@
+"use server";
+
 import supabase from "@/lib/supabase";
 import { NextResponse } from "next/server";
 import { toast } from "sonner";

@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 	},
 };
 
-const fontSans = Poppins({
+const fontPoppins = Poppins({
 	subsets: ["latin"],
 	variable: "--font-sans",
 	weight: "500"
@@ -35,7 +35,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body className={fontSans.className}>
+			<body className={fontPoppins.className}>
 				<div className="w-full z-50 fixed">
 					<Navbar />
 					<Loader />

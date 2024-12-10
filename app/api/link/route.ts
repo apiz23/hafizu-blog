@@ -5,7 +5,10 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
 	try {
-		const { data, error } = await supabase.from("link").select("*");
+		const { data, error } = await supabase
+			.from("link")
+			.select("*")
+			.order("id", { ascending: false });
 
 		if (error) {
 			throw error;
@@ -18,5 +21,6 @@ export async function GET() {
 		});
 	} catch (error: any) {
 		console.error("Error fetching data from Supabase:", error.message);
+		return NextResponse.json({ error: error.message }, { status: 500 });
 	}
 }

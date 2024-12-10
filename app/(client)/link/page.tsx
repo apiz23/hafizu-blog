@@ -24,19 +24,23 @@ import {
 	PaginationPrevious,
 } from "@/components/ui/pagination";
 import Link from "next/link";
+import supabase from "@/lib/supabase";
 
 const ITEMS_PER_PAGE = 12;
 
 async function fetchLinks() {
-	const response = await fetch(`${window.location.origin}/api/link`);
+	try {
+		const { data, error } = await supabase.from("link").select("*");
 
-	if (!response.ok) {
-		const error = await response.json();
-		throw new Error(error.message || "Failed to fetch links");
+		if (error) {
+			throw new Error(error.message || "Failed to fetch links");
+		}
+
+		return data?.sort((a: any, b: any) => b.id - a.id) || [];
+	} catch (err: any) {
+		toast.error("Error fetching links:", err.message);
+		throw new Error(err.message || "Failed to fetch links");
 	}
-
-	const data = await response.json();
-	return data.sort((a: any, b: any) => b.id - a.id);
 }
 
 export default function Page() {

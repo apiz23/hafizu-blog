@@ -69,7 +69,7 @@ export default function Page() {
 	return (
 		<>
 			<div className="w-full ps-10">
-				<div className="flex py-8 px-5 text-white">
+				<div className="flex py-8 px-5 text-black">
 					<h3 className="scroll-m-20 text-4xl font-bold tracking-tight">
 						Dashboard
 					</h3>
@@ -79,14 +79,14 @@ export default function Page() {
 						<Input
 							type="text"
 							placeholder="Filter"
-							className="bg-black text-white rounded md:w-[30vw]"
+							className="bg-black text-black rounded md:w-[30vw]"
 							value={searchQuery}
 							onChange={handleSearch}
 						/>
 					</div>
 					<Dialog>
 						<DialogTrigger className="rounded-md bg-zinc-800 p-2.5">
-							<Plus className="w-5 h-5 text-white" />
+							<Plus className="w-5 h-5 text-black" />
 						</DialogTrigger>
 						<AddLink
 							mutate={(data) => mutation.mutate(data)}
@@ -97,7 +97,7 @@ export default function Page() {
 				<div className="p-4">
 					<Table>
 						<ScrollArea
-							className="max-h-[80vh] rounded border border-neutral-700 text-white"
+							className="max-h-[80vh] rounded border border-neutral-700 text-black"
 							style={{
 								height: filteredLinks?.length
 									? `${Math.min(filteredLinks.length * 60, 560)}px`

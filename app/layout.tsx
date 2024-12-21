@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter as FontSans } from "next/font/google";
+import { Poppins as FontSans } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
 
@@ -19,6 +19,7 @@ export const metadata: Metadata = {
 const fontSans = FontSans({
 	subsets: ["latin"],
 	variable: "--font-sans",
+	weight: "500",
 });
 
 export default function RootLayout({

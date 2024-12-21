@@ -113,12 +113,12 @@ export const AddLink: React.FC<AddDataFormProps> = ({
 	};
 
 	return (
-		<DialogContent className="bg-black text-white">
-			<DialogHeader className="text-3xl font-medium tracking-wide">
+		<DialogContent className="bg-black text-black">
+			<DialogHeader className="text-3xl font-medium tracking-wide text-white">
 				Add Data
 			</DialogHeader>
-			<form onSubmit={handleSubmit}>
-				<div className="flex items-center space-x-2 mb-5">
+			<form onSubmit={handleSubmit} className="text-black font-medium">
+				<div className="flex items-center space-x-2 mb-5 text-white">
 					<Label className="me-5">Url or File</Label>
 					<Switch id="Url or File" onClick={handleChangeFile} />
 				</div>
@@ -128,9 +128,9 @@ export const AddLink: React.FC<AddDataFormProps> = ({
 							htmlFor="dropzone-file"
 							className="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50hover:bg-bray-800bg-gray-900 hover:bg-gray-100border-gray-600hover:border-gray-500hover:bg-gray-800"
 						>
-							<div className="flex flex-col items-center justify-center pt-5 pb-6">
-								<CloudUpload className="text-gray-500" />
-								<p className="mb-2 text-sm text-gray-500text-gray-400">
+							<div className="flex flex-col items-center justify-center pt-5 pb-6 text-gray-500">
+								<CloudUpload />
+								<p className="mb-2 text-sm">
 									<span className="font-semibold">Click to upload</span>
 								</p>
 								<p className="text-xs text-gray-500text-gray-400">

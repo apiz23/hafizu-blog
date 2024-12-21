@@ -107,20 +107,20 @@ export default function Page() {
 								className="mb-4 px-4 py-2 w-full me-3 float-end border bg-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
 							/>
 						</div>
-						{/* <div className="col-span-6 flex justify-end">
+						<div className="col-span-6 flex justify-end">
 							<div
 								className="inline-flex rounded-md shadow-sm pb-2 hover:cursor-pointer"
 								role="group"
 							>
 								<button
 									type="button"
-									className="px-5 py-1 text-sm font-medium border rounded-lg hover:text-blue-700 focus:z-10 focus:ring-2 bg-gray-800 border-gray-700 text-white hover:bg-gray-700 focus:ring-blue-500"
+									className="px-5 py-1 text-sm font-medium border rounded-lg focus:z-10 focus:ring-2 bg-black text-white"
 									onClick={() => queryClient.invalidateQueries("links")}
 								>
 									<RefreshCcw />
 								</button>
 							</div>
-						</div> */}
+						</div>
 					</div>
 					<ScrollArea className="h-[50vh] md:h-fit">
 						{filteredLinks.length === 0 ? (
@@ -129,7 +129,7 @@ export default function Page() {
 							<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
 								{paginatedLinks.map((link: any) => (
 									<Link href={`/link/${link.id}`} key={link.id}>
-										<Card className="h-full bg-gray-950 hover:bg-gray-800 text-white border rounded-xl">
+										<Card className="h-full bg-black text-white">
 											<CardHeader>
 												<CardTitle className="capitalize">{link.category}</CardTitle>
 												<CardDescription>{link.desc}</CardDescription>

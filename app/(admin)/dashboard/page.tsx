@@ -69,7 +69,7 @@ export default function Page() {
 	return (
 		<>
 			<div className="w-full ps-10">
-				<div className="flex py-8 px-5 text-black">
+				<div className="flex py-8 px-5 text-white">
 					<h3 className="scroll-m-20 text-4xl font-bold tracking-tight">
 						Dashboard
 					</h3>
@@ -97,7 +97,7 @@ export default function Page() {
 				<div className="p-4">
 					<Table>
 						<ScrollArea
-							className="max-h-[80vh] rounded border border-neutral-700 text-black"
+							className="max-h-[80vh] rounded border border-neutral-700 text-white"
 							style={{
 								height: filteredLinks?.length
 									? `${Math.min(filteredLinks.length * 60, 560)}px`

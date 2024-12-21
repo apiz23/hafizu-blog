@@ -1,16 +1,6 @@
 "use client";
 
-import {
-	Home,
-	Lock,
-	Menu,
-	Calculator,
-	MessageSquare,
-	LogOut,
-	User2,
-	ChevronUp,
-	ChevronDown,
-} from "lucide-react";
+import { Home, Lock, Menu, Calculator, LogOut, Image } from "lucide-react";
 import { FaRegFile } from "react-icons/fa6";
 import Link from "next/link";
 import {
@@ -35,33 +25,14 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { signOut, useSession } from "next-auth/react";
 import { deleteCookies } from "@/lib/auth";
 import { Button } from "./ui/button";
-import { useState } from "react";
 import { Dock, DockIcon } from "@/components/magicui/dock";
-import {
-	Sidebar,
-	SidebarContent,
-	SidebarFooter,
-	SidebarGroup,
-	SidebarGroupContent,
-	SidebarGroupLabel,
-	SidebarHeader,
-	SidebarMenu,
-	SidebarMenuAction,
-	SidebarMenuButton,
-	SidebarMenuItem,
-} from "@/components/ui/sidebar";
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
 export default function Navbar() {
 	const pathname = usePathname();
 
 	const itemNav = [
 		{ title: "Home", url: "/", icon: Home },
-		{ title: "Feed", url: "/feed", icon: MessageSquare },
+		// { title: "Feed", url: "/feed", icon: MessageSquare },
+		{ title: "UTHM Photo Finder", url: "/uthmPhotoFinder", icon: Image },
 		{ title: "Link", url: "/link", icon: FaRegFile },
 		{ title: "Calculator", url: "/calculator", icon: Calculator },
 		{ title: "Admin", url: "/login", icon: Lock },

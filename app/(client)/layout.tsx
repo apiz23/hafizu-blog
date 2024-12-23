@@ -6,6 +6,8 @@ import Navbar from "@/components/Navbar";
 import ReactQueryProvider from "@/lib/react-query";
 import Loader from "@/components/Preloader";
 import { NextAuthProvider } from "@/components/session-provider";
+import { AppSidebar } from "@/components/app-sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
 export const metadata: Metadata = {
 	title: "Hafizu Blog",
@@ -23,7 +25,7 @@ export const metadata: Metadata = {
 const fontPoppins = Poppins({
 	subsets: ["latin"],
 	variable: "--font-sans",
-	weight: "500"
+	weight: "500",
 });
 
 export default function RootLayout({
@@ -34,18 +36,25 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={fontPoppins.className}>
-				<div className="w-full z-50 fixed">
-					<Navbar />
-					<Loader />
-				</div>
-				<Toaster richColors />
-				<div className="bg-black relative text-white">
-					<div className="mx-auto z-10 relative">
-						<NextAuthProvider>
-							<ReactQueryProvider>{children}</ReactQueryProvider>
-						</NextAuthProvider>
+				<SidebarProvider>
+					{/* <AppSidebar /> */}
+					<div className="w-full z-50 fixed">
+						<Navbar />
+						<Loader />
 					</div>
-				</div>
+					<main className="text-white w-full mx-auto z-10 relative">
+						<Toaster richColors />
+						<NextAuthProvider>
+							<ReactQueryProvider>
+								{/* <SidebarTrigger className="z-20 fixed" /> */}
+								{children}
+							</ReactQueryProvider>
+						</NextAuthProvider>
+					</main>
+					{/* <div className="bg-black relative text-white w-full">
+						<div className="mx-auto z-10 relative">{children}</div>
+					</div> */}
+				</SidebarProvider>
 			</body>
 		</html>
 	);

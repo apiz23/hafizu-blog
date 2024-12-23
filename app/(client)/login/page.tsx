@@ -72,7 +72,7 @@ export default function Page() {
 	return (
 		<>
 			<div className="min-h-screen flex">
-				<div className="hidden md:flex flex-col justify-center items-start bg-neutral-900 text-white w-1/2 px-16">
+				<div className="hidden md:flex flex-col justify-center items-start text-white w-1/2 px-16">
 					<h1 className="text-3xl font-semibold mb-6">Hafizu Blog</h1>
 					{isQuotesLoading ? (
 						<LoaderIcon className="animate-spin mx-auto text-white" />
@@ -98,20 +98,22 @@ export default function Page() {
 							<Input
 								type="password"
 								placeholder="Token"
-								className="mb-4"
+								className="mb-4 rounded"
 								value={token?.value || ""}
 								onChange={(e) => setToken({ value: e.target.value })}
 								onBlur={handleCheckToken}
 							/>
 
-							<Button
-								variant="outline"
-								className="w-full"
-								onClick={handleSignIn}
-								disabled={!tokenMatched}
-							>
-								<Github className="mr-2" /> GitHub
-							</Button>
+							<div className="flex justify-center">
+								<Button
+									variant="outline"
+									className="w-fit"
+									onClick={handleSignIn}
+									disabled={!tokenMatched}
+								>
+									<Github className="mr-2" /> GitHub
+								</Button>
+							</div>
 						</CardContent>
 					</Card>
 				</div>

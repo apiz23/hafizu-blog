@@ -3,8 +3,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/utils/cn";
-import { Button } from "./ui/button";
-import { Share } from "lucide-react";
 
 type Tab = {
 	title: string;
@@ -70,7 +68,7 @@ export const Tabs = ({
 							/>
 						)}
 
-						<span className="relative block text-blacktext-white">{tab.title}</span>
+						<span className="relative block text-white">{tab.title}</span>
 					</button>
 				))}
 			</div>

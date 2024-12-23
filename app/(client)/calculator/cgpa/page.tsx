@@ -127,7 +127,7 @@ export default function CGPA() {
 					<div className="relative overflow-x-auto sm:rounded-md">
 						<Button
 							type="button"
-							className="text-white w-fit float-right font-medium rounded-md text-sm px-2 py-1.5 text-center mr-2 mb-2 bg-green-600 hover:bg-green-700 focus:ring-green-800"
+							className="text-white w-10 h-10 float-right font-medium rounded text-sm px-2 py-1.5 text-center mr-2 mb-2 bg-green-600 hover:bg-green-700 focus:ring-green-800"
 							onClick={addRow}
 						>
 							<PlusIcon className="h-6 w-6 text-white" />
@@ -136,7 +136,7 @@ export default function CGPA() {
 					<Table>
 						<TableCaption>Subject and Grade</TableCaption>
 						<TableHeader>
-							<TableRow>
+							<TableRow className="hover:bg-neutral-900">
 								<TableHead className="w-[100px]">No</TableHead>
 								<TableHead>Grade</TableHead>
 								<TableHead>Credit</TableHead>
@@ -145,8 +145,8 @@ export default function CGPA() {
 						</TableHeader>
 						<TableBody>
 							{rows.map((row, index) => (
-								<TableRow key={index}>
-									<TableCell className="font-medium">{index + 1}</TableCell>
+								<TableRow key={index} className="hover:bg-neutral-900">
+									<TableCell className="font-medium text-white">{index + 1}</TableCell>
 									<TableCell className="p-0 pe-2 md:px-3 md:py-4 w-1/2">
 										<Select
 											onValueChange={(value) => handleRowChange(index, "grade", value)}
@@ -188,7 +188,7 @@ export default function CGPA() {
 									</TableCell>
 									<TableCell className="px-3 py-4">
 										<Button
-											className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-md text-sm px-5 py-2.5 mr-2bg-red-600hover:bg-red-700focus:ring-red-900"
+											className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded text-sm px-5 py-2.5 mr-2bg-red-600hover:bg-red-700focus:ring-red-900"
 											onClick={() => deleteRow(index)}
 										>
 											<Trash2 className="h-5 w-5 text-white" />

@@ -13,9 +13,9 @@ export default function Page() {
 			title: "CGPA Calculator",
 			value: "CGPA Calculator",
 			content: (
-				<div className="w-full overflow-hidden relative h-3/5 rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-neutral-500 to-black">
+				<div className="w-full overflow-hidden relative h-3/5 rounded-2xl p-10 text-xl md:text-4xl font-bold text-black border-2">
 					<BlurIn
-						className="scroll-m-20 text-2xl font-extrabold tracking-wider uppercase lg:text-6xl"
+						className="scroll-m-20 text-2xl font-extrabold tracking-wider uppercase lg:text-6xl text-white"
 						word="CGPA Calculator"
 					/>
 					<CGPA />
@@ -26,9 +26,9 @@ export default function Page() {
 			title: "Quadratic Equation",
 			value: "quadratic equation",
 			content: (
-				<div className="w-full overflow-hidden relative h-3/5 rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-neutral-500 to-black">
+				<div className="w-full overflow-hidden relative h-3/5 rounded-2xl p-10 text-xl md:text-4xl font-bold text-black border-2">
 					<BlurIn
-						className="scroll-m-20 text-2xl font-extrabold tracking-wider uppercase lg:text-6xl"
+						className="scroll-m-20 text-2xl font-extrabold tracking-wider uppercase lg:text-6xl text-white"
 						word="Quadratic Equation"
 					/>
 					<Quadratic />
@@ -39,7 +39,7 @@ export default function Page() {
 
 	return (
 		<>
-			<div className="min-h-screen">
+			<div className="min-h-screen pb-20">
 				<header className="text-center px-5 pt-24">
 					<GradualSpacing
 						className="scroll-m-20 text-2xl font-extrabold tracking-wider uppercase lg:text-6xl"
@@ -52,7 +52,7 @@ export default function Page() {
 				</header>
 				<div className="py-10 md:px-0 px-2.5">
 					<Tabs defaultValue={tabs[0].value} className="w-full mx-auto max-w-4xl">
-						<TabsList>
+						<TabsList className="bg-black border">
 							{tabs.map((tab) => (
 								<TabsTrigger key={tab.value} value={tab.value}>
 									{tab.title}

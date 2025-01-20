@@ -12,7 +12,7 @@ const fetchQuotes = async () => {
 	headers.append("X-Api-Key", token);
 
 	const response = await fetch(
-		"https://api.api-ninjas.com/v1/quotes?category=computers",
+		"https://api.api-ninjas.com/v1/quotes?",
 		{
 			method: "GET",
 			headers: headers,

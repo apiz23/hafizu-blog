@@ -2,17 +2,8 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { RiFileImageLine } from "react-icons/ri";
 import { toast } from "sonner";
 import { Card, CardContent } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import GradualSpacing from "@/components/magicui/gradual-spacing";
@@ -20,7 +11,6 @@ import { LoaderIcon } from "lucide-react";
 
 export default function Page() {
 	const [matricNo, setMatricNo] = useState("");
-	const [session, setSession] = useState("20232024");
 	const [imageUrl, setImageUrl] = useState<string | null>(null);
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -31,6 +21,9 @@ export default function Page() {
 			toast.error("Please enter a matric number.");
 			return;
 		}
+
+		const yearCode = matricNo.slice(2, 4);
+		const session = `20${yearCode}20${parseInt(yearCode) + 1}`;
 
 		setImageUrl(null);
 		setIsLoading(true);
@@ -48,14 +41,11 @@ export default function Page() {
 				`${apiUrl}/hafizu-blog/image?session=${session}&matricNumber=${matricNo}`
 			);
 			if (!response.ok) {
-				throw new Error(
-					"Image not found. Please check your matric number and session."
-				);
+				throw new Error("Image not found. Please check your matric number.");
 			}
 
 			const data = await response.json();
 			setImageUrl(data.imageUrl);
-
 		} catch (err: any) {
 			setImageUrl(null);
 			toast.error(err.message || "An unexpected error occurred.");
@@ -83,7 +73,7 @@ export default function Page() {
 										<Image
 											src={imageUrl}
 											alt="Student"
-											className="w-[60vw] md:w-3/5 rounded-md mx-auto"
+											className="w-[60vw] md:w-1/2 rounded-md mx-auto"
 											height={500}
 											width={500}
 										/>
@@ -95,31 +85,6 @@ export default function Page() {
 								</div>
 								<form onSubmit={handleSearch}>
 									<div className="max-w-2xl mb-5 md:px-8 space-y-4">
-										<div className="block">
-											<Label htmlFor="session" className="text-sm text-gray-400">
-												Select Session:
-											</Label>
-											<div className="w-[30vw] md:w-[10vw] mt-2">
-												<Select
-													name="session"
-													value={session}
-													onValueChange={(value: string) => {
-														setSession(value);
-													}}
-												>
-													<SelectTrigger className="text-black">
-														<SelectValue placeholder="Select Session" />
-													</SelectTrigger>
-													<SelectContent>
-														<SelectItem value="20242025">2024/2025</SelectItem>
-														<SelectItem value="20232024">2023/2024</SelectItem>
-														<SelectItem value="20222023">2022/2023</SelectItem>
-														<SelectItem value="20212022">2021/2022</SelectItem>
-														<SelectItem value="20202021">2020/2021</SelectItem>
-													</SelectContent>
-												</Select>
-											</div>
-										</div>
 										<Input
 											className="text-black rounded"
 											placeholder="Matric Number..."

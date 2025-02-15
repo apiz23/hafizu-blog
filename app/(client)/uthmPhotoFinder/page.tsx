@@ -40,7 +40,7 @@ export default function Page() {
 			const response = await fetch(
 				`${apiUrl}/hafizu-blog/image?session=${session}&matricNumber=${matricNo}`
 			);
-			if (!response.ok) {
+ 			if (!response.ok) {
 				throw new Error("Image not found. Please check your matric number.");
 			}
 

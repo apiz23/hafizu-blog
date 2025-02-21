@@ -212,10 +212,10 @@ export default function CGPA() {
 								<DialogTitle className="text-3xl">Result</DialogTitle>
 							</DialogHeader>
 							<div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-5">
-								<div className="text-center rounded-md bg-neutral-700 py-3">
+								<div className="text-center rounded-md py-3">
 									{`${results.min}`} {" < "} GPA {" < "} {`${results.max}`}
 								</div>
-								<div className="text-center rounded-md bg-neutral-700 py-3">
+								<div className="text-center rounded-md py-3">
 									{`${results.min1}`} {" < "} CPA {" < "} {`${results.max1}`}
 								</div>
 							</div>

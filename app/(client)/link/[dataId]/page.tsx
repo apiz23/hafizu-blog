@@ -11,6 +11,7 @@ import { useQuery } from "react-query";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import useYoutubeId from "@/hooks/youtube-id";
 import { handleDownload } from "@/hooks/link-hook";
+import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
 
 async function fetchData(dataId: string) {
 	const response = await fetch(`/api/link/${dataId}`);
@@ -153,17 +154,14 @@ export default function DataDetails({
 											} else {
 												return (
 													<div className="flex justify-end">
-														<div
-															className="group relative inline-block focus:outline-none focus:ring mt-5"
+														<InteractiveHoverButton
+															className="text-black"
 															onClick={() => {
 																handleDownload(data.url);
 															}}
 														>
-															<span className="absolute inset-0 translate-x-1.5 translate-y-1.5 bg-yellow-300 transition-transform group-hover:translate-x-0 group-hover:translate-y-0"></span>
-															<span className="relative inline-block border-2 border-yellow-100 border-current px-8 py-3 text-sm font-bold uppercase tracking-widest text-black group-active:text-opacity-75">
-																Download
-															</span>
-														</div>
+															Download
+														</InteractiveHoverButton>
 													</div>
 												);
 											}

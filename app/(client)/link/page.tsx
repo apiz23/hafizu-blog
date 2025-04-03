@@ -26,6 +26,7 @@ import {
 import Link from "next/link";
 import supabase from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const ITEMS_PER_PAGE = 12;
 
@@ -99,7 +100,7 @@ export default function Page() {
 		<div className="min-h-screen space-x-3 px-5">
 			<div className="pb-32 pt-14 md:pt-24">
 				<GradualSpacing
-					className="scroll-m-20 text-2xl font-extrabold tracking-wider uppercase lg:text-6xl mb-14"
+					className="scroll-m-20 text-4xl font-extrabold tracking-wider uppercase lg:text-6xl mb-14"
 					text="File Link"
 				/>
 				<div className="max-w-7xl mx-auto">
@@ -128,13 +129,26 @@ export default function Page() {
 							</div>
 						</div>
 					</div>
-					<ScrollArea className="h-[50vh] md:h-fit">
+					<ScrollArea className="h-[55vh] md:h-fit">
 						{filteredLinks.length === 0 ? (
-							<LoaderIcon className="animate-spin mx-auto pt-10" />
+							<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+								{Array.from({ length: 12 }).map((_, index) => (
+									<Card key={index} className="h-full bg-black">
+										<CardHeader className="space-y-4">
+											<Skeleton className="h-6 w-3/4 rounded-lg" />
+											<Skeleton className="h-4 w-full rounded-lg" />
+											<Skeleton className="h-4 w-2/3 rounded-lg" />
+										</CardHeader>
+										<CardContent className="flex justify-end">
+											<Skeleton className="h-5 w-16 rounded-lg" />
+										</CardContent>
+									</Card>
+								))}
+							</div>
 						) : (
 							<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
 								{paginatedLinks.map((link: any) => (
-									<Link href={`/link/${link.id}`} key={link.id}>
+									<Link href={`/link/${link.id}`} key={link.id} prefetch={true}>
 										<Card className="h-full bg-black text-white hover:bg-neutral-900">
 											<CardHeader>
 												<CardTitle className="capitalize">{link.category}</CardTitle>

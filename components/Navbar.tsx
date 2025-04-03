@@ -32,7 +32,7 @@ export default function Navbar() {
 	const itemNav = [
 		{ title: "Home", url: "/", icon: Home },
 		// { title: "Feed", url: "/feed", icon: MessageSquare },
-		{ title: "UTHM Photo Finder", url: "/uthmPhotoFinder", icon: Image },
+		// { title: "UTHM Photo Finder", url: "/uthmPhotoFinder", icon: Image },
 		{ title: "Link", url: "/link", icon: FaRegFile },
 		{ title: "Calculator", url: "/calculator", icon: Calculator },
 		{ title: "Admin", url: "/login", icon: Lock },

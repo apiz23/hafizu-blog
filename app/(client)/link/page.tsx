@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/pagination";
 import Link from "next/link";
 import supabase from "@/lib/supabase";
+import { Button } from "@/components/ui/button";
 
 const ITEMS_PER_PAGE = 12;
 
@@ -36,7 +37,12 @@ async function fetchLinks() {
 			throw new Error(error.message || "Failed to fetch links");
 		}
 
-		return data?.sort((a: any, b: any) => b.id - a.id) || [];
+		return (
+			data?.sort(
+				(a: any, b: any) =>
+					new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+			) || []
+		);
 	} catch (err: any) {
 		toast.error("Error fetching links:", err.message);
 		throw new Error(err.message || "Failed to fetch links");
@@ -112,13 +118,13 @@ export default function Page() {
 								className="inline-flex rounded-md shadow-sm pb-2 hover:cursor-pointer"
 								role="group"
 							>
-								<button
+								<Button
 									type="button"
 									className="px-5 py-1 text-sm font-medium border rounded-lg focus:z-10 focus:ring-2 bg-black text-white"
 									onClick={() => queryClient.invalidateQueries("links")}
 								>
 									<RefreshCcw />
-								</button>
+								</Button>
 							</div>
 						</div>
 					</div>
@@ -129,7 +135,7 @@ export default function Page() {
 							<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
 								{paginatedLinks.map((link: any) => (
 									<Link href={`/link/${link.id}`} key={link.id}>
-										<Card className="h-full bg-black text-white">
+										<Card className="h-full bg-black text-white hover:bg-neutral-900">
 											<CardHeader>
 												<CardTitle className="capitalize">{link.category}</CardTitle>
 												<CardDescription>{link.desc}</CardDescription>

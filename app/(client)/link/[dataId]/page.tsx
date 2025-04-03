@@ -64,7 +64,7 @@ export default function DataDetails({
 	}
 
 	return (
-		<div className="min-h-screen max-w-xl mx-auto pt-20 px-5">
+		<div className="min-h-screen max-w-3xl mx-auto pt-20 px-5">
 			<Link href="/link">
 				<Button variant="outline" className="mb-5 bg-black">
 					<ArrowBigLeft />

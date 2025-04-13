@@ -1,6 +1,6 @@
 "use client";
 
-import { Home, Lock, Menu, Calculator, LogOut, Image } from "lucide-react";
+import { Home, Lock, Menu, Sigma, LogOut, Image } from "lucide-react";
 import { FaRegFile } from "react-icons/fa6";
 import Link from "next/link";
 import {
@@ -34,7 +34,7 @@ export default function Navbar() {
 		// { title: "Feed", url: "/feed", icon: MessageSquare },
 		// { title: "UTHM Photo Finder", url: "/uthmPhotoFinder", icon: Image },
 		{ title: "Link", url: "/link", icon: FaRegFile },
-		{ title: "Calculator", url: "/calculator", icon: Calculator },
+		{ title: "Math", url: "/math", icon: Sigma },
 		{ title: "Admin", url: "/login", icon: Lock },
 	];
 

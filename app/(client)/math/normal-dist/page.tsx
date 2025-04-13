@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { normalPdf, normalCdf } from "@/utils/normal";
 import { AreaChart, Area, CartesianGrid, XAxis, YAxis } from "recharts";
 
@@ -13,6 +13,16 @@ import {
 	ChartTooltipContent,
 } from "@/components/ui/chart";
 import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import NormalZTable from "./normalTable";
+import {
+	Dialog,
+	DialogClose,
+	DialogContent,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from "@/components/ui/dialog";
 
 type Point = {
 	x: number;
@@ -23,8 +33,19 @@ export default function NormalDist() {
 	const [mean, setMean] = useState<number>(60);
 	const [sd, setSD] = useState<number>(10);
 	const [x, setX] = useState<number>(70);
+	const [z, setZ] = useState<number>((70 - 60) / 10);
+	const [useZScore, setUseZScore] = useState<boolean>(false);
 
-	const z = useMemo(() => (x - mean) / sd, [x, mean, sd]);
+	useEffect(() => {
+		setZ((x - mean) / sd);
+	}, [x, mean, sd]);
+
+	useEffect(() => {
+		if (useZScore) {
+			setX(mean + z * sd);
+		}
+	}, [z, mean, sd, useZScore]);
+
 	const area = useMemo(() => normalCdf(x, mean, sd), [x, mean, sd]);
 	const rightTail = 1 - area;
 
@@ -73,6 +94,30 @@ export default function NormalDist() {
 				<CardTitle className="text-white mb-2">
 					Normal Distribution Visualizer
 				</CardTitle>
+
+				<div className="flex justify-end gap-3 mt-4 text-white">
+					<Label htmlFor="switch">Use Z-Score</Label>
+					<Switch
+						checked={useZScore}
+						onCheckedChange={setUseZScore}
+						id="switch"
+						className="border border-white"
+					/>
+					<Dialog>
+						<DialogTrigger className="bg-slate-700 rounded-lg p-2 text-base">
+							Open Table
+						</DialogTrigger>
+						<DialogContent className="max-w-fit py-10 mx-2">
+							<DialogHeader className="mb-5">
+								<DialogTitle>Normal Distributation Table</DialogTitle>
+							</DialogHeader>
+							<div className="overflow-y-auto overflow-x-auto w-full h-[60vh] p-0">
+								<NormalZTable />
+							</div>
+						</DialogContent>
+					</Dialog>
+				</div>
+
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
 					<div className="flex flex-col gap-1">
 						<Label htmlFor="mean" className="text-white">
@@ -100,20 +145,36 @@ export default function NormalDist() {
 						/>
 					</div>
 
-					<div className="flex flex-col gap-1">
-						<Label htmlFor="xval" className="text-white">
-							X Value
-						</Label>
-						<Input
-							id="xval"
-							type="number"
-							value={x}
-							onChange={(e) => setX(+e.target.value)}
-							placeholder="X value"
-						/>
-					</div>
+					{useZScore ? (
+						<div className="flex flex-col gap-1">
+							<Label htmlFor="zval" className="text-white">
+								Z Value
+							</Label>
+							<Input
+								id="zval"
+								type="number"
+								value={z}
+								onChange={(e) => setZ(+e.target.value)}
+								placeholder="Z value"
+							/>
+						</div>
+					) : (
+						<div className="flex flex-col gap-1">
+							<Label htmlFor="xval" className="text-white">
+								X Value
+							</Label>
+							<Input
+								id="xval"
+								type="number"
+								value={x}
+								onChange={(e) => setX(+e.target.value)}
+								placeholder="X value"
+							/>
+						</div>
+					)}
 				</div>
 			</CardHeader>
+
 			<CardContent className="md:p-6 p-0">
 				<ChartContainer config={chartConfig} className="mx-auto w-full">
 					<AreaChart
@@ -127,10 +188,13 @@ export default function NormalDist() {
 							dataKey="x"
 							domain={[minX, maxX]}
 							type="number"
-							tickFormatter={(value) => value.toFixed(0)}
+							tickFormatter={(value) =>
+								useZScore ? `${((value - mean) / sd).toFixed(1)}` : value.toFixed(0)
+							}
 							tickLine={false}
 							axisLine={false}
 						/>
+
 						<YAxis />
 						<ChartTooltip
 							content={<ChartTooltipContent indicator="line" />}
@@ -171,15 +235,20 @@ export default function NormalDist() {
 					</AreaChart>
 				</ChartContainer>
 
-				<div className="grid md:grid-cols-3 gap-4 mt-6 text-white text-sm md:text-base">
+				{/* Output values */}
+				<div className="grid md:grid-cols-3 gap-4 mt-6 text-white text-sm md:text-base text-center">
 					<p>
 						<strong>Z-score:</strong> {z.toFixed(2)}
 					</p>
-					<p>
-						<strong>Area P(X &lt; {x}):</strong> {area.toFixed(4)}
+
+					<p className="flex items-center justify-center gap-2">
+						<span className="inline-block w-4 h-4 rounded-sm bg-[#fcd34d]" />
+						<strong>P(X &lt; {x.toFixed(2)}):</strong> {area.toFixed(4)}
 					</p>
-					<p>
-						<strong>Area P(X &gt; {x}):</strong> {rightTail.toFixed(4)}
+
+					<p className="flex items-center justify-center gap-2">
+						<span className="inline-block w-4 h-4 rounded-sm bg-[#64748b]" />
+						<strong>P(X &gt; {x.toFixed(2)}):</strong> {rightTail.toFixed(4)}
 					</p>
 				</div>
 			</CardContent>

@@ -12,12 +12,13 @@ import {
 } from "@/components/ui/table";
 
 export default function NormalZTable() {
-	const rowZ = Array.from({ length: 31 }, (_, i) => (i * 0.1).toFixed(1));
+	// From -3.0 to +3.0 (0.1 steps) => 61 rows
+	const rowZ = Array.from({ length: 61 }, (_, i) => (-3 + i * 0.1).toFixed(1));
 	const colZ = Array.from({ length: 10 }, (_, j) => (j * 0.01).toFixed(2));
 
 	return (
-		<div className="overflow-x-auto w-full">
-			<Table>
+		<div className="h-[60vh] overflow-x-auto w-full">
+			<Table className="min-w-[1000px]">
 				<TableCaption>
 					Standard Normal Distribution Table (P(Z &lt; z))
 				</TableCaption>

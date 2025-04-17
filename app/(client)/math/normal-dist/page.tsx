@@ -107,13 +107,11 @@ export default function NormalDist() {
 						<DialogTrigger className="bg-slate-700 rounded-lg p-2 text-base">
 							Open Table
 						</DialogTrigger>
-						<DialogContent className="max-w-fit py-10 mx-2">
+						<DialogContent className="max-w-[90%] md:max-w-fit py-10">
 							<DialogHeader className="mb-5">
 								<DialogTitle>Normal Distributation Table</DialogTitle>
 							</DialogHeader>
-							<div className="overflow-y-auto overflow-x-auto w-full h-[60vh] p-0">
-								<NormalZTable />
-							</div>
+							<NormalZTable />
 						</DialogContent>
 					</Dialog>
 				</div>

@@ -17,12 +17,12 @@ import { Switch } from "@/components/ui/switch";
 import NormalZTable from "./normalTable";
 import {
 	Dialog,
-	DialogClose,
 	DialogContent,
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
 type Point = {
 	x: number;
@@ -30,32 +30,20 @@ type Point = {
 };
 
 export default function NormalDist() {
-	const [mean, setMean] = useState<number>(60);
-	const [sd, setSD] = useState<number>(10);
-	const [x, setX] = useState<number>(70);
-	const [z, setZ] = useState<number>((70 - 60) / 10);
-	const [useZScore, setUseZScore] = useState<boolean>(false);
+	const [x, setX] = useState<number>(1.0);
+	const [inputVal, setInputVal] = useState<string>("1.0");
+	const [useZScore, setUseZScore] = useState<boolean>(true);
 
-	useEffect(() => {
-		setZ((x - mean) / sd);
-	}, [x, mean, sd]);
-
-	useEffect(() => {
-		if (useZScore) {
-			setX(mean + z * sd);
-		}
-	}, [z, mean, sd, useZScore]);
-
-	const area = useMemo(() => normalCdf(x, mean, sd), [x, mean, sd]);
+	const area = useMemo(() => normalCdf(x, 0, 1), [x]);
 	const rightTail = 1 - area;
 
-	const minX = mean - 3 * sd;
-	const maxX = mean + 3 * sd;
+	const minX = -4;
+	const maxX = 4;
 
 	const { leftArea, rightArea } = useMemo(() => {
 		const xs: number[] = Array.from(
-			{ length: 200 },
-			(_, i) => minX + ((maxX - minX) * i) / 199
+			{ length: 300 },
+			(_, i) => minX + ((maxX - minX) * i) / 299
 		);
 
 		const leftArea: Point[] = [];
@@ -64,7 +52,7 @@ export default function NormalDist() {
 		xs.forEach((val) => {
 			const point: Point = {
 				x: val,
-				pdf: normalPdf(val, mean, sd),
+				pdf: normalPdf(val, 0, 1),
 			};
 
 			if (val <= x) {
@@ -75,7 +63,7 @@ export default function NormalDist() {
 		});
 
 		return { leftArea, rightArea };
-	}, [mean, sd, x]);
+	}, [x]);
 
 	const chartConfig = {
 		desktop: {
@@ -92,84 +80,56 @@ export default function NormalDist() {
 		<Card className="border-none bg-black">
 			<CardHeader>
 				<CardTitle className="text-white mb-2">
-					Normal Distribution Visualizer
+					Standard Normal Distribution Visualizer
 				</CardTitle>
 
-				<div className="flex justify-end gap-3 mt-4 text-white">
-					<Label htmlFor="switch">Use Z-Score</Label>
-					<Switch
-						checked={useZScore}
-						onCheckedChange={setUseZScore}
-						id="switch"
-						className="border border-white"
-					/>
+				<div className="flex flex-col md:flex-row md:justify-end gap-3 mt-4 text-white">
+					<div className="flex items-center gap-2">
+						<Label htmlFor="switch" className="p-1 md:p-4 whitespace-nowrap">
+							Use Z-Score
+						</Label>
+						<Switch
+							checked={useZScore}
+							onCheckedChange={setUseZScore}
+							id="switch"
+							className="border border-white"
+						/>
+					</div>
+
 					<Dialog>
-						<DialogTrigger className="bg-slate-700 rounded-lg p-2 text-base">
-							Open Table
+						<DialogTrigger className="rounded-lg p-2 text-base text-center">
+							<Button variant="secondary">Open Table</Button>
 						</DialogTrigger>
 						<DialogContent className="max-w-[90%] md:max-w-fit py-10">
 							<DialogHeader className="mb-5">
-								<DialogTitle>Normal Distributation Table</DialogTitle>
+								<DialogTitle>Normal Distribution Table</DialogTitle>
 							</DialogHeader>
 							<NormalZTable />
 						</DialogContent>
 					</Dialog>
 				</div>
 
-				<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-					<div className="flex flex-col gap-1">
-						<Label htmlFor="mean" className="text-white">
-							Mean
+				<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+					<div className="flex flex-col gap-1 md:ms-5">
+						<Label htmlFor="zval" className="text-white">
+							{useZScore ? "Z Value" : "X Value"}
 						</Label>
 						<Input
-							id="mean"
-							type="number"
-							value={mean}
-							onChange={(e) => setMean(+e.target.value)}
-							placeholder="Mean"
+							id="zval"
+							type="text"
+							value={inputVal}
+							onChange={(e) => {
+								const val = e.target.value;
+								setInputVal(val);
+
+								const parsed = parseFloat(val);
+								if (!isNaN(parsed)) {
+									setX(parsed);
+								}
+							}}
+							placeholder={useZScore ? "Z value" : "X value"}
 						/>
 					</div>
-
-					<div className="flex flex-col gap-1">
-						<Label htmlFor="sd" className="text-white">
-							Standard Deviation
-						</Label>
-						<Input
-							id="sd"
-							type="number"
-							value={sd}
-							onChange={(e) => setSD(+e.target.value)}
-							placeholder="Standard Deviation"
-						/>
-					</div>
-
-					{useZScore ? (
-						<div className="flex flex-col gap-1">
-							<Label htmlFor="zval" className="text-white">
-								Z Value
-							</Label>
-							<Input
-								id="zval"
-								type="number"
-								value={z}
-								onChange={(e) => setZ(+e.target.value)}
-								placeholder="Z value"
-							/>
-						</div>
-					) : (
-						<div className="flex flex-col gap-1">
-							<Label htmlFor="xval" className="text-white">
-								X Value
-							</Label>
-							<Input
-								id="xval"
-								type="number"
-								value={x}
-								onChange={(e) => setX(+e.target.value)}
-								placeholder="X value"
-							/>
-						</div>
-					)}
 				</div>
 			</CardHeader>
 
@@ -186,9 +146,7 @@ export default function NormalDist() {
 							dataKey="x"
 							domain={[minX, maxX]}
 							type="number"
-							tickFormatter={(value) =>
-								useZScore ? `${((value - mean) / sd).toFixed(1)}` : value.toFixed(0)
-							}
+							tickFormatter={(value) => value.toFixed(1)}
 							tickLine={false}
 							axisLine={false}
 						/>
@@ -236,17 +194,17 @@ export default function NormalDist() {
 				{/* Output values */}
 				<div className="grid md:grid-cols-3 gap-4 mt-6 text-white text-sm md:text-base text-center">
 					<p>
-						<strong>Z-score:</strong> {z.toFixed(2)}
+						<strong>Z-score:</strong> {x.toFixed(4)}
 					</p>
 
 					<p className="flex items-center justify-center gap-2">
 						<span className="inline-block w-4 h-4 rounded-sm bg-[#fcd34d]" />
-						<strong>P(X &lt; {x.toFixed(2)}):</strong> {area.toFixed(4)}
+						<strong>P(Z &lt; {x.toFixed(4)}):</strong> {area.toFixed(4)}
 					</p>
 
 					<p className="flex items-center justify-center gap-2">
 						<span className="inline-block w-4 h-4 rounded-sm bg-[#64748b]" />
-						<strong>P(X &gt; {x.toFixed(2)}):</strong> {rightTail.toFixed(4)}
+						<strong>P(Z &gt; {x.toFixed(4)}):</strong> {rightTail.toFixed(4)}
 					</p>
 				</div>
 			</CardContent>

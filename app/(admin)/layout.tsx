@@ -16,6 +16,8 @@ import { Toaster } from "sonner";
 import { NextAuthProvider } from "@/components/session-provider";
 import ReactQueryProvider from "@/lib/react-query";
 import { NavbarAd } from "@/components/Navbar";
+import { AppSidebar } from "@/components/app-sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
 export default function RootLayout({
 	children,
@@ -27,8 +29,14 @@ export default function RootLayout({
 			<body>
 				<Toaster richColors />
 				<NextAuthProvider>
-					<NavbarAd />
-					<ReactQueryProvider>{children}</ReactQueryProvider>
+					<SidebarProvider>
+						<AppSidebar />
+						<SidebarTrigger />
+						<main className="w-full p-10">
+							{/* <NavbarAd /> */}
+							<ReactQueryProvider>{children}</ReactQueryProvider>
+						</main>
+					</SidebarProvider>
 				</NextAuthProvider>
 			</body>
 		</html>

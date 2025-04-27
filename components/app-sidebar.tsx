@@ -9,19 +9,15 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Home, MessageSquare, Image, Calculator, Lock } from "lucide-react";
 import Link from "next/link";
-import { FaRegFile } from "react-icons/fa";
+import { MdDashboard, MdOutlineFeed } from "react-icons/md";
 
 export function AppSidebar() {
 	const itemNav = [
-		{ title: "Home", url: "/", icon: Home },
-		// { title: "Feed", url: "/feed", icon: MessageSquare },
-		{ title: "UTHM Photo Finder", url: "/uthmPhotoFinder", icon: Image },
-		{ title: "Link", url: "/link", icon: FaRegFile },
-		{ title: "Calculator", url: "/calculator", icon: Calculator },
-		{ title: "Admin", url: "/login", icon: Lock },
+		{ title: "Dashboard", url: "/dashboard", icon: MdDashboard },
+		{ title: "Posts", url: "/posts", icon: MdOutlineFeed },
 	];
+
 	return (
 		<Sidebar className="border-none">
 			<SidebarHeader className="bg-neutral-900">

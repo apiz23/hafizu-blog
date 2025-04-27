@@ -68,69 +68,65 @@ export default function Page() {
 
 	return (
 		<>
-			<div className="w-full ps-10">
-				<div className="flex py-8 px-5 text-white">
-					<h3 className="scroll-m-20 text-4xl font-bold tracking-tight">
-						Dashboard
-					</h3>
+			<div className="flex py-8 px-5 text-white">
+				<h3 className="scroll-m-20 text-4xl font-bold tracking-tight">Dashboard</h3>
+			</div>
+			<div className="flex my-5 justify-between mx-5">
+				<div className="flex">
+					<Input
+						type="text"
+						placeholder="Filter"
+						className="bg-black text-white rounded md:w-[30vw]"
+						value={searchQuery}
+						onChange={handleSearch}
+					/>
 				</div>
-				<div className="flex my-5 justify-between mx-5">
-					<div className="flex">
-						<Input
-							type="text"
-							placeholder="Filter"
-							className="bg-black text-black rounded md:w-[30vw]"
-							value={searchQuery}
-							onChange={handleSearch}
-						/>
-					</div>
-					<Dialog>
-						<DialogTrigger className="rounded-md bg-zinc-800 p-2.5">
-							<Plus className="w-5 h-5 text-black" />
-						</DialogTrigger>
-						<AddLink
-							mutate={(data) => mutation.mutate(data)}
-							onSubmitSuccess={() => {}}
-						/>
-					</Dialog>
-				</div>
-				<div className="p-4">
-					<Table>
-						<ScrollArea
-							className="max-h-[80vh] rounded border border-neutral-700 text-white"
-							style={{
-								height: filteredLinks?.length
-									? `${Math.min(filteredLinks.length * 60, 560)}px`
-									: "70vh",
-							}}
-						>
-							<TableHeader className="font-bold">
-								<TableRow className="hover:bg-neutral-900">
-									<TableHead>No</TableHead>
-									<TableHead>Category</TableHead>
-									<TableHead>Description</TableHead>
-									<TableHead>Type</TableHead>
-									<TableHead>Created Date</TableHead>
+				<Dialog>
+					<DialogTrigger className="rounded-md bg-zinc-800 p-2.5">
+						<Plus className="w-5 h-5 text-black" />
+					</DialogTrigger>
+					<AddLink
+						mutate={(data) => mutation.mutate(data)}
+						onSubmitSuccess={() => {}}
+					/>
+				</Dialog>
+			</div>
+			<div className="p-4">
+				<Table>
+					<ScrollArea
+						className="rounded border border-neutral-700 text-white"
+						style={{
+							height: filteredLinks?.length
+								? `${Math.min(filteredLinks.length * 60, 560)}px`
+								: "70vh",
+						}}
+					>
+						<TableHeader className="font-bold">
+							<TableRow className="hover:bg-neutral-900">
+								<TableHead>No</TableHead>
+								<TableHead>Category</TableHead>
+								<TableHead>Description</TableHead>
+								<TableHead>Type</TableHead>
+								<TableHead>Created Date</TableHead>
+							</TableRow>
+						</TableHeader>
+						<TableBody className="font-semibold">
+							{filteredLinks?.map((item, index) => (
+								<TableRow key={item.id}>
+									<TableCell className="font-medium">
+										<Link href={`${window.location.pathname}/${item.id}`}>
+											<Button variant="default">{index + 1}</Button>
+										</Link>
+									</TableCell>
+									<TableCell>{item.category}</TableCell>
+									<TableCell>{item.desc}</TableCell>
+									<TableCell>{item.type}</TableCell>
+									<TableCell>{new Date(item.created_at).toLocaleString()}</TableCell>
 								</TableRow>
-							</TableHeader>
-							<TableBody className="font-semibold">
-								{filteredLinks?.map((item, index) => (
-									<TableRow key={item.id}>
-										<TableCell className="font-medium">
-											<Link href={`${window.location.pathname}/${item.id}`}>
-												<Button variant="default">{index + 1}</Button>
-											</Link>
-										</TableCell>
-										<TableCell>{item.category}</TableCell>
-										<TableCell>{item.desc}</TableCell>
-										<TableCell>{item.type}</TableCell>
-										<TableCell>{new Date(item.created_at).toLocaleString()}</TableCell>
-									</TableRow>
-								))}
-							</TableBody>
-						</ScrollArea>
-					</Table>
-				</div>
+							))}
+						</TableBody>
+					</ScrollArea>
+				</Table>
 			</div>
 		</>
 	);

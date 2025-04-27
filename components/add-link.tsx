@@ -145,7 +145,7 @@ export const AddLink: React.FC<AddDataFormProps> = ({
 							/>
 						</label>
 						{selectedFile && (
-							<p className="text-sm text-gray-500text-gray-400 mb-5">
+							<p className="text-sm text-gray-400 my-5">
 								Selected file: {selectedFile.name}
 							</p>
 						)}

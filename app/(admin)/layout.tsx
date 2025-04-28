@@ -1,3 +1,8 @@
+import { Toaster } from "sonner";
+import { NextAuthProvider } from "@/components/session-provider";
+import ReactQueryProvider from "@/lib/react-query";
+import { AppSidebar } from "@/components/app-sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import "../globals.css";
 
 export const metadata = {
@@ -12,12 +17,6 @@ export const metadata = {
 		],
 	},
 };
-import { Toaster } from "sonner";
-import { NextAuthProvider } from "@/components/session-provider";
-import ReactQueryProvider from "@/lib/react-query";
-import { NavbarAd } from "@/components/Navbar";
-import { AppSidebar } from "@/components/app-sidebar";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
 export default function RootLayout({
 	children,
@@ -32,7 +31,7 @@ export default function RootLayout({
 					<SidebarProvider>
 						<AppSidebar />
 						<SidebarTrigger />
-						<main className="w-full p-10">
+						<main className="w-full md:p-10 md:pt-0 pt-10">
 							{/* <NavbarAd /> */}
 							<ReactQueryProvider>{children}</ReactQueryProvider>
 						</main>

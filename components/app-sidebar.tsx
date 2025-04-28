@@ -1,6 +1,9 @@
+"use client";
+
 import {
 	Sidebar,
 	SidebarContent,
+	SidebarFooter,
 	SidebarGroup,
 	SidebarGroupContent,
 	SidebarGroupLabel,
@@ -9,10 +12,25 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { MdDashboard, MdOutlineFeed } from "react-icons/md";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import { User2, ChevronUp, LogOut } from "lucide-react";
+import { deleteCookies } from "@/lib/auth";
 
 export function AppSidebar() {
+	const { data: session } = useSession();
+
+	if (session && session.user && session.user.email) {
+		sessionStorage.setItem("user-email", session.user.email);
+	}
+
 	const itemNav = [
 		{ title: "Dashboard", url: "/dashboard", icon: MdDashboard },
 		{ title: "Posts", url: "/posts", icon: MdOutlineFeed },
@@ -45,6 +63,37 @@ export function AppSidebar() {
 				</SidebarGroup>
 				<SidebarGroup />
 			</SidebarContent>
+			<SidebarFooter className="bg-neutral-900">
+				<SidebarMenu>
+					<SidebarMenuItem>
+						<DropdownMenu>
+							<DropdownMenuTrigger
+								asChild
+								className="hover:bg-transparent hover:text-white"
+							>
+								<SidebarMenuButton>
+									<User2 /> Username
+									<ChevronUp className="ml-auto" />
+								</SidebarMenuButton>
+							</DropdownMenuTrigger>
+							<DropdownMenuContent
+								side="top"
+								className="w-[--radix-popper-anchor-width]"
+							>
+								<DropdownMenuItem
+									onClick={() => {
+										signOut();
+										deleteCookies();
+									}}
+									className="gap-5"
+								>
+									<span>Log Out</span>
+								</DropdownMenuItem>
+							</DropdownMenuContent>
+						</DropdownMenu>
+					</SidebarMenuItem>
+				</SidebarMenu>
+			</SidebarFooter>
 		</Sidebar>
 	);
 }

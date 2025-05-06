@@ -8,6 +8,7 @@ import Loader from "@/components/Preloader";
 import { NextAuthProvider } from "@/components/session-provider";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import SpeedDial from "@/components/ai-assistant";
 
 export const metadata: Metadata = {
 	title: "Hafizu Blog",
@@ -42,6 +43,7 @@ export default function RootLayout({
 						<Navbar />
 						<Loader />
 					</div>
+					<SpeedDial />
 					<main className="text-white w-full mx-auto z-10 relative">
 						<Toaster richColors />
 						<NextAuthProvider>

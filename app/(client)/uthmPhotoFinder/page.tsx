@@ -1,113 +1,192 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { toast } from "sonner";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import GradualSpacing from "@/components/magicui/gradual-spacing";
-import { LoaderIcon } from "lucide-react";
+import { LoaderIcon, Search, User, Download } from "lucide-react";
 
 export default function Page() {
-	const [matricNo, setMatricNo] = useState("");
-	const [imageUrl, setImageUrl] = useState<string | null>(null);
-	const [isLoading, setIsLoading] = useState(false);
+    const [matricNo, setMatricNo] = useState("");
+    const [imageUrl, setImageUrl] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
 
-	const handleSearch = async (e: any) => {
-		e.preventDefault();
+    const getSessionFromMatric = (matric: string) => {
+        const match = matric.match(/[A-Z]{2}(\d{2})/i);
+        if (!match) return null;
+        const startYearShort = parseInt(match[1], 10);
+        const startYear = 2000 + startYearShort;
+        const endYear = startYear + 1;
+        return `${startYear}${endYear}`;
+    };
 
-		if (!matricNo) {
-			toast.error("Please enter a matric number.");
-			return;
-		}
+    const handleSearch = async (e: any) => {
+        e.preventDefault();
 
-		const yearCode = matricNo.slice(2, 4);
-		const session = `20${yearCode}20${parseInt(yearCode) + 1}`;
+        if (!matricNo) {
+            toast.error("Please enter a matric number.");
+            return;
+        }
 
-		setImageUrl(null);
-		setIsLoading(true);
-		toast.dismiss();
+        const session = getSessionFromMatric(matricNo);
+        if (!session) {
+            toast.error("Invalid matric number format.");
+            return;
+        }
 
-		try {
-			const apiUrl = process.env.NEXT_PUBLIC_PERSONAL_API;
-			if (!apiUrl) {
-				throw new Error(
-					"API URL is not configured. Please check your environment variables."
-				);
-			}
+        setImageUrl(null);
+        setIsLoading(true);
+        toast.dismiss();
 
-			const response = await fetch(
-				`${apiUrl}/hafizu-blog/image?session=${session}&matricNumber=${matricNo}`
-			);
- 			if (!response.ok) {
-				throw new Error("Image not found. Please check your matric number.");
-			}
+        try {
+            const url = `https://community.uthm.edu.my/images/students/${session}/${matricNo}.jpg`;
 
-			const data = await response.json();
-			setImageUrl(data.imageUrl);
-		} catch (err: any) {
-			setImageUrl(null);
-			toast.error(err.message || "An unexpected error occurred.");
-		} finally {
-			setIsLoading(false);
-		}
-	};
+            await new Promise<void>((resolve, reject) => {
+                const img = new Image();
+                img.src = url;
+                img.onload = () => resolve();
+                img.onerror = () => reject(new Error("Image not found"));
+            });
 
-	return (
-		<>
-			<div className="min-h-screen space-x-3 px-5">
-				<div className="pt-28 pb-10 md:pt-20">
-					<GradualSpacing
-						className="scroll-m-20 text-2xl font-extrabold tracking-wider uppercase lg:text-6xl my-5"
-						text="UTHM Photo Finder"
-					/>
-					<p className="text-md text-center text-neutral-400">
-						Simply enter your UTHM Matric Number to find your images effortlessly.
-					</p>
-					<div className="max-w-7xl mx-auto">
-						<Card className="max-w-2xl mx-auto rounded-md bg-transparent border-none text-white">
-							<CardContent className="my-10">
-								<div className="my-10 text-center max-w-xl mx-auto">
-									{imageUrl ? (
-										<Image
-											src={imageUrl}
-											alt="Student"
-											className="w-[60vw] md:w-1/2 rounded-md mx-auto"
-											height={500}
-											width={500}
-										/>
-									) : (
-										<div className="text-sm text-neutral-200">
-											No image found. Please try again.
-										</div>
-									)}
-								</div>
-								<form onSubmit={handleSearch}>
-									<div className="max-w-2xl mb-5 md:px-8 space-y-4">
-										<Input
-											className="text-black rounded"
-											placeholder="Matric Number..."
-											onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-												setMatricNo(e.target.value.toUpperCase())
-											}
-										/>
-										<div className="flex justify-end">
-											<Button type="submit">
-												{isLoading ? (
-													<LoaderIcon className="animate-spin mx-auto text-white" />
-												) : (
-													"Search"
-												)}
-											</Button>
-										</div>
-									</div>
-								</form>
-							</CardContent>
-						</Card>
-					</div>
-				</div>
-			</div>
-		</>
-	);
+            setImageUrl(url);
+        } catch (err: any) {
+            setImageUrl(null);
+            toast.error(
+                err.message ||
+                    "Image not found. Please check your matric number."
+            );
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const handleDownload = () => {
+        if (!imageUrl) return;
+
+        const link = document.createElement("a");
+        link.href = imageUrl;
+        link.download = `${matricNo}.jpg`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
+    return (
+        <div className="min-h-screen bg-black text-white px-4">
+            <div className="container mx-auto pt-20 pb-10">
+                <div className="text-center mb-12">
+                    <GradualSpacing
+                        className="scroll-m-20 text-3xl font-bold tracking-wider uppercase lg:text-6xl my-5 bg-gradient-to-tr from-neutral-500 to-yellow-500 bg-clip-text text-transparent"
+                        text="UTHM Photo Finder"
+                    />
+                    <p className="text-lg text-neutral-400 max-w-2xl mx-auto">
+                        Simply enter your UTHM Matric Number to find your images
+                        effortlessly.
+                    </p>
+                </div>
+
+                <Card className="max-w-2xl mx-auto rounded-xl bg-gray-900 border-gray-800 shadow-2xl">
+                    <CardContent className="p-6 md:p-8">
+                        <form onSubmit={handleSearch} className="mb-8">
+                            <div className="flex flex-col md:flex-row gap-4 items-stretch">
+                                <div className="relative flex-1">
+                                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                                    <Input
+                                        className="pl-10 pr-4 py-6 bg-gray-800 border-gray-700 text-white placeholder:text-gray-500 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                        placeholder="Enter Matric Number (e.g. AA210100)..."
+                                        value={matricNo}
+                                        onChange={(
+                                            e: React.ChangeEvent<HTMLInputElement>
+                                        ) =>
+                                            setMatricNo(
+                                                e.target.value.toUpperCase()
+                                            )
+                                        }
+                                    />
+                                </div>
+                                <Button
+                                    type="submit"
+                                    className="py-6 px-8 bg-gradient-to-r from-neutral-600 to-yellow-600 hover:from-neutral-700 hover:to-yellow-700 rounded-lg font-medium transition-all duration-200"
+                                    disabled={isLoading}
+                                >
+                                    {isLoading ? (
+                                        <LoaderIcon className="animate-spin h-5 w-5 mr-2" />
+                                    ) : (
+                                        <Search className="h-5 w-5 mr-2" />
+                                    )}
+                                    {isLoading ? "Searching..." : "Find Photo"}
+                                </Button>
+                            </div>
+                        </form>
+
+                        <div className="text-center">
+                            {imageUrl ? (
+                                <div className="space-y-6">
+                                    <div className="relative inline-block rounded-xl overflow-hidden border-4 border-gray-800 shadow-2xl">
+                                        <img
+                                            src={imageUrl}
+                                            alt="Student"
+                                            className="w-full max-w-sm mx-auto"
+                                            height={400}
+                                            width={400}
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end justify-center p-4">
+                                            <Button
+                                                onClick={handleDownload}
+                                                className="mb-4 bg-gray-800 hover:bg-gray-700 text-white rounded-full px-4 py-2"
+                                            >
+                                                <Download className="h-4 w-4 mr-2" />
+                                                Download
+                                            </Button>
+                                        </div>
+                                    </div>
+                                    <p className="text-sm text-gray-400">
+                                        Matric: {matricNo}
+                                    </p>
+                                </div>
+                            ) : (
+                                <div className="py-12 flex flex-col items-center justify-center text-gray-500 border-2 border-dashed border-gray-800 rounded-xl">
+                                    <User className="h-16 w-16 mb-4 opacity-50" />
+                                    <p className="text-lg">
+                                        Enter a matric number to find your photo
+                                    </p>
+                                    <p className="text-sm mt-2">
+                                        Example: AA210100, BB220200
+                                    </p>
+                                </div>
+                            )}
+                        </div>
+
+                        {!imageUrl && !isLoading && (
+                            <div className="mt-8 p-4 bg-gray-800 rounded-lg border border-gray-700">
+                                <h3 className="font-medium text-gray-300 mb-2">
+                                    How to use:
+                                </h3>
+                                <ul className="text-sm text-gray-400 space-y-1">
+                                    <li>
+                                        • Enter your full matric number (e.g.
+                                        AA210100)
+                                    </li>
+                                    <li>
+                                        • The system will automatically detect
+                                        your session year
+                                    </li>
+                                    <li>
+                                        • Click &quot;Find Photo&quot; to search
+                                        for your image
+                                    </li>
+                                </ul>
+                            </div>
+                        )}
+                    </CardContent>
+                </Card>
+
+                <div className="mt-12 text-center text-gray-500 text-sm">
+                    <p>© {new Date().getFullYear()} UTHM Photo Finder</p>
+                </div>
+            </div>
+        </div>
+    );
 }

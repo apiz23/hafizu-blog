@@ -153,12 +153,6 @@ export default function Page() {
         document.body.removeChild(link);
     };
 
-    const handleDownloadAll = () => {
-        batchImages.forEach(({ url, matric }) => {
-            handleDownload(url, `${matric}.jpg`);
-        });
-    };
-
     return (
         <div className="min-h-screen bg-black text-white px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
             <div className="max-w-6xl mx-auto">
@@ -354,15 +348,6 @@ export default function Page() {
                                                 images for batch &quot;
                                                 {batchPrefix}&quot;
                                             </p>
-
-                                            <Button
-                                                onClick={handleDownloadAll}
-                                                variant="outline"
-                                                className="border-gray-700 text-gray-300 hover:bg-gray-800"
-                                            >
-                                                <Download className="mr-2 h-4 w-4" />
-                                                Download All
-                                            </Button>
                                         </div>
                                     </div>
                                 )}
